@@ -30,6 +30,7 @@ public class StartMenuScene : MonoBehaviour {
         tutorialObject.AddComponent<Tutorial>();
 
         GameObject tutorialVideo = GameObject.Find("Video");
+        tutorialVideo.AddComponent<OnlineVideo>();
         tutorialVideo.SetActive(false);
     }
 
