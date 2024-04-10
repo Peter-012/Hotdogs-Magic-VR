@@ -4,16 +4,35 @@ using UnityEngine;
 using System;
 
 public class ProjectileLogic : MonoBehaviour, IDamage {
-    [SerializeField] private float speed = 15f;
+    [SerializeField] private float projectileSpeed = 15f;
+    [SerializeField] private float delayFire = 0.5f;
+    [SerializeField] private float deleteProjectile = 1.0f;
+    private float currentTime = 0;
+    private bool detachFromWand = false;
 
     public static event Action OnDamage;
 
     private void Update() {
-        movement();
+        fireProjectile();
     }
 
-    private void movement() {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+    private void fireProjectile() {
+        if (currentTime >= delayFire) {
+            // if (!detachFromWand) {
+            //     GameObject wandObject = GameObject.Find("Wand");
+            //     FixedJoint joint = wandObject.GetComponent<FixedJoint>();
+            //     Destroy(joint);
+
+            //     detachFromWand = true;
+            // }
+            //  transform.Translate(Vector3.forward * projectileSpeed * Time.deltaTime);
+        }
+
+        // if (currentTime > deleteProjectile) {
+        //     Destroy(gameObject);
+        // }
+
+        currentTime += Time.deltaTime; 
     }
 
     public void Type() {
