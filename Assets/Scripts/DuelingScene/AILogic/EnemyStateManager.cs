@@ -8,9 +8,6 @@ public abstract class EnemyStateAbstract {
 
     public abstract void UpdateState
         (EnemyStateManager state);
-
-    public abstract void OnCollisionEnter
-        (EnemyStateManager state, Collision collision);
 }
 
 public class EnemyStateManager : MonoBehaviour {
@@ -18,6 +15,7 @@ public class EnemyStateManager : MonoBehaviour {
 
     // Possible Enemy States
     public EnemyStateIdle Idle = new EnemyStateIdle();
+    public EnemyStateShoot Shoot = new EnemyStateShoot();
 
     void Start() {
         currentState = Idle;
@@ -26,10 +24,6 @@ public class EnemyStateManager : MonoBehaviour {
 
     void Update() {
         currentState.UpdateState(this);
-    }
-
-    void OnCollisionEnter(Collision collision) {
-        currentState.OnCollisionEnter(this, collision);
     }
 
     public void ChangeState(EnemyStateAbstract state) {

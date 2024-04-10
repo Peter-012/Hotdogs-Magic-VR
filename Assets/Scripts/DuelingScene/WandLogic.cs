@@ -8,24 +8,18 @@ public class WandLogic : MonoBehaviour {
     private SteamVR_Action_Boolean ActionBoolean;
 
     [SerializeField] private string ProjectilePath = "Projectile";
-    private Object projectilePrefab;
 
     private bool reloading = false;
-    private float reloadDelay = 1f;
+    private float reloadDelay = 2f;
     
     private void Start() {
         initSteamVR();
-
-        // Load Projectile Prefab
-        projectilePrefab = Resources.Load<Object>(ProjectilePath);
     }
 
     private void Update() {
-        if (ActionBoolean.GetStateDown(InputSource)) {
-            if (reloading == false) {
-                fireProjectile();
-                StartCoroutine(Reload());
-            }
+        if (ActionBoolean.GetStateDown(InputSource) && reloading == false) {
+            fireProjectile();
+            StartCoroutine(Reload());
         }
     }
 
@@ -58,12 +52,9 @@ public class WandLogic : MonoBehaviour {
         Quaternion rotation = this.transform.rotation;
 
         // Spawn a projectile from the wand
+        Object projectilePrefab = Resources.Load<Object>(ProjectilePath);
         GameObject projectileObject = Instantiate(projectilePrefab, position, rotation) as GameObject;
-        projectileObject.name = "Projectile";
-
-        // Rigidbody projectileRigid = projectileObject.AddComponent<Rigidbody>();
-        // projectileRigid.useGravity = false;
-        // projectileRigid.isKinematic = true;
+        projectileObject.name = "ProjectilePlayer";
 
         // Attach projectile to the wand
         projectileObject.transform.SetParent(GameObject.Find("Wand").transform);
@@ -71,7 +62,7 @@ public class WandLogic : MonoBehaviour {
         // Move projectile to the tip of the wand
         projectileObject.transform.Translate(0, 0, -0.55f);
 
-        // Add component for projectile logic
-        projectileObject.AddComponent<ProjectileLogic>();
+        // Add component for projectile player logic
+        projectileObject.AddComponent<ProjectilePlayer>();
     }
 }

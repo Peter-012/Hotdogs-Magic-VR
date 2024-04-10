@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// using UnityEngine.transform;
 
 public class StartDuelScene : MonoBehaviour {
     [SerializeField] private float fadeInDuration = 1.0f;
