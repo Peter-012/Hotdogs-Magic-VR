@@ -13,10 +13,10 @@ public class StartMenuScene : MonoBehaviour {
     }
 
     private void initController() {
-        GameObject leftController = GameObject.Find("Controller (left)");
+        GameObject leftController = GameObject.Find("vr_glove_left");
         leftController.AddComponent<MenuSelection>();
 
-        GameObject rightController = GameObject.Find("Controller (right)");
+        GameObject rightController = GameObject.Find("vr_glove_right");
         rightController.AddComponent<MenuSelection>();
     }
 
