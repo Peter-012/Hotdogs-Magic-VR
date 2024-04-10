@@ -32,12 +32,10 @@ public class StartDuel : MonoBehaviour, IMenuSelection {
         // wandObject.transform.position = transform.position;
         // wandObject.transform.Rotate(70f, 0, 0);
 
-        PlayerData player = Resources.Load<PlayerData>("Player1");
-
         if (controller.name.Contains("left")) {
-            player.DominantSide = "left";
+            Player1.DominantSide = "left";
         } else if (controller.name.Contains("right")) {
-            player.DominantSide = "right";
+            Player1.DominantSide = "right";
         } else {
             Debug.LogError("Failed to initialize DominantSide variable from PlayerData.");
         }

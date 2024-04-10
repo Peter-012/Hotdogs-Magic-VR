@@ -9,6 +9,9 @@ public class WandLogic : MonoBehaviour {
 
     [SerializeField] private string ProjectilePath = "Projectile";
     private Object projectilePrefab;
+
+    private bool reloading = false;
+    private float reloadDelay = 1f;
     
     private void Start() {
         initSteamVR();
@@ -19,20 +22,26 @@ public class WandLogic : MonoBehaviour {
 
     private void Update() {
         if (ActionBoolean.GetStateDown(InputSource)) {
-            fireProjectile();
+            if (reloading == false) {
+                fireProjectile();
+                StartCoroutine(Reload());
+            }
         }
+    }
+
+    IEnumerator Reload() {
+        reloading = true;
+        yield return new WaitForSeconds(reloadDelay);
+        reloading = false;
     }
 
     private void initSteamVR() {
         // Initialize InputSource
-        PlayerData player = Resources.Load<PlayerData>("Player1");
 
-        Debug.Log(player.DominantSide);
-        
-        if (player.DominantSide.Equals("left")) {
+        if (Player1.DominantSide.Equals("left")) {
             InputSource = SteamVR_Input_Sources.LeftHand;
         }
-        else if (player.DominantSide.Equals("right")) {
+        else if (Player1.DominantSide.Equals("right")) {
             InputSource = SteamVR_Input_Sources.RightHand;
         }
         else {
@@ -50,19 +59,19 @@ public class WandLogic : MonoBehaviour {
 
         // Spawn a projectile from the wand
         GameObject projectileObject = Instantiate(projectilePrefab, position, rotation) as GameObject;
-        Rigidbody projectileRigid = projectileObject.AddComponent<Rigidbody>();
-        projectileRigid.useGravity = false;
-        projectileRigid.isKinematic = true;
+        projectileObject.name = "Projectile";
+
+        // Rigidbody projectileRigid = projectileObject.AddComponent<Rigidbody>();
+        // projectileRigid.useGravity = false;
+        // projectileRigid.isKinematic = true;
 
         // Attach projectile to the wand
-        FixedJoint joint = GameObject.Find("Wand").AddComponent<FixedJoint>();
-        joint.connectedBody = projectileObject.GetComponent<Rigidbody>();
-        joint.breakForce = Mathf.Infinity;
+        projectileObject.transform.SetParent(GameObject.Find("Wand").transform);
 
         // Move projectile to the tip of the wand
-        //projectileObject.transform.Translate(0, 0, -0.55f);
+        projectileObject.transform.Translate(0, 0, -0.55f);
 
         // Add component for projectile logic
-        //projectileObject.AddComponent<ProjectileLogic>();
+        projectileObject.AddComponent<ProjectileLogic>();
     }
 }

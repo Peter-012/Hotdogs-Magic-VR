@@ -6,16 +6,10 @@ public class StartMenuScene : MonoBehaviour {
     [SerializeField] private float fadeInDuration = 1.0f;
     
     private void Awake() {
-        resetPlayerManager();
         initController();
         initWand();
         initTutorial();
         fadeInView();
-    }
-
-    private void resetPlayerManager() {
-        PlayerData player = Resources.Load<PlayerData>("Player1");
-        player.DominantSide = null;
     }
 
     private void initController() {
@@ -36,7 +30,7 @@ public class StartMenuScene : MonoBehaviour {
         tutorialObject.AddComponent<Tutorial>();
 
         GameObject tutorialVideo = GameObject.Find("Video");
-        tutorialVideo.AddComponent<OnlineVideo>();
+        tutorialVideo.AddComponent<Video>();
         tutorialVideo.SetActive(false);
     }
 

@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyStateIdle : EnemyStateAbstract {
     public override void EnterState
     (EnemyStateManager state) {
-        Debug.Log("Works");
+
     }
 
     public override void UpdateState

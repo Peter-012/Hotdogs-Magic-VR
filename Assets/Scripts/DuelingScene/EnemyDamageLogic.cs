@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IDamage {
-    public void Type();
+    public void Hit(GameObject Player);
 }
 
 public class EnemyDamageLogic : MonoBehaviour {
@@ -18,6 +18,7 @@ public class EnemyDamageLogic : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collision) {
         Damage = collision.GetComponent<IDamage>();
+        Damage.Hit(gameObject);
     }
 
     private void addComponents() {
