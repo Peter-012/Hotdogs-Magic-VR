@@ -6,17 +6,23 @@ public class StartMenuScene : MonoBehaviour {
     [SerializeField] private float fadeInDuration = 1.0f;
     
     private void Awake() {
+        resetPlayerManager();
         initController();
         initWand();
         initTutorial();
         fadeInView();
     }
 
+    private void resetPlayerManager() {
+        PlayerData player = Resources.Load<PlayerData>("Player1");
+        player.DominantSide = null;
+    }
+
     private void initController() {
-        GameObject leftController = GameObject.Find("vr_glove_left");
+        GameObject leftController = GameObject.Find("Controller (left)");
         leftController.AddComponent<MenuSelection>();
 
-        GameObject rightController = GameObject.Find("vr_glove_right");
+        GameObject rightController = GameObject.Find("Controller (right)");
         rightController.AddComponent<MenuSelection>();
     }
 

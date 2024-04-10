@@ -26,11 +26,13 @@ public class WandLogic : MonoBehaviour {
     private void initSteamVR() {
         // Initialize InputSource
         PlayerData player = Resources.Load<PlayerData>("Player1");
+
+        Debug.Log(player.DominantSide);
         
-        if (player.DominantSide == "left") {
+        if (player.DominantSide.Equals("left")) {
             InputSource = SteamVR_Input_Sources.LeftHand;
         }
-        else if (player.DominantSide == "right") {
+        else if (player.DominantSide.Equals("right")) {
             InputSource = SteamVR_Input_Sources.RightHand;
         }
         else {

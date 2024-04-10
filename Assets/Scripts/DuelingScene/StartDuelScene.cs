@@ -6,8 +6,8 @@ public class StartDuelScene : MonoBehaviour {
     [SerializeField] private float fadeInDuration = 1.0f;
     
     private void Awake() {
-        PlayerData player = Resources.Load<PlayerData>("Player1"); //TESTING ONLY
-        player.DominantSide = "right"; //TESTING ONLY
+        // PlayerData player = Resources.Load<PlayerData>("Player1"); //TESTING ONLY
+        // player.DominantSide = "right"; //TESTING ONLY
 
         initSpawnWand();
         initEnemy();
@@ -19,10 +19,10 @@ public class StartDuelScene : MonoBehaviour {
         GameObject leftController;
         GameObject rightController;
 
-        if (player.DominantSide == "left") {
+        if (player.DominantSide.Equals("left")) {
             leftController = GameObject.Find("Controller (left)");
             leftController.AddComponent<SpawnWand>();
-        } else if (player.DominantSide == "right") {
+        } else if (player.DominantSide.Equals("right")) {
             rightController = GameObject.Find("Controller (right)");
             rightController.AddComponent<SpawnWand>();
         } else {

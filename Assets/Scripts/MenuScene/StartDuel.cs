@@ -41,7 +41,7 @@ public class StartDuel : MonoBehaviour, IMenuSelection {
         } else {
             Debug.LogError("Failed to initialize DominantSide variable from PlayerData.");
         }
-
+        
         // Load "DuelingScene" while fading user screen
         GameObject cameraRig = GameObject.Find("[CameraRig]");
         TransistionScene transition = FindObjectOfType<TransistionScene>();
