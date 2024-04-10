@@ -6,7 +6,7 @@ public interface IDamage {
     public void Type();
 }
 
-public class EnemyLogic : MonoBehaviour {
+public class EnemyDamageLogic : MonoBehaviour {
     private Rigidbody enemyRigid;
     private BoxCollider collisionBox;
 

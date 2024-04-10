@@ -32,7 +32,8 @@ public class StartDuelScene : MonoBehaviour {
 
     private void initEnemy() {
         GameObject enemyObject = GameObject.Find("Enemy");
-        enemyObject.AddComponent<EnemyLogic>();
+        enemyObject.AddComponent<EnemyStateManager>(); // For AI Logic
+        enemyObject.AddComponent<EnemyDamageLogic>();
     }
 
     private void fadeInView() {
