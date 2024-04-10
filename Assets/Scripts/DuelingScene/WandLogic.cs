@@ -48,11 +48,19 @@ public class WandLogic : MonoBehaviour {
 
         // Spawn a projectile from the wand
         GameObject projectileObject = Instantiate(projectilePrefab, position, rotation) as GameObject;
+        Rigidbody projectileRigid = projectileObject.AddComponent<Rigidbody>();
+        projectileRigid.useGravity = false;
+        projectileRigid.isKinematic = true;
+
+        // Attach projectile to the wand
+        FixedJoint joint = GameObject.Find("Wand").AddComponent<FixedJoint>();
+        joint.connectedBody = projectileObject.GetComponent<Rigidbody>();
+        joint.breakForce = Mathf.Infinity;
 
         // Move projectile to the tip of the wand
-        projectileObject.transform.Translate(0, 0, -0.55f);
+        //projectileObject.transform.Translate(0, 0, -0.55f);
 
         // Add component for projectile logic
-        projectileObject.AddComponent<ProjectileLogic>();
+        //projectileObject.AddComponent<ProjectileLogic>();
     }
 }

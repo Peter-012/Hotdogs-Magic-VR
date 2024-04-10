@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class StartDuelScene : MonoBehaviour {
     [SerializeField] private float fadeInDuration = 1.0f;
-    private TransistionScene transition;
-
-    private GameObject leftController;
-    private GameObject rightController;
     
     private void Awake() {
+        PlayerData player = Resources.Load<PlayerData>("Player1"); //TESTING ONLY
+        player.DominantSide = "right"; //TESTING ONLY
+
         initSpawnWand();
+        initEnemy();
         fadeInView();
     }
 
     private void initSpawnWand() {
         PlayerData player = Resources.Load<PlayerData>("Player1");
+        GameObject leftController;
+        GameObject rightController;
 
         if (player.DominantSide == "left") {
             leftController = GameObject.Find("Controller (left)");
@@ -28,9 +30,15 @@ public class StartDuelScene : MonoBehaviour {
         }
     }
 
+    private void initEnemy() {
+        GameObject enemyObject = GameObject.Find("Enemy");
+        enemyObject.AddComponent<EnemyStateManager>(); // For AI Logic
+        enemyObject.AddComponent<EnemyDamageLogic>();
+    }
+
     private void fadeInView() {
         gameObject.AddComponent<TransistionScene>();
-        transition = FindObjectOfType<TransistionScene>();
+        TransistionScene transition = FindObjectOfType<TransistionScene>();
         transition.fadeInView(fadeInDuration);
     }
 }

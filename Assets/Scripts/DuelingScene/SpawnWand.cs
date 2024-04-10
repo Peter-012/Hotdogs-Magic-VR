@@ -15,13 +15,18 @@ public class SpawnWand : MonoBehaviour {
 
         // Spawn the wand into player's hand
         GameObject wandObject = Instantiate(wandPrefab, position, rotation) as GameObject;
-        wandObject.transform.SetParent(transform);
-
+        wandObject.transform.SetParent(transform); 
+        wandObject.name = "Wand";
+    
         // Move and scale wand to fit in player's hand
         wandObject.transform.localScale = new Vector3(60f, 60f, 35f);
         wandObject.transform.Translate(0, 0, -1.15f);
 
-        // Add component for wand logic
+        // Add components for wand logic
+        Rigidbody wandRigid = wandObject.AddComponent<Rigidbody>();
+        wandRigid.useGravity = false;
+        wandRigid.isKinematic = true;
+
         wandObject.AddComponent<WandLogic>();
     }
 }
