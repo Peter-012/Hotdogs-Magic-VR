@@ -1,30 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class ProjectileLogic : MonoBehaviour {
-    [SerializeField] private float speed = 1f;
-    [SerializeField] private string enemyObjectName = "Enemy";
+public class ProjectileLogic : MonoBehaviour, IDamage {
+    [SerializeField] private float speed = 15f;
+
+    public static event Action OnDamage;
 
     private void Update() {
         movement();
     }
 
-    // private void OnTriggerEnter(Collider other) {
-    //     // Determine if projectile hit enemy
-    //     if (other.name.Contains(wandGameObjectName)) {
-    //         wandObject = other.gameObject;
-    //     }
-    // }
-
-    // private void OnTriggerExit(Collider other) {
-    //     // Determine if hand has left the wand object
-    //     if (other.name.Contains(wandGameObjectName)) {
-    //         wandObject = null;
-    //     }
-    // }
-
     private void movement() {
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
+    }
+
+    public void Type() {
+        if (OnDamage == null) return;
+        OnDamage.Invoke();
+    }
+
+    private void OnEnable() {
+        OnDamage += ProjectileDamage;
+    }
+
+    private void OnDisable() {
+        OnDamage -= ProjectileDamage;
+    }
+
+    private void ProjectileDamage() {
+        PlayerData player = Resources.Load<PlayerData>("Player2");
+        player.health--;
+        if (player.health <= 0) {
+            GameObject enemyObject = GameObject.Find("Enemy");
+            Destroy(enemyObject);
+        }
     }
 }
