@@ -11,6 +11,7 @@ public class StartDuelScene : MonoBehaviour {
         initPlayer();
         initEnemy();
         fadeInView();
+        GameManager.startGame = true;
     }
 
     private void initSpawnWand() {
@@ -34,7 +35,18 @@ public class StartDuelScene : MonoBehaviour {
     }
 
     private void initEnemy() {
-        GameObject.Find("Enemy").AddComponent<EnemyStateManager>(); // For AI Logic
+        GameObject enemyObject = GameObject.Find("Enemy");
+
+        // Make sure the spawn point of enemy aligns with player
+        Vector3 enemyPosition = enemyObject.transform.position;
+        enemyPosition.z = GameObject.Find("[CameraRig]").transform.position.z;
+        enemyObject.transform.position = enemyPosition;
+
+        // Save position of the enemy spawnpoint
+        Player2.spawnPoint = enemyPosition;
+
+        // Add AI Logic Component
+        enemyObject.AddComponent<EnemyStateManager>();
     }
 
     private void fadeInView() {

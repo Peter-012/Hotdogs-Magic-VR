@@ -3,6 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class Player2 {
-    public static string DominantSide;
+    public static Vector3 spawnPoint;
     public static int health = 3;
 }

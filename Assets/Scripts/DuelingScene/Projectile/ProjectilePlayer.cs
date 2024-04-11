@@ -31,7 +31,11 @@ public class ProjectilePlayer : ProjectileAbstract {
 
         if (Player.name.Equals("Enemy")) {
             Player2.health--;
-            if (Player2.health <= 0) DestroyEnemy(Player);
+            if (Player2.health <= 0 && GameManager.startGame == true) {
+                GameManager.startGame = false;
+                DestroyEnemy(Player);
+                FadePlayer();
+            } 
             base.DestroyProjectile();
         }
     }
@@ -42,6 +46,19 @@ public class ProjectilePlayer : ProjectileAbstract {
         // Fade back to main menu
         BoxCollider boxCollider = GameObject.Find("Camera").GetComponent<BoxCollider>();
         boxCollider.isTrigger = false;
+        TransistionScene transition = GameObject.Find("[CameraRig]").GetComponent<TransistionScene>();
+        transition.fadeOutToScene(3f, "MenuScene");
+    }
+
+    private void FadePlayer() {
+        // Disable projectile damage
+        BoxCollider enemyCollider = GameObject.Find("Enemy").GetComponent<BoxCollider>();
+        enemyCollider.isTrigger = false;
+
+        BoxCollider playerCollider = GameObject.Find("Camera").GetComponent<BoxCollider>();
+        playerCollider.isTrigger = false;
+
+        // Fade out back to main menu
         TransistionScene transition = GameObject.Find("[CameraRig]").GetComponent<TransistionScene>();
         transition.fadeOutToScene(3f, "MenuScene");
     }

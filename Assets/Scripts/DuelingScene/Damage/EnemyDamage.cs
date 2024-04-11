@@ -29,6 +29,6 @@ public class EnemyDamage : MonoBehaviour {
         BoxCollider collisionBox = FindObjectOfType<BoxCollider>();
         collisionBox.isTrigger = true;
         collisionBox.center = new Vector3(0f, 0f, 0.0015f);
-        collisionBox.size = new Vector3(0.02f, 0.005f, 0.02f);
+        collisionBox.size = new Vector3(0.005f, 0.005f, 0.02f);
     }
 }

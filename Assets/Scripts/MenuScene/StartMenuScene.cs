@@ -16,8 +16,6 @@ public class StartMenuScene : MonoBehaviour {
     private void resetGlobal() {
         Player1.DominantSide = null;
         Player1.health = 5;
-        
-        Player2.DominantSide = null;
         Player2.health = 5;
     }
 

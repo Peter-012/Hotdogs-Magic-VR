@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class EnemyStateIdle : EnemyStateAbstract {
     [SerializeField] private float movementRange = 5.0f;
-    [SerializeField] private float enemyCenter = 0.45f;
     [SerializeField] private float threshold = 0.5f;
     [SerializeField] private float speed = 1.0f;
     private float currentZPos;
@@ -17,7 +16,7 @@ public class EnemyStateIdle : EnemyStateAbstract {
         currentZPos = enemyObject.transform.position.z;
 
         // Pick a random location for the enemy to go to
-        float rightMax = movementRange/2 + enemyCenter;
+        float rightMax = movementRange/2 + Player2.spawnPoint.z;
         float leftMax = -rightMax;
         finalZPos = Random.Range(leftMax, rightMax);
     }

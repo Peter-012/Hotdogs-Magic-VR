@@ -4,9 +4,15 @@ using UnityEngine;
 using Valve.VR;
 
 public class ProjectileEnemy : ProjectileAbstract {
-    [SerializeField] private float projectileSpeed = 25f;
-    [SerializeField] private float deleteProjectile = 4f;
+    [SerializeField] private float horizontalNoise = 1.5f;
+    [SerializeField] private float verticalNoise = 1f;
+    [SerializeField] private float projectileSpeed = 20f;
+    [SerializeField] private float deleteProjectile = 6f;
     private float currentTime = 0;
+
+    void Start() {
+        AimProjectile();
+    }
 
     public override void fireProjectile() {
         // Destroy projectile after a certain amount of time
@@ -23,40 +29,86 @@ public class ProjectileEnemy : ProjectileAbstract {
         
         if (Player.name.Equals("Camera")) {
             Player1.health--;
-            if (Player1.health <= 0) KillPlayer();
+            if (Player1.health <= 0 && GameManager.startGame == true) {
+                GameManager.startGame = false;
+                FadePlayer();
+            }
             base.DestroyProjectile();
         }
     }
 
-    private void KillPlayer() {
+    private void AimProjectile() {
+        GameObject enemyObject = GameObject.Find("Enemy");
+        GameObject playerObject = GameObject.Find("Camera");
+        GameObject rigObject = GameObject.Find("[CameraRig]");
+
+        //// Calculating Horizontal Angle ////
+
+        float currentZPos = enemyObject.transform.position.z;
+
+        // Pythagorean Theorem
+        float enemyToPlayerZ = 
+            Mathf.Abs(currentZPos - playerObject.transform.position.z);
+
+        float enemyToPlayerX = 
+            Mathf.Abs(playerObject.transform.position.x - enemyObject.transform.position.x);
+
+        float enemyToPlayerHorizontal = 
+            Mathf.Sqrt(Mathf.Pow(enemyToPlayerZ, 2f) + Mathf.Pow(enemyToPlayerX, 2f));
+
+        float horizontalAngle = Mathf.Rad2Deg * Mathf.Asin(enemyToPlayerZ/enemyToPlayerHorizontal);
+
+        // Negative depending on if enemy is past player Z position
+        if (playerObject.transform.position.z - currentZPos > 0) horizontalAngle = -horizontalAngle;
+
+
+        //// Calculating Vertical Angle ////
+
+        // Pythagorean Theorem
+
+        // Adjust to aim at the player's center of mass
+        float playerCenter = 
+            Mathf.Abs(playerObject.transform.position.y - rigObject.transform.position.y)/2;
+
+        // Add back the camera rig offset
+        playerCenter = playerCenter + rigObject.transform.position.y;
+
+        float PlayerToProjectile = 
+            Mathf.Abs(playerCenter - gameObject.transform.position.y);
+
+        float enemyToPlayerVertical = 
+            Mathf.Sqrt(Mathf.Pow(enemyToPlayerX, 2f) + Mathf.Pow(PlayerToProjectile, 2f));
+        
+        float verticalAngle = -1 * Mathf.Rad2Deg * Mathf.Asin(PlayerToProjectile/enemyToPlayerVertical);
+
+        // Negative depending on if player center is below leveled line of enemy fire
+        if (playerCenter - gameObject.transform.position.y > 0) 
+            verticalAngle = -verticalAngle;
+
+        // Add noise to the angle data so that enemy is not 100% accurate
+        float noiseHorizontal = Random.Range(0, horizontalNoise);
+        if (Random.value < 0.5) noiseHorizontal = -noiseHorizontal; // Random horizontal angle (+/-)
+
+        float noiseVertical = Random.Range(0, verticalNoise);
+        if (Random.value < 0.5) noiseVertical = -noiseVertical; // Random vertical angle (+/-)
+
+        horizontalAngle = horizontalAngle + noiseHorizontal;
+        verticalAngle = verticalAngle + noiseVertical;
+
+        // Adjust the trajectory of projectile
+        gameObject.transform.Rotate(verticalAngle, 0, horizontalAngle, Space.Self);
+    }
+
+    private void FadePlayer() {
+        // Disable projectile damage
+        BoxCollider enemyCollider = GameObject.Find("Enemy").GetComponent<BoxCollider>();
+        enemyCollider.isTrigger = false;
+
+        BoxCollider playerCollider = GameObject.Find("Camera").GetComponent<BoxCollider>();
+        playerCollider.isTrigger = false;
+
         // Fade out back to main menu
-        BoxCollider boxCollider = GameObject.Find("Camera").GetComponent<BoxCollider>();
-        boxCollider.isTrigger = false;
         TransistionScene transition = GameObject.Find("[CameraRig]").GetComponent<TransistionScene>();
         transition.fadeOutToScene(3f, "MenuScene");
     }
-
-    // IEnumerator tintView(Color color, float fadeOutDuration, float alphaStart, float alphaEnd) {
-    //     // Set initial time with fade color and alpha
-    //     float currentTime = 0;
-    //     Color currentColor = color;
-    //     currentColor.a = alphaStart;
-
-    //     // Gradually fade in/out player view
-    //     while (currentTime < fadeOutDuration) {
-    //         // Change alpha of color for tint view
-    //         currentColor.a = Mathf.Lerp(
-    //                 alphaStart, alphaEnd, currentTime/fadeOutDuration
-    //         );
-    //         SteamVR_Fade.View(currentColor, 0);
-
-    //         // Update elapsed time
-    //         currentTime += Time.deltaTime;
-    //         yield return null;
-    //     }
-
-    //     // Make sure that the tint alpha is consistently ending on alphaEnd
-    //     currentColor.a = alphaEnd;
-    //     SteamVR_Fade.View(currentColor, 0);
-    // }
 }

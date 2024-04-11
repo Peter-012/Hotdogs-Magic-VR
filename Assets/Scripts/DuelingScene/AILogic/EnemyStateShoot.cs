@@ -26,9 +26,9 @@ public class EnemyStateShoot : EnemyStateAbstract {
         // Spawn a projectile from the enemy
         Object projectilePrefab = Resources.Load<Object>(ProjectilePath);
         GameObject projectileObject = GameObject.Instantiate(projectilePrefab, position, rotation) as GameObject;
-        projectileObject.name = "ProjectileEnemy";
 
-        projectileObject.transform.Translate(-Vector3.up * 2);
+        // Attach projectile to the enemy
+        projectileObject.transform.SetParent(GameObject.Find("Enemy").transform);
 
         // Make the projectile rigid
         Rigidbody projectileRigid = projectileObject.AddComponent<Rigidbody>();
