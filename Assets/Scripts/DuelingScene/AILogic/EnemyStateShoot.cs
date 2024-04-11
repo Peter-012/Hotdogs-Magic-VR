@@ -28,6 +28,17 @@ public class EnemyStateShoot : EnemyStateAbstract {
         GameObject projectileObject = GameObject.Instantiate(projectilePrefab, position, rotation) as GameObject;
         projectileObject.name = "ProjectileEnemy";
 
+        projectileObject.transform.Translate(-Vector3.up * 2);
+
+        // Make the projectile rigid
+        Rigidbody projectileRigid = projectileObject.AddComponent<Rigidbody>();
+        projectileRigid.useGravity = false;
+        projectileRigid.isKinematic = true;
+
+        // Make the projectile have a box collider
+        BoxCollider boxCollider = projectileObject.AddComponent<BoxCollider>();
+        boxCollider.isTrigger = true;
+
         // Add component for projectile logic
         projectileObject.AddComponent<ProjectileEnemy>();
     }

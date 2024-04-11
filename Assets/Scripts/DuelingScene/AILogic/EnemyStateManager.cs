@@ -17,13 +17,23 @@ public class EnemyStateManager : MonoBehaviour {
     public EnemyStateIdle Idle = new EnemyStateIdle();
     public EnemyStateShoot Shoot = new EnemyStateShoot();
 
+    void Awake() {
+        // Add rigidbody and hitbox component to the enemy
+        initEnemy();
+    }
+
     void Start() {
+        // Set the state to idle
         currentState = Idle;
         currentState.EnterState(this);
     }
 
-    void Update() {
+    void FixedUpdate() {
         currentState.UpdateState(this);
+    }
+
+    private void initEnemy() {
+        GameObject.Find("Enemy").AddComponent<EnemyDamage>();
     }
 
     public void ChangeState(EnemyStateAbstract state) {

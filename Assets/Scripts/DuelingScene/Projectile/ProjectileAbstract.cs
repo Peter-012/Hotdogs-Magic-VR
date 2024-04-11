@@ -23,9 +23,7 @@ public abstract class ProjectileAbstract : MonoBehaviour, IDamage {
         OnCollision -= ProjectileHit;
     }
 
-    public virtual void fireProjectile() {
-        
-    }
+    public abstract void fireProjectile();
 
     public virtual void ProjectileHit (GameObject Player) {
         // Delete on collision to environment

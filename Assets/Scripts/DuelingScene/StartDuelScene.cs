@@ -8,6 +8,7 @@ public class StartDuelScene : MonoBehaviour {
     
     private void Awake() {
         initSpawnWand();
+        initPlayer();
         initEnemy();
         fadeInView();
     }
@@ -27,10 +28,13 @@ public class StartDuelScene : MonoBehaviour {
         }
     }
 
+    private void initPlayer() {
+        GameObject playerObject = GameObject.Find("Camera");
+        playerObject.AddComponent<PlayerDamage>();
+    }
+
     private void initEnemy() {
-        GameObject enemyObject = GameObject.Find("Enemy");
-        enemyObject.AddComponent<EnemyStateManager>(); // For AI Logic
-        enemyObject.AddComponent<EnemyDamageLogic>();
+        GameObject.Find("Enemy").AddComponent<EnemyStateManager>(); // For AI Logic
     }
 
     private void fadeInView() {

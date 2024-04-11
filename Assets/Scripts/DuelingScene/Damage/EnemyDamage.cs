@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDamage {
-    public void Hit(GameObject Player);
-}
-
-public class EnemyDamageLogic : MonoBehaviour {
+public class EnemyDamage : MonoBehaviour {
     private Rigidbody enemyRigid;
     private BoxCollider collisionBox;
 
     private IDamage Damage;
 
-    private void Start() {
+    private void Awake() {
         addComponents();
     }
 

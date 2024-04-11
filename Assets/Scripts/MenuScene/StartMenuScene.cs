@@ -6,10 +6,19 @@ public class StartMenuScene : MonoBehaviour {
     [SerializeField] private float fadeInDuration = 1.0f;
     
     private void Awake() {
+        resetGlobal();
         initController();
         initWand();
         initTutorial();
         fadeInView();
+    }
+
+    private void resetGlobal() {
+        Player1.DominantSide = null;
+        Player1.health = 5;
+        
+        Player2.DominantSide = null;
+        Player2.health = 5;
     }
 
     private void initController() {
