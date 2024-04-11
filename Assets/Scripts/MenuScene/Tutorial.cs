@@ -23,8 +23,8 @@ public class Tutorial : MonoBehaviour, IMenuSelection {
     private void TutorialLogic(GameObject controller) {
         playVideo = !playVideo;
 
-        GameObject tutorial = GameObject.Find("Tutorial");
-        GameObject video = tutorial.transform.Find("Video").gameObject;
-        video.SetActive(playVideo);
+        // GameObject tutorial = GameObject.Find("Tutorial");
+        // GameObject video = tutorial.transform.Find("Video").gameObject;
+        // video.SetActive(playVideo);
     }
 }

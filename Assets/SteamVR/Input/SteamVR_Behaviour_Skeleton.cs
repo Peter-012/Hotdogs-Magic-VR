@@ -701,6 +701,7 @@ namespace Valve.VR
                     if (bones[boneIndex] == null)
                         continue;
 
+                    /// << here
                     SetBonePosition(boneIndex, bonePositions[boneIndex]);
                     SetBoneRotation(boneIndex, boneRotations[boneIndex]);
                 }

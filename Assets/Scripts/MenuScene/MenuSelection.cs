@@ -33,7 +33,21 @@ public class MenuSelection : MonoBehaviour {
         MenuOption = collision.GetComponent<IMenuSelection>();
     }
 
-    private void OnTriggerExit(Collider other) {
+    private void OnTriggerExit(Collider other)
+    {
+        if (MenuOption != null)
+        {
+           IMenuSelectionExit exitEvent = other.GetComponent<IMenuSelectionExit>();
+           if (exitEvent == null)
+           {
+               MenuOption = null;
+               return;
+           }
+           
+           //where gameObject is the controller
+           exitEvent.SelectExit(gameObject);
+        }
+        
         MenuOption = null;
     }
 
