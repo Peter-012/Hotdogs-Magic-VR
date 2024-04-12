@@ -64,5 +64,8 @@ public class WandLogic : MonoBehaviour {
 
         // Add component for projectile player logic
         projectileObject.AddComponent<ProjectilePlayer>();
+
+        // Add spatial audio
+        projectileObject.AddComponent<SpatialAudio>();
     }
 }

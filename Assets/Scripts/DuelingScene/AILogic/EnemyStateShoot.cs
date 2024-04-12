@@ -41,5 +41,8 @@ public class EnemyStateShoot : EnemyStateAbstract {
 
         // Add component for projectile logic
         projectileObject.AddComponent<ProjectileEnemy>();
+
+        // Add spatial audio
+        projectileObject.AddComponent<SpatialAudio>();
     }
 }

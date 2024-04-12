@@ -6,6 +6,7 @@ public class ProjectilePlayer : ProjectileAbstract {
     [SerializeField] private float projectileSpeed = 25f;
     [SerializeField] private float deleteProjectile = 4f;
     [SerializeField] private float delayFire = 1f;
+    private float enemyFaceplantForce = 2f;
     private float currentTime = 0;
     private bool detachFromWand = false;
 
@@ -33,24 +34,14 @@ public class ProjectilePlayer : ProjectileAbstract {
             Player2.health--;
             if (Player2.health <= 0 && GameManager.startGame == true) {
                 GameManager.startGame = false;
-                DestroyEnemy(Player);
+                KillEnemy(Player);
                 FadePlayer();
             } 
             base.DestroyProjectile();
         }
     }
 
-    private void DestroyEnemy(GameObject enemy) {
-        Destroy(enemy);
-
-        // Fade back to main menu
-        BoxCollider boxCollider = GameObject.Find("Camera").GetComponent<BoxCollider>();
-        boxCollider.isTrigger = false;
-        TransistionScene transition = GameObject.Find("[CameraRig]").GetComponent<TransistionScene>();
-        transition.fadeOutToScene(3f, "MenuScene");
-    }
-
-    private void FadePlayer() {
+    private void KillEnemy(GameObject enemy) {
         // Disable projectile damage
         BoxCollider enemyCollider = GameObject.Find("Enemy").GetComponent<BoxCollider>();
         enemyCollider.isTrigger = false;
@@ -58,6 +49,18 @@ public class ProjectilePlayer : ProjectileAbstract {
         BoxCollider playerCollider = GameObject.Find("Camera").GetComponent<BoxCollider>();
         playerCollider.isTrigger = false;
 
+        // Make the enemy fall down
+        Rigidbody enemyRigid = enemy.GetComponent<Rigidbody>();
+        enemyRigid.useGravity = true;
+        enemyRigid.isKinematic = false;
+        enemyRigid.AddForce(Vector3.right * enemyFaceplantForce, ForceMode.Impulse);
+
+        // Fade back to main menu
+        BoxCollider boxCollider = GameObject.Find("Camera").GetComponent<BoxCollider>();
+        boxCollider.isTrigger = false;
+    }
+
+    private void FadePlayer() {
         // Fade out back to main menu
         TransistionScene transition = GameObject.Find("[CameraRig]").GetComponent<TransistionScene>();
         transition.fadeOutToScene(3f, "MenuScene");

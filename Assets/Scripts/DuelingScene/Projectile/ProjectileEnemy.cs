@@ -4,7 +4,7 @@ using UnityEngine;
 using Valve.VR;
 
 public class ProjectileEnemy : ProjectileAbstract {
-    [SerializeField] private float horizontalNoise = 1.5f;
+    [SerializeField] private float horizontalNoise = 2f;
     [SerializeField] private float verticalNoise = 1f;
     [SerializeField] private float projectileSpeed = 20f;
     [SerializeField] private float deleteProjectile = 6f;
