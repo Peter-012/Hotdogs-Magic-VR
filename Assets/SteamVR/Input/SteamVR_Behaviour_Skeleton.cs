@@ -316,6 +316,8 @@ namespace Valve.VR
                 return skeletonAction.direction;
             }
         }
+        
+        
 
         protected virtual void Awake()
         {
@@ -342,9 +344,328 @@ namespace Valve.VR
         {
             bones = skeletonRoot.GetComponentsInChildren<Transform>();
         }
+        
+        
+                        //========================================================
+        
+                
+          
+          public static Quaternion[] RIGHT_HAND_CLENCH_ROTATIONS = new Quaternion[]
+        {
+            new Quaternion(0.00000f, 1.00000f, 0.00000f, 0.00000f),
+            new Quaternion(-0.07861f, -0.92028f, 0.37930f, -0.05515f),
+            new Quaternion(-0.27378f, -0.84719f, 0.09383f, 0.44555f),
+            new Quaternion(-0.01773f, 0.07545f, -0.20281f, 0.97615f),
+            new Quaternion(0.10271f, 0.00482f, -0.34802f, 0.93183f),
+            new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
+            new Quaternion(-0.62692f, -0.43992f, -0.49968f, 0.40469f),
+            new Quaternion(-0.01906f, 0.09276f, -0.48380f, 0.87004f),
+            new Quaternion(0.02076f, -0.00368f, -0.54725f, 0.83671f),
+            new Quaternion(0.00025f, 0.00930f, -0.45312f, 0.89140f),
+            new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
+            new Quaternion(-0.52355f, -0.47735f, -0.46839f, 0.52786f),
+            new Quaternion(-0.12381f, -0.01298f, -0.53242f, 0.83728f),
+            new Quaternion(0.00759f, -0.00481f, -0.49292f, 0.87003f),
+            new Quaternion(-0.00003f, 0.01177f, -0.43079f, 0.90237f),
+            new Quaternion(0.00000f, 0.00000f, -0.04013f, 0.99919f),
+            new Quaternion(-0.50191f, -0.44895f, -0.51036f, 0.53485f),
+            new Quaternion(-0.06140f, 0.03816f, -0.42193f, 0.90374f),
+            new Quaternion(-0.00006f, -0.00121f, -0.47700f, 0.87890f),
+            new Quaternion(-0.00196f, 0.00852f, -0.46896f, 0.88317f),
+            new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
+            new Quaternion(-0.50295f, -0.35525f, -0.60961f, 0.49921f),
+            new Quaternion(-0.01194f, 0.06315f, -0.33928f, 0.93849f),
+            new Quaternion(-0.00283f, 0.00521f, -0.44967f, 0.89318f),
+            new Quaternion(0.00321f, 0.02625f, -0.33409f, 0.94217f),
+            new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
+            new Quaternion(-0.38986f, 0.34595f, -0.47885f, 0.70642f),
+            new Quaternion(0.25489f, -0.89103f, -0.35733f, -0.11581f),
+            new Quaternion(0.44765f, -0.82353f, -0.32304f, -0.13054f),
+            new Quaternion(0.47398f, -0.83482f, -0.24397f, -0.13747f),
+            new Quaternion(0.41913f, -0.88093f, -0.21973f, 0.00343f)
+        };
+
+        public static Vector3[] RIGHT_HAND_CLENCH_POSITIONS = new Vector3[]
+        {
+            new Vector3(0.00f, 0.00f, 0.00f),
+            new Vector3(-0.03f, 0.04f, 0.16f),
+            new Vector3(-0.02f, 0.03f, 0.02f),
+            new Vector3(0.04f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.00f, 0.02f, 0.01f),
+            new Vector3(0.07f, 0.01f, 0.00f),
+            new Vector3(0.04f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.02f, 0.00f, 0.00f),
+            new Vector3(0.00f, 0.01f, 0.02f),
+            new Vector3(0.07f, 0.00f, 0.00f),
+            new Vector3(0.04f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.00f, -0.01f, 0.02f),
+            new Vector3(0.07f, 0.00f, 0.00f),
+            new Vector3(0.04f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.02f, 0.00f, 0.00f),
+            new Vector3(0.00f, -0.02f, 0.02f),
+            new Vector3(0.06f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.02f, 0.00f, 0.00f),
+            new Vector3(0.02f, 0.00f, 0.00f),
+            new Vector3(0.02f, 0.02f, 0.08f),
+            new Vector3(-0.01f, 0.00f, 0.07f),
+            new Vector3(-0.02f, -0.04f, 0.08f),
+            new Vector3(-0.02f, -0.05f, 0.11f),
+            new Vector3(-0.01f, -0.06f, 0.13f)
+        };
+
+
+
+
+        public static Quaternion[] RIGHT_HAND_IDLE_ROTATIONS = new Quaternion[]
+        {
+            new Quaternion(0.00000f, 1.00000f, 0.00000f, 0.00000f),
+            new Quaternion(-0.07861f, -0.92028f, 0.37930f, -0.05515f),
+            new Quaternion(-0.50278f, -0.63299f, 0.14720f, 0.56998f),
+            new Quaternion(-0.04812f, -0.02326f, -0.23553f, 0.97040f),
+            new Quaternion(0.08445f, 0.03747f, -0.60077f, 0.79406f),
+            new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
+            new Quaternion(-0.62686f, -0.43996f, -0.49973f, 0.40467f),
+            new Quaternion(-0.01905f, 0.09303f, -0.48436f, 0.86970f),
+            new Quaternion(0.02075f, -0.00377f, -0.54864f, 0.83579f),
+            new Quaternion(0.00026f, 0.00930f, -0.45369f, 0.89111f),
+            new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
+            new Quaternion(-0.53135f, -0.47186f, -0.45988f, 0.53248f),
+            new Quaternion(-0.14201f, 0.01658f, -0.39387f, 0.90798f),
+            new Quaternion(0.01513f, -0.01077f, -0.21229f, 0.97703f),
+            new Quaternion(-0.00221f, 0.02248f, -0.10892f, 0.99379f),
+            new Quaternion(0.00000f, 0.00000f, -0.04013f, 0.99919f),
+            new Quaternion(-0.51241f, -0.43559f, -0.50181f, 0.54394f),
+            new Quaternion(-0.06422f, 0.07648f, -0.21101f, 0.97237f),
+            new Quaternion(-0.00142f, -0.00045f, -0.20883f, 0.97795f),
+            new Quaternion(-0.00101f, 0.01191f, -0.15223f, 0.98827f),
+            new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
+            new Quaternion(-0.52158f, -0.33443f, -0.59225f, 0.51512f),
+            new Quaternion(-0.05081f, 0.11356f, -0.13678f, 0.98276f),
+            new Quaternion(0.00059f, 0.00137f, -0.19521f, 0.98076f),
+            new Quaternion(-0.00106f, 0.05203f, 0.06128f, 0.99676f),
+            new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
+            new Quaternion(-0.51682f, 0.34830f, -0.45797f, 0.63391f),
+            new Quaternion(0.25757f, -0.89032f, -0.35677f, -0.11702f),
+            new Quaternion(0.69263f, -0.64245f, -0.26264f, -0.19631f),
+            new Quaternion(0.75103f, -0.61530f, -0.14740f, -0.18876f),
+            new Quaternion(0.77350f, -0.61990f, -0.13113f, -0.01465f)
+        };
+
+
+
+        public static Vector3[] RIGHT_HAND_IDLE_POSITIONS = new Vector3[]
+        {
+            new Vector3(0.00f, 0.00f, 0.00f),
+            new Vector3(-0.03f, 0.04f, 0.16f),
+            new Vector3(-0.02f, 0.03f, 0.02f),
+            new Vector3(0.04f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.00f, 0.02f, 0.01f),
+            new Vector3(0.07f, 0.01f, 0.00f),
+            new Vector3(0.04f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.02f, 0.00f, 0.00f),
+            new Vector3(0.00f, 0.01f, 0.02f),
+            new Vector3(0.07f, 0.00f, 0.00f),
+            new Vector3(0.04f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.00f, -0.01f, 0.02f),
+            new Vector3(0.07f, 0.00f, 0.00f),
+            new Vector3(0.04f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.02f, 0.00f, 0.00f),
+            new Vector3(0.00f, -0.02f, 0.02f),
+            new Vector3(0.06f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.02f, 0.00f, 0.00f),
+            new Vector3(0.02f, 0.00f, 0.00f),
+            new Vector3(0.00f, 0.04f, 0.06f),
+            new Vector3(-0.01f, 0.00f, 0.07f),
+            new Vector3(-0.04f, -0.08f, 0.05f),
+            new Vector3(-0.04f, -0.09f, 0.08f),
+            new Vector3(-0.03f, -0.09f, 0.12f)
+        };
+        
+    
+    
+        /////////////////////////////////////////////////
+        /// left hand
+
+
+        public static Vector3[] LEFT_HAND_CLENCH_POSITIONS = new Vector3[]
+        {
+            new Vector3(0.00f, 0.00f, 0.00f),
+            new Vector3(-0.03f, 0.04f, 0.16f),
+            new Vector3(-0.02f, 0.03f, 0.02f),
+            new Vector3(0.04f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.00f, 0.02f, 0.01f),
+            new Vector3(0.07f, 0.01f, 0.00f),
+            new Vector3(0.04f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.02f, 0.00f, 0.00f),
+            new Vector3(0.01f, 0.01f, 0.02f),
+            new Vector3(0.07f, 0.00f, 0.00f),
+            new Vector3(0.04f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.00f, -0.01f, 0.02f),
+            new Vector3(0.07f, 0.00f, 0.00f),
+            new Vector3(0.04f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.02f, 0.00f, 0.00f),
+            new Vector3(0.00f, -0.02f, 0.02f),
+            new Vector3(0.06f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.02f, 0.00f, 0.00f),
+            new Vector3(0.02f, 0.00f, 0.00f),
+            new Vector3(0.02f, 0.00f, 0.09f),
+            new Vector3(-0.01f, 0.02f, 0.10f),
+            new Vector3(0.00f, 0.01f, 0.12f),
+            new Vector3(0.00f, -0.01f, 0.13f),
+            new Vector3(0.00f, -0.02f, 0.14f)
+        };
+
+
+        public static Quaternion[] LEFT_HAND_CLENCH_ROTATIONS = new Quaternion[]
+        {
+            new Quaternion(0.00000f, 1.00000f, 0.00000f, 0.00000f),
+            new Quaternion(-0.07861f, -0.92028f, 0.37930f, -0.05515f),
+            new Quaternion(-0.22570f, -0.83634f, 0.12641f, 0.48333f),
+            new Quaternion(-0.01330f, 0.08290f, -0.43945f, 0.89434f),
+            new Quaternion(0.00073f, -0.00120f, -0.58829f, 0.80865f),
+            new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
+            new Quaternion(-0.61731f, -0.44919f, -0.51087f, 0.39517f),
+            new Quaternion(-0.04185f, 0.11181f, -0.72633f, 0.67690f),
+            new Quaternion(-0.00057f, 0.11520f, -0.81730f, 0.56458f),
+            new Quaternion(-0.01076f, 0.02724f, -0.66611f, 0.74528f),
+            new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
+            new Quaternion(-0.51420f, -0.48370f, -0.47835f, 0.52232f),
+            new Quaternion(-0.09487f, -0.05423f, -0.72290f, 0.68225f),
+            new Quaternion(0.00768f, -0.09770f, -0.76360f, 0.63821f),
+            new Quaternion(-0.06367f, 0.00036f, -0.75306f, 0.65486f),
+            new Quaternion(0.00000f, 0.00000f, -0.04013f, 0.99919f),
+            new Quaternion(-0.48961f, -0.46400f, -0.52064f, 0.52337f),
+            new Quaternion(-0.08827f, 0.01267f, -0.70854f, 0.70002f),
+            new Quaternion(-0.00059f, -0.03983f, -0.74642f, 0.66428f),
+            new Quaternion(-0.02712f, -0.00544f, -0.77882f, 0.62664f),
+            new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
+            new Quaternion(-0.47977f, -0.37993f, -0.63020f, 0.47783f),
+            new Quaternion(-0.09407f, 0.06263f, -0.69046f, 0.71449f),
+            new Quaternion(0.00313f, 0.03776f, -0.71138f, 0.70178f),
+            new Quaternion(-0.00809f, -0.00301f, -0.73619f, 0.67672f),
+            new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
+            new Quaternion(-0.54887f, 0.11779f, -0.75784f, 0.33250f),
+            new Quaternion(0.13244f, -0.87308f, -0.45493f, -0.11498f),
+            new Quaternion(0.17098f, -0.92267f, -0.34508f, -0.01925f),
+            new Quaternion(0.15012f, -0.95217f, -0.25831f, -0.06414f),
+            new Quaternion(0.07684f, -0.97958f, -0.18577f, -0.00373f)
+        };
+
+
+        public static Vector3[] LEFT_HAND_IDLE_POSITIONS = new Vector3[]
+        {
+            new Vector3(0.00f, 0.00f, 0.00f),
+            new Vector3(-0.03f, 0.04f, 0.16f),
+            new Vector3(-0.01f, 0.03f, 0.03f),
+            new Vector3(0.04f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.00f, 0.03f, 0.02f),
+            new Vector3(0.07f, 0.01f, 0.00f),
+            new Vector3(0.04f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.02f, 0.00f, 0.00f),
+            new Vector3(0.00f, 0.01f, 0.02f),
+            new Vector3(0.07f, 0.00f, 0.00f),
+            new Vector3(0.04f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.00f, -0.01f, 0.02f),
+            new Vector3(0.07f, 0.00f, 0.00f),
+            new Vector3(0.04f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.02f, 0.00f, 0.00f),
+            new Vector3(0.00f, -0.02f, 0.02f),
+            new Vector3(0.06f, 0.00f, 0.00f),
+            new Vector3(0.03f, 0.00f, 0.00f),
+            new Vector3(0.02f, 0.00f, 0.00f),
+            new Vector3(0.02f, 0.00f, 0.00f),
+            new Vector3(-0.01f, 0.06f, 0.06f),
+            new Vector3(-0.04f, -0.04f, 0.02f),
+            new Vector3(-0.04f, -0.08f, 0.05f),
+            new Vector3(-0.04f, -0.09f, 0.08f),
+            new Vector3(-0.03f, -0.09f, 0.12f)
+        };
+
+        public static Quaternion[] LEFT_HAND_IDLE_ROTATIONS = new Quaternion[]
+        {
+            new Quaternion(0.00000f, 1.00000f, 0.00000f, 0.00000f),
+            new Quaternion(-0.07861f, -0.92028f, 0.37930f, -0.05515f),
+            new Quaternion(-0.24104f, -0.76422f, 0.45859f, 0.38413f),
+            new Quaternion(0.08519f, 0.00005f, -0.28144f, 0.95579f),
+            new Quaternion(0.00520f, -0.02148f, -0.15889f, 0.98705f),
+            new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
+            new Quaternion(-0.64425f, -0.42213f, -0.47820f, 0.42198f),
+            new Quaternion(0.08568f, 0.02357f, -0.19161f, 0.97744f),
+            new Quaternion(0.04565f, 0.00437f, -0.09588f, 0.99434f),
+            new Quaternion(-0.00205f, 0.02276f, -0.15681f, 0.98736f),
+            new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
+            new Quaternion(-0.54672f, -0.46075f, -0.44252f, 0.54128f),
+            new Quaternion(-0.17867f, 0.04782f, -0.24334f, 0.95214f),
+            new Quaternion(0.02037f, -0.01006f, -0.21894f, 0.97547f),
+            new Quaternion(-0.01046f, 0.02643f, -0.19180f, 0.98102f),
+            new Quaternion(0.00000f, 0.00000f, -0.04013f, 0.99919f),
+            new Quaternion(-0.51669f, -0.42989f, -0.49555f, 0.55014f),
+            new Quaternion(-0.17290f, 0.11434f, -0.29727f, 0.93202f),
+            new Quaternion(-0.00220f, -0.00044f, -0.22544f, 0.97425f),
+            new Quaternion(-0.00472f, 0.01180f, -0.35618f, 0.93433f),
+            new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
+            new Quaternion(-0.52692f, -0.32674f, -0.58402f, 0.52394f),
+            new Quaternion(-0.20060f, 0.15258f, -0.36498f, 0.89625f),
+            new Quaternion(0.00186f, 0.00041f, -0.25202f, 0.96772f),
+            new Quaternion(-0.01947f, 0.04834f, -0.26703f, 0.96228f),
+            new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
+            new Quaternion(0.20275f, 0.59427f, 0.24944f, 0.73724f),
+            new Quaternion(0.62353f, -0.66381f, -0.29373f, -0.29033f),
+            new Quaternion(0.67806f, -0.65929f, -0.26568f, -0.18705f),
+            new Quaternion(0.73679f, -0.63476f, -0.14394f, -0.18304f),
+            new Quaternion(0.75841f, -0.63934f, -0.12668f, -0.00366f)
+        };
+        
+        
+        
+        //==========================================================
+        
+ 
+        //-------------------------------------------------------
+
+
+        private bool isRightHand;
+        
+        public static bool isRightClenching = false;
+        public static bool isLeftClenching = false;
+        
+        //--------------------------------------------------------
+        
+        
+        
+        
+        
 
         protected virtual void OnEnable()
         {
+        
             CheckSkeletonAction();
             SteamVR_Input.onSkeletonsUpdated += SteamVR_Input_OnSkeletonsUpdated;
 
@@ -353,7 +674,29 @@ namespace Valve.VR
                 skeletonAction.onDeviceConnectedChanged += OnDeviceConnectedChanged;
                 skeletonAction.onTrackingChanged += OnTrackingChanged;
             }
+
+            
+            //my code
+            ///////////////////////
+            string objName = gameObject.name; 
+            objName = objName.ToLower();
+
+            if (objName.Contains("right"))
+            {
+                this.isRightHand = true;
+            }
+            else this.isRightHand = false;
+           // Debug.Log("bones length:"+bones.Length);
+
+            /////////////////////////////
         }
+
+        
+        
+   //=================================     
+        
+        
+        
 
         protected virtual void OnDisable()
         {
@@ -651,16 +994,83 @@ namespace Valve.VR
             return poseRotation;
         }
 
+        
+        //============================Code injection =======================================//
+        
+        
         public virtual void UpdateSkeletonTransforms()
         {
-            Vector3[] bonePositions = GetBonePositions();
-            Quaternion[] boneRotations = GetBoneRotations();
+            
+            
+    //    Vector3[] bonePositions = GetBonePositions();
+      //  Quaternion[] boneRotations = GetBoneRotations();
+      
+      Vector3[] bonePositions;// = GetBonePositions();
+      Quaternion[] boneRotations;// = GetBoneRotations();
+
+
+      ///////////////////code injection here ====================
+      ///
+    //  Debug.Log("update");
+      if (isRightHand)
+      {
+          if (isRightClenching)
+          {
+              bonePositions = RIGHT_HAND_CLENCH_POSITIONS;
+              boneRotations = RIGHT_HAND_CLENCH_ROTATIONS;
+          }
+          else
+          {
+              bonePositions = RIGHT_HAND_IDLE_POSITIONS;
+              boneRotations = RIGHT_HAND_IDLE_ROTATIONS;
+          }
+      }
+      else
+      {
+          if (isLeftClenching)
+          {
+              bonePositions = LEFT_HAND_CLENCH_POSITIONS;
+              boneRotations = LEFT_HAND_CLENCH_ROTATIONS;
+          }
+          else
+          {
+              bonePositions = LEFT_HAND_IDLE_POSITIONS;
+              boneRotations = LEFT_HAND_IDLE_ROTATIONS;
+          }
+      }
+      
+      ///////////////////code injection end ====================
+      
+   //    Vector3[] bonePositions = LEFT_HAND_IDLE_POSITIONS;
+   //    Quaternion[] boneRotations = LEFT_HAND_IDLE_ROTATIONS;
+   
+   // Debug.Log("========start==============");
+   //
+   // int index = 0;
+   //    foreach (Vector3 v in bonePositions)
+   //    {
+   //        Debug.Log("vec:"+v +" "+index);
+   //        index++;
+   //    }
+   //
+   //    index = 0;
+   //    foreach (Quaternion q in boneRotations)
+   //    {
+   //        Debug.Log("quad:"+q+" "+index);
+   //    }
+   //
+   // Debug.Log("==========end==============");
+   //
 
             if (skeletonBlend <= 0)
             {
                 if (blendPoser != null)
                 {
                     SteamVR_Skeleton_Pose_Hand mainPose = blendPoser.skeletonMainPose.GetHand(inputSource);
+                    
+                    
+                    
+               //     Debug.Log(inputSource.ToString());
                     for (int boneIndex = 0; boneIndex < bones.Length; boneIndex++)
                     {
                         if (bones[boneIndex] == null)
@@ -700,14 +1110,17 @@ namespace Valve.VR
                 {
                     if (bones[boneIndex] == null)
                         continue;
-
-                    /// << here
+                    
+                    //note: if you add a child to the vrglove model you will get an index out of bounds exception here
+                    //- Talon
                     SetBonePosition(boneIndex, bonePositions[boneIndex]);
                     SetBoneRotation(boneIndex, boneRotations[boneIndex]);
                 }
             }
             else
             {
+                
+                //skeletonBlend is from 0-1
                 for (int boneIndex = 0; boneIndex < bones.Length; boneIndex++)
                 {
                     if (bones[boneIndex] == null)
@@ -755,6 +1168,11 @@ namespace Valve.VR
                 onBoneTransformsUpdatedEvent.Invoke(this, inputSource);
         }
 
+  //================================      
+        
+        
+        
+        
         public virtual void SetBonePosition(int boneIndex, Vector3 localPosition)
         {
             if (onlySetRotations == false) //ignore position sets if we're only setting rotations

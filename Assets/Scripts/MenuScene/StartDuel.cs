@@ -24,6 +24,13 @@ public class StartDuel : MonoBehaviour, IMenuSelection {
     private void StartDuelLogic(GameObject controller) {
         // // Attach wand to hand
         gameObject.AddComponent<FixedJoint>();
+        GameObject handRight = GameObject.Find("vr_glove_right");
+    //    GameObject middleRight = GameObject.Find("vr_glove_right/vr_glove_model/Root/finger_middle_r_aux");
+
+
+
+    gameObject.transform.position = handRight.transform.position;  ////
+        
         FixedJoint joint = gameObject.GetComponent<FixedJoint>();
         joint.connectedBody = controller.GetComponent<Rigidbody>();
         joint.breakForce = Mathf.Infinity;
@@ -43,6 +50,6 @@ public class StartDuel : MonoBehaviour, IMenuSelection {
         // Load "DuelingScene" while fading user screen
         GameObject cameraRig = GameObject.Find("[CameraRig]");
         TransistionScene transition = FindObjectOfType<TransistionScene>();
-        transition.fadeOutToScene(fadeOutDuration, "DuelingScene");
+     //   transition.fadeOutToScene(fadeOutDuration, "DuelingScene");
     }
 }

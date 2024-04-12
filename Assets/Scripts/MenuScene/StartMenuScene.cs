@@ -61,14 +61,9 @@ connected anchor: -1.430706   0.05706573   -0.4633129
         joint.useSpring = true;
         JointSpring spring = new JointSpring();
         spring.spring = 5000;  ///newtons
-        joint.useLimits = true;
-        joint.spring = spring;
-
-        JointLimits lim = new JointLimits();
-        lim.min = -175;
-        lim.max = -360;
-        joint.limits = lim;
-       
+        spring.damper = 1000;
+        spring.targetPosition = -180;
+        
        dynamicBook.AddComponent<BookInteractionHandler>();
 
     }

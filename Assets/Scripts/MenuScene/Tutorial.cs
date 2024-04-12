@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
+
+//This class is not used anymore. 
+//If you don't need it delete it. (I'm just keeping it here just in case)
 public class Tutorial : MonoBehaviour, IMenuSelection {
     public static event Action <GameObject> OnTutorial;
     private bool playVideo = false;
