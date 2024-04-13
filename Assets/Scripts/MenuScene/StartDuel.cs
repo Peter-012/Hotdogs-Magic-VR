@@ -5,11 +5,13 @@ using System;
 
 public class StartDuel : MonoBehaviour, IMenuSelection {
     [SerializeField] private float fadeOutDuration = 3.0f;
-
+    
+    private AudioSource soundEffect;
     public static event Action <GameObject> OnStartDuel;
 
     public void Select(GameObject controller) {
         if (OnStartDuel == null) return;
+        soundEffect = gameObject.GetComponent<AudioSource>();
         OnStartDuel.Invoke(controller);
     }
 
@@ -39,6 +41,10 @@ public class StartDuel : MonoBehaviour, IMenuSelection {
         } else {
             Debug.LogError("Failed to initialize DominantSide variable from PlayerData.");
         }
+
+        // Play an equip wand sound effect
+        if (soundEffect.isPlaying) soundEffect.Stop();
+        soundEffect.Play();
         
         // Load "DuelingScene" while fading user screen
         GameObject cameraRig = GameObject.Find("[CameraRig]");

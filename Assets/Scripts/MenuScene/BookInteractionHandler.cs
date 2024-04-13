@@ -38,6 +38,7 @@ public class BookInteractionHandler : MonoBehaviour, IMenuSelection, IMenuSelect
 
     private GameObject tutorial;
     private GameObject video;
+    private AudioSource soundEffect;
     
     //override from IMenuSelection
     public void Select(GameObject controller)
@@ -83,6 +84,7 @@ public class BookInteractionHandler : MonoBehaviour, IMenuSelection, IMenuSelect
        tutorial = GameObject.Find("Tutorial");
        video = tutorial.transform.Find("Video").gameObject;
         interactableBook = GameObject.Find("BookInteractable");
+        soundEffect = interactableBook.GetComponent<AudioSource>();
   
         
         if (interactableBook == null)
@@ -103,7 +105,10 @@ public class BookInteractionHandler : MonoBehaviour, IMenuSelection, IMenuSelect
     //   BookInteractEventExit -= onBookInteractExit;
     }
 
-
+    private void PlaySoundEffect() {
+        if (soundEffect.isPlaying) soundEffect.Stop();
+        soundEffect.Play();
+    }
 
     public void FixedUpdate()
     {
@@ -122,6 +127,7 @@ public class BookInteractionHandler : MonoBehaviour, IMenuSelection, IMenuSelect
             {
                 spring.targetPosition = -180;
                 bookHinge.spring = spring;
+                Invoke("PlaySoundEffect", 0);
                 return;
             }
 
@@ -129,12 +135,14 @@ public class BookInteractionHandler : MonoBehaviour, IMenuSelection, IMenuSelect
             {
                 playVideo = true;  ///thinking of keeping the boolean in the case that want to add other things
                 video.SetActive(playVideo);
+                Invoke("PlaySoundEffect", 0);
                 spring.targetPosition = 0;
             }
             else
             {
                 playVideo = false;
                 video.SetActive(playVideo);
+                Invoke("PlaySoundEffect", 0);
                 spring.targetPosition = -180;
             }
             

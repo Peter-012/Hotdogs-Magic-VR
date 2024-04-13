@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StartMenuScene : MonoBehaviour {
     [SerializeField] private float fadeInDuration = 1.0f;
+    [SerializeField] private string bookPath = "bookAudio";
+    [SerializeField] private string wandPath = "wandEquipAudio";
     
     private void Awake() {
         resetGlobal();
@@ -29,6 +31,11 @@ public class StartMenuScene : MonoBehaviour {
 
     private void initWand() {
         GameObject wandObject = GameObject.Find("Wand");
+
+        AudioSource wandAudio = wandObject.AddComponent<AudioSource>();
+        wandAudio.playOnAwake = false;
+        wandAudio.clip = Resources.Load<AudioClip>(wandPath);
+
         wandObject.AddComponent<StartDuel>();
     }
 
@@ -73,7 +80,9 @@ public class StartMenuScene : MonoBehaviour {
         BoxCollider collider = dynamicBook.GetComponent<BoxCollider>();
         collider.isTrigger = true;
         
-        
+        AudioSource bookAudio = dynamicBook.AddComponent<AudioSource>();
+        bookAudio.playOnAwake = false;
+        bookAudio.clip = Resources.Load<AudioClip>(bookPath);
         
         dynamicBook.AddComponent<BookInteractionHandler>();
 
