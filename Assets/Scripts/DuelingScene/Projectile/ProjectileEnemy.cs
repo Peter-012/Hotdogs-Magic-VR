@@ -4,9 +4,9 @@ using UnityEngine;
 using Valve.VR;
 
 public class ProjectileEnemy : ProjectileAbstract {
-    [SerializeField] private float horizontalNoise = 2f;
-    [SerializeField] private float verticalNoise = 1f;
-    [SerializeField] private float projectileSpeed = 20f;
+    [SerializeField] private float horizontalNoise = 4f;
+    [SerializeField] private float verticalNoise = 2f;
+    [SerializeField] private float projectileSpeed = 13f;
     [SerializeField] private float deleteProjectile = 6f;
     private float currentTime = 0;
 
@@ -28,7 +28,7 @@ public class ProjectileEnemy : ProjectileAbstract {
         base.ProjectileHit(Player);
         
         if (Player.name.Equals("Camera")) {
-            // Player1.health--;///////////////////////////////////////////////////////////////////////////////TEST
+            Player1.health--;
             if (Player1.health <= 0 && GameManager.startGame == true) {
                 GameManager.startGame = false;
                 FadePlayer();
