@@ -6,6 +6,7 @@ using UnityEngine;
 public class StartDuelScene : MonoBehaviour {
     [SerializeField] private float fadeInDuration = 1.0f;
     [SerializeField] private string musicPath = "duelingSong";
+    [SerializeField] private float volume = 0.2f;
     
     private void Awake() {
         initSpawnWand();
@@ -56,6 +57,7 @@ public class StartDuelScene : MonoBehaviour {
         if (audioSource.isPlaying) audioSource.Stop();
         audioSource.loop = true;
         audioSource.clip = Resources.Load<AudioClip>(musicPath);
+        audioSource.volume = volume;
         audioSource.Play();
 
         // Fade In Player View
