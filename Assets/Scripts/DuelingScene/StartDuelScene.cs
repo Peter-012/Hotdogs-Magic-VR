@@ -11,7 +11,7 @@ public class StartDuelScene : MonoBehaviour {
         initPlayer();
         initEnemy();
         fadeInView();
-        GameManager.startGame = true;
+        Game.startGame = true;
     }
 
     private void initSpawnWand() {

@@ -3,37 +3,55 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectilePlayer : ProjectileAbstract {
-    [SerializeField] private float projectileSpeed = 25f;
-    [SerializeField] private float deleteProjectile = 4f;
+    [SerializeField] private float projectileSpeed = 3f;
     [SerializeField] private float delayFire = 1f;
-    private float enemyFaceplantForce = 2f;
-    private float currentTime = 0;
-    private bool detachFromWand = false;
+    [SerializeField] private float deleteProjectile = 3f;
+    [SerializeField] private float enemyFaceplantForce = 2f;
+    private bool charging = false;
+    
+    private void Start() {
+        StartCoroutine(Charging());
+    }
 
     public override void fireProjectile() {
+        // Charging - Keep the projectile stuck to the wand
+        if (charging) return;
+
         // Detach projectile from wand
-        if (currentTime >= delayFire) {
-            if (detachFromWand) {
-                if (currentTime > deleteProjectile) Destroy(gameObject);
-                // Move projectile forward
-                transform.Translate(Vector3.forward * projectileSpeed * Time.deltaTime);
-            } else {
-                // Detach projectile from the wand
-                this.transform.SetParent(null);
-                detachFromWand = true;
-            }
+        this.transform.SetParent(null);
+
+        // Let the projectile travel forward
+        StartCoroutine(Travel());
+    }
+
+    IEnumerator Charging() {
+        charging = true;
+        yield return new WaitForSeconds(delayFire);
+        charging = false;
+    }
+
+    IEnumerator Travel() {
+        float currentTime = 0;
+
+        while (currentTime < deleteProjectile) {
+            // Update elapsed time
+            currentTime += Time.deltaTime;
+
+            // Move projectile forward
+            transform.Translate(Vector3.forward * projectileSpeed * Time.deltaTime);
+
+            yield return null;
         }
-        currentTime += Time.deltaTime;
+
+        // Projectile expires
+        Destroy(gameObject);
     }
 
     public override void ProjectileHit (GameObject Player) {
-        // Logic for projectile collision to environment (From abstract class)
-        base.ProjectileHit(Player);
-
         if (Player.name.Equals("Enemy")) {
             Player2.health--;
-            if (Player2.health <= 0 && GameManager.startGame == true) {
-                GameManager.startGame = false;
+            if (Player2.health <= 0 && Game.startGame == true) {
+                Game.startGame = false;
                 KillEnemy(Player);
                 FadePlayer();
             } 

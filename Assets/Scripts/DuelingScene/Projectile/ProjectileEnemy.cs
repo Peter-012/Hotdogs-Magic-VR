@@ -6,31 +6,40 @@ using Valve.VR;
 public class ProjectileEnemy : ProjectileAbstract {
     [SerializeField] private float horizontalNoise = 4f;
     [SerializeField] private float verticalNoise = 2f;
-    [SerializeField] private float projectileSpeed = 13f;
-    [SerializeField] private float deleteProjectile = 6f;
-    private float currentTime = 0;
+    [SerializeField] private float projectileSpeed = 0.3f;
+    [SerializeField] private float deleteProjectile = 3f;
 
     void Start() {
         AimProjectile();
     }
 
     public override void fireProjectile() {
-        // Destroy projectile after a certain amount of time
-        if (currentTime > deleteProjectile) Destroy(gameObject);
-        currentTime += Time.deltaTime;
+        // Let the projectile travel forward
+        StartCoroutine(Travel());
+    }
 
-        // Move projectile forward
-        transform.Translate(Vector3.up * projectileSpeed * Time.deltaTime);
+    IEnumerator Travel() {
+        float currentTime = 0;
+
+        while (currentTime < deleteProjectile) {
+            // Update elapsed time
+            currentTime += Time.deltaTime;
+
+            // Move projectile forward
+            transform.Translate(Vector3.up * projectileSpeed * Time.deltaTime);
+
+            yield return null;
+        }
+
+        // Projectile expires
+        Destroy(gameObject);
     }
 
     public override void ProjectileHit (GameObject Player) {
-        // Logic for projectile collision to environment (From abstract class)
-        base.ProjectileHit(Player);
-        
         if (Player.name.Equals("Camera")) {
             Player1.health--;
-            if (Player1.health <= 0 && GameManager.startGame == true) {
-                GameManager.startGame = false;
+            if (Player1.health <= 0 && Game.startGame == true) {
+                Game.startGame = false;
                 FadePlayer();
             }
             base.DestroyProjectile();

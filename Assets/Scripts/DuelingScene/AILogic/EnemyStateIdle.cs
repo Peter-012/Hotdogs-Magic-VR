@@ -1,8 +1,8 @@
 using UnityEngine;
 
 public class EnemyStateIdle : EnemyStateAbstract {
-    [SerializeField] private float movementRange = 5.0f;
-    [SerializeField] private float threshold = 0.5f;
+    [SerializeField] private float movementRange = 4.5f;
+    [SerializeField] private float threshold = 0.2f;
     [SerializeField] private float speed = 1.0f;
     private float currentZPos;
     private float finalZPos;
@@ -26,7 +26,6 @@ public class EnemyStateIdle : EnemyStateAbstract {
         // Update position of the enemy
         currentZPos = enemyObject.transform.position.z;
         float offset = Mathf.Abs(currentZPos - finalZPos);
-        // Debug.Log(" Curr: " + currentZPos + " Final: " + finalZPos + " Offset: " + offset);
 
         if (offset <= threshold) {
             // Change enemy to shoot state when it has moved to the target position

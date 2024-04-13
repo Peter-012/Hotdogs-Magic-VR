@@ -29,7 +29,7 @@ public class EnemyStateManager : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (GameManager.startGame == true) {
+        if (Game.startGame == true) {
             currentState.UpdateState(this);
         }
     }
