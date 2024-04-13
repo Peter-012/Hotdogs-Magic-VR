@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class StartDuelScene : MonoBehaviour {
     [SerializeField] private float fadeInDuration = 1.0f;
+    [SerializeField] private string musicPath = "duelingSong";
     
     private void Awake() {
         initSpawnWand();
@@ -50,6 +51,14 @@ public class StartDuelScene : MonoBehaviour {
     }
 
     private void fadeInView() {
+        // Background Dueling Music
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+        if (audioSource.isPlaying) audioSource.Stop();
+        audioSource.loop = true;
+        audioSource.clip = Resources.Load<AudioClip>(musicPath);
+        audioSource.Play();
+
+        // Fade In Player View
         gameObject.AddComponent<TransistionScene>();
         TransistionScene transition = FindObjectOfType<TransistionScene>();
         transition.fadeInView(fadeInDuration);
