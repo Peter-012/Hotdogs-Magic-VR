@@ -28,7 +28,7 @@ public class ProjectileEnemy : ProjectileAbstract {
         base.ProjectileHit(Player);
         
         if (Player.name.Equals("Camera")) {
-            Player1.health--;
+            // Player1.health--;///////////////////////////////////////////////////////////////////////////////TEST
             if (Player1.health <= 0 && GameManager.startGame == true) {
                 GameManager.startGame = false;
                 FadePlayer();

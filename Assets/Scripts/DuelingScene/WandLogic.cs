@@ -1,25 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Valve.VR;
 
 public class WandLogic : MonoBehaviour {
-    private SteamVR_Input_Sources InputSource;
-    private SteamVR_Action_Boolean ActionBoolean;
-
     [SerializeField] private string ProjectilePath = "Projectile";
 
+    private float initialRotation = -0.5f;
+    private float finalRotation = 0;
+    [SerializeField] private float threshold = 0.2f;
+
+    float initialZUpper;
+    float initialZLower;
+    float finalZUpper;
+    float finalZLower;
+
+    private bool trackRotation;
+    private float currentZRotation;
+
     private bool reloading = false;
-    private float reloadDelay = 2f;
+    [SerializeField] private float reloadDelay = 2f;
     
     private void Start() {
-        initSteamVR();
+        // Set up logic to flick wand in order to fire projectile
+        initialZUpper = initialRotation + threshold;
+        initialZLower = initialRotation - threshold;
+        finalZUpper = finalRotation + threshold;
+        finalZLower = finalRotation - threshold;
+
+        trackRotation = false;
     }
 
     private void Update() {
-        if (ActionBoolean.GetStateDown(InputSource) && reloading == false) {
-            fireProjectile();
-            StartCoroutine(Reload());
+        currentZRotation = gameObject.transform.rotation.z;
+
+        // Wand reached orientation to prepare for firing projectile
+        if (initialZLower < currentZRotation && currentZRotation < initialZUpper) {
+            if (!reloading) trackRotation = true;
+        }
+        
+        if (trackRotation) {
+            // Wand reached orientation to fire the projectile 
+            if (finalZLower < currentZRotation && currentZRotation < finalZUpper) {
+                trackRotation = false;
+                fireProjectile();
+                StartCoroutine(Reload());
+            }
         }
     }
 
@@ -27,24 +52,6 @@ public class WandLogic : MonoBehaviour {
         reloading = true;
         yield return new WaitForSeconds(reloadDelay);
         reloading = false;
-    }
-
-    private void initSteamVR() {
-        // Initialize InputSource
-
-        if (Player1.DominantSide.Equals("left")) {
-            InputSource = SteamVR_Input_Sources.LeftHand;
-        }
-        else if (Player1.DominantSide.Equals("right")) {
-            InputSource = SteamVR_Input_Sources.RightHand;
-        }
-        else {
-            Debug.LogError("Failed to initialize SteamVR input source.");
-        }
-
-        // Initialize ActionBoolean
-        ActionBoolean = SteamVR_Input
-            .GetActionFromPath<SteamVR_Action_Boolean>("/actions/default/in/GrabPinch");
     }
 
     private void fireProjectile() {
