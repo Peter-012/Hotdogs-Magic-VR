@@ -35,6 +35,9 @@ public class EnemyStateShoot : EnemyStateAbstract {
         // Attach projectile to the enemy
         projectileObject.transform.SetParent(GameObject.Find("Enemy").transform);
 
+        // Raise projectile to be a bit above center of mass
+        projectileObject.transform.Translate(0, 0, 0.3f);
+
         GameObject projectileChild = projectileObject.transform.GetChild(0).gameObject;
 
         // Make the projectile rigid

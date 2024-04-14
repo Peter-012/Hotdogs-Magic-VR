@@ -5,7 +5,7 @@ using Valve.VR;
 
 public class ProjectileEnemy : ProjectileAbstract {
     [SerializeField] private float horizontalNoise = 4f;
-    [SerializeField] private float verticalNoise = 3f;
+    [SerializeField] private float verticalNoise = 2f;
     [SerializeField] private float projectileSpeed = 0.3f;
     [SerializeField] private float deleteProjectile = 3f;
 
@@ -87,9 +87,9 @@ public class ProjectileEnemy : ProjectileAbstract {
 
         // Pythagorean Theorem
 
-        // Adjust to aim at the player's center of mass
+        // Adjust to aim a bit above the player's center of mass
         float playerCenter = 
-            Mathf.Abs(playerObject.transform.position.y - rigObject.transform.position.y)/2;
+            Mathf.Abs(playerObject.transform.position.y - rigObject.transform.position.y) * 0.75f;
 
         // Add back the camera rig offset
         playerCenter = playerCenter + rigObject.transform.position.y;
