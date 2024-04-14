@@ -70,16 +70,20 @@ This interface is used to collect the projectile types in the game under a commo
 The interface provides an abstract method for the projectiles which is called when a projectile hits another game object which does not ignore collisions.
 
 #### DuelingScene/Damage/PlayerObject.cs
-Description
+This script handles the data and functions for the player object in the scene; It updates the hitbox of the player when they move, and also handles whenever they take damage or die in the duel.
+ the script also adds components to the player object necessary for detecting collisions within the game.
+
 
 #### DuelingScene/Damage/EnemyObject.cs
-Description
+ This script provides functionality for the enemy object in the scene. It is similar to the player object in that it handles damage and dying for the enemy, alongside adding components.
 
 #### DuelingScene/Projectile/ProjectileAbstract.cs
-Description
+This is a superclass for the player and enemy projectiles within the game. It provides base functionality which is common to both the player and enemy projectiles and also serves to 
+pass on hit events to the subclass functions which handle respective functionality for both projectiles.
 
 #### DuelingScene/Projectile/ProjectilePlayer.cs
-Description
+This is a subclass of ProjectileAbstract which further defines specialized functionality for the player projectiles, such as special effects and movement.
+It inherits some functionality from the ProjectileAbstract class.
 
 #### DuelingScene/Projectile/ProjectileEnemy.cs
 Description
