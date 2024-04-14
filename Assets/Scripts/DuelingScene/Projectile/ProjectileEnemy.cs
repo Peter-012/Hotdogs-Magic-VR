@@ -21,6 +21,13 @@ public class ProjectileEnemy : ProjectileAbstract {
         StartCoroutine(Travel());
     }
 
+    public override void ProjectileHit(GameObject hitObject) {
+        base.ProjectileHit(hitObject);
+        if (hitObject.tag.Equals("Environment")) {
+           DestroyProjectile();
+       }
+    }
+
     IEnumerator Travel() {
         float currentTime = 0;
 

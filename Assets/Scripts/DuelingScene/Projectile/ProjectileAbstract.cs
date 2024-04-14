@@ -39,7 +39,7 @@ public abstract class ProjectileAbstract : MonoBehaviour, IDamage {
 
 
     //called when projectile hit
-    public void ProjectileHit(GameObject hitObject)
+    public virtual void ProjectileHit(GameObject hitObject)
     {
        Entity e = hitObject.GetComponent<Entity>();
        bool damage = false;
@@ -49,21 +49,10 @@ public abstract class ProjectileAbstract : MonoBehaviour, IDamage {
        //do the trigger stuff here for the wand + flashy bits
        if (damage)
         DestroyProjectile();
-       
-       //now check if it is environmental
 
-       string tag = hitObject.tag;
-       if (tag.Equals("Environment"))
-       {
+        if (hitObject.tag.Equals("Crate")) {
            DestroyProjectile();
-       }
-
-       if (tag.Equals("Crate"))
-       {
-           ///do stuff here
-           DestroyProjectile();
-       }
-       
+       }     
     }
     
     

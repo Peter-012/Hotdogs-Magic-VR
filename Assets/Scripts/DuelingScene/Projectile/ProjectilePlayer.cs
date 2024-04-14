@@ -27,6 +27,15 @@ public class ProjectilePlayer : ProjectileAbstract {
         StartCoroutine(Travel());
     }
 
+    public override void ProjectileHit(GameObject hitObject) {
+        base.ProjectileHit(hitObject);
+
+        // !charging prevent player from accidentally destroying projectile 
+        // during charge state when hitting it against the floor
+        if (!charging && hitObject.tag.Equals("Environment")) {
+           DestroyProjectile();
+       }
+    }
 
     public override void playExplosion()
     {
@@ -42,8 +51,6 @@ public class ProjectilePlayer : ProjectileAbstract {
         
         
     }
-
-    
 
     IEnumerator Charging() {
         charging = true;

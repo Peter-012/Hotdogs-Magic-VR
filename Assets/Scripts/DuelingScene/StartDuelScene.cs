@@ -81,7 +81,7 @@ public class StartDuelScene : MonoBehaviour {
         
         for (int spawned = 0; spawned < crates; spawned++)
         {
-            Vector3 pos = new Vector3(0, Random.Range(0f, 3f), Random.Range(-3f, 3f));
+            Vector3 pos = new Vector3(5f, Random.Range(0f, 3f), Random.Range(-3f, 3f));
             GameObject crate = Instantiate(o, pos, Quaternion.identity) as GameObject;
 
             crate.AddComponent<Rigidbody>();
