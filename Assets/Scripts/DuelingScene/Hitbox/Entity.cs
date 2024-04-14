@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 namespace DuelingScene.Entity
 {
     public interface Entity
