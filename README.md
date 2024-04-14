@@ -11,7 +11,7 @@ All you need is a VR headset that is linked to a powerful computer and VR contro
 This game requires you to move left and right in order to dodge projectiles in the game. Be sure to have ample room to shuffle left and right and some space to extend your arms forward. Also, it is important to tighten the strap of your headset in order to keep it from falling off when playing this game.
 
 ### Software Setup
-Under the "Releases" section of GitHub will be a Unity build for the VR game. Just click and run the exe file to run the game. A copy of the build can also be found in the GitHub repo under the folder "Builds". If you would like to clone the repo and see the code in action within Unity, make sure that you have Unity Editor version 2022.3.17f1 before launching the project.
+Make sure that you have SteamVR installed to your computer. Under the "Releases" section of GitHub will be a Unity build for the VR game. A copy of the build can be found in the GitHub repo under the folder "Builds". To play the game, just click and run the .exe file (DO NOT click on UnityCrashHander64.exe). It's preferred that you add the game as a non-steam game and make sure to also include the game in your VR Library through the game's properties. That way you can launch the game directly through SteamVR. If you would like to clone the repo and see the code in action within Unity, make sure that you have Unity Editor version 2022.3.17f1 before launching the project and have SteamVR running in the background.
 
 ## Description of Implementation
 
