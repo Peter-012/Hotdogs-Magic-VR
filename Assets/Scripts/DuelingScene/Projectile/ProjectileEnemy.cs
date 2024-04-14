@@ -5,7 +5,7 @@ using Valve.VR;
 
 public class ProjectileEnemy : ProjectileAbstract {
     [SerializeField] private float horizontalNoise = 4f;
-    [SerializeField] private float verticalNoise = 2f;
+    [SerializeField] private float verticalNoise = 3f;
     [SerializeField] private float projectileSpeed = 0.3f;
     [SerializeField] private float deleteProjectile = 3f;
 

@@ -35,25 +35,23 @@ public class EnemyStateShoot : EnemyStateAbstract {
         // Attach projectile to the enemy
         projectileObject.transform.SetParent(GameObject.Find("Enemy").transform);
 
-        // Make the projectile rigid
-
-        
-        //
-        Rigidbody projectileRigid = projectileObject.AddComponent<Rigidbody>();
-        
         GameObject projectileChild = projectileObject.transform.GetChild(0).gameObject;
-//        Debug.Log("child name:");
-        projectileChild.AddComponent<Rigidbody>();
-        projectileChild.AddComponent<BoxCollider>();
-        
-        
+
+        // Make the projectile rigid
+        Rigidbody projectileRigid = projectileObject.AddComponent<Rigidbody>();
         projectileRigid.useGravity = false;
         projectileRigid.isKinematic = true;
+
+        Rigidbody projectileChildRigid = projectileChild.AddComponent<Rigidbody>();
+        projectileChildRigid.useGravity = false;
+        projectileChildRigid.isKinematic = true;
 
         // Make the projectile have a box collider
         BoxCollider boxCollider = projectileObject.AddComponent<BoxCollider>();
         boxCollider.size = new Vector3(0.5f, 0.5f, 0.5f);
         boxCollider.isTrigger = true;
+
+        // projectileChild.AddComponent<BoxCollider>();
 
         // Add spatial audio
         projectileObject.AddComponent<SpatialAudio>();
