@@ -50,7 +50,21 @@ public class WandLogic : MonoBehaviour {
 
     IEnumerator Reload() {
         reloading = true;
-        yield return new WaitForSeconds(reloadDelay);
+        float waited = 0;
+        Material wandShine = gameObject.GetComponent<Renderer>().sharedMaterial;
+        
+    
+        while (waited < reloadDelay)
+        {
+            waited += 0.1f;
+            wandShine.SetFloat("_Fresnel", waited * 10);
+            wandShine.SetFloat("_Dist", waited * 10);
+            yield return new WaitForSeconds(0.1f);
+        }
+        
+        wandShine.SetFloat("_Fresnel", 0);
+        wandShine.SetFloat("_Dist", 0);
+     //   yield return new WaitForSeconds(reloadDelay);
         reloading = false;
     }
 

@@ -427,35 +427,35 @@ namespace Valve.VR
         {
             new Quaternion(0.00000f, 1.00000f, 0.00000f, 0.00000f),
             new Quaternion(-0.07861f, -0.92028f, 0.37930f, -0.05515f),
-            new Quaternion(-0.50278f, -0.63299f, 0.14720f, 0.56998f),
-            new Quaternion(-0.04812f, -0.02326f, -0.23553f, 0.97040f),
-            new Quaternion(0.08445f, 0.03747f, -0.60077f, 0.79406f),
+            new Quaternion(-0.44103f, -0.64819f, 0.28290f, 0.55255f),
+            new Quaternion(-0.03988f, 0.00944f, -0.09855f, 0.99429f),
+            new Quaternion(-0.00192f, -0.01310f, 0.15125f, 0.98841f),
             new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
-            new Quaternion(-0.62686f, -0.43996f, -0.49973f, 0.40467f),
-            new Quaternion(-0.01905f, 0.09303f, -0.48436f, 0.86970f),
-            new Quaternion(0.02075f, -0.00377f, -0.54864f, 0.83579f),
-            new Quaternion(0.00026f, 0.00930f, -0.45369f, 0.89111f),
+            new Quaternion(-0.64375f, -0.42249f, -0.47870f, 0.42182f),
+            new Quaternion(0.02399f, 0.04052f, -0.09275f, 0.99458f),
+            new Quaternion(0.02884f, 0.00009f, 0.00505f, 0.99957f),
+            new Quaternion(0.00130f, 0.01483f, -0.02255f, 0.99964f),
             new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
-            new Quaternion(-0.53135f, -0.47186f, -0.45988f, 0.53248f),
-            new Quaternion(-0.14201f, 0.01658f, -0.39387f, 0.90798f),
-            new Quaternion(0.01513f, -0.01077f, -0.21229f, 0.97703f),
-            new Quaternion(-0.00221f, 0.02248f, -0.10892f, 0.99379f),
+            new Quaternion(-0.54749f, -0.45993f, -0.44162f, 0.54193f),
+            new Quaternion(-0.15577f, 0.04514f, -0.09847f, 0.98184f),
+            new Quaternion(0.01875f, -0.00542f, -0.07544f, 0.99696f),
+            new Quaternion(-0.00183f, 0.01523f, -0.04262f, 0.99897f),
             new Quaternion(0.00000f, 0.00000f, -0.04013f, 0.99919f),
-            new Quaternion(-0.51241f, -0.43559f, -0.50181f, 0.54394f),
-            new Quaternion(-0.06422f, 0.07648f, -0.21101f, 0.97237f),
-            new Quaternion(-0.00142f, -0.00045f, -0.20883f, 0.97795f),
-            new Quaternion(-0.00101f, 0.01191f, -0.15223f, 0.98827f),
+            new Quaternion(-0.51929f, -0.42663f, -0.49705f, 0.54887f),
+            new Quaternion(-0.08413f, 0.05897f, -0.13683f, 0.98525f), 
+            new Quaternion(-0.00200f, 0.00009f, -0.06431f, 0.99793f),
+            new Quaternion(-0.00124f, 0.00826f, -0.09977f, 0.99498f),
             new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
-            new Quaternion(-0.52158f, -0.33443f, -0.59225f, 0.51512f),
-            new Quaternion(-0.05081f, 0.11356f, -0.13678f, 0.98276f),
-            new Quaternion(0.00059f, 0.00137f, -0.19521f, 0.98076f),
-            new Quaternion(-0.00106f, 0.05203f, 0.06128f, 0.99676f),
+            new Quaternion(-0.51322f, -0.34430f, -0.60692f, 0.49971f),
+            new Quaternion(-0.06862f, 0.06558f, -0.09225f, 0.99120f),
+            new Quaternion(0.00045f, 0.00016f, -0.12404f, 0.99228f),
+            new Quaternion(0.00825f, 0.05113f, -0.05970f, 0.99687f),
             new Quaternion(0.00000f, 0.00000f, 0.00000f, 1.00000f),
-            new Quaternion(-0.51682f, 0.34830f, -0.45797f, 0.63391f),
-            new Quaternion(0.25757f, -0.89032f, -0.35677f, -0.11702f),
-            new Quaternion(0.69263f, -0.64245f, -0.26264f, -0.19631f),
-            new Quaternion(0.75103f, -0.61530f, -0.14740f, -0.18876f),
-            new Quaternion(0.77350f, -0.61990f, -0.13113f, -0.01465f)
+            new Quaternion(0.03404f, 0.60384f, 0.22049f, 0.76525f),
+            new Quaternion(0.67412f, -0.60951f, -0.27108f, -0.31715f),
+            new Quaternion(0.75808f, -0.54789f, -0.23602f, -0.26347f),
+            new Quaternion(0.82156f, -0.49712f, -0.15118f, -0.23466f),
+            new Quaternion(0.86616f, -0.46885f, -0.13690f, -0.10587f)
         };
 
 
@@ -464,11 +464,11 @@ namespace Valve.VR
         {
             new Vector3(0.00f, 0.00f, 0.00f),
             new Vector3(-0.03f, 0.04f, 0.16f),
-            new Vector3(-0.02f, 0.03f, 0.02f),
+            new Vector3(-0.01f, 0.03f, 0.03f),
             new Vector3(0.04f, 0.00f, 0.00f),
             new Vector3(0.03f, 0.00f, 0.00f),
             new Vector3(0.03f, 0.00f, 0.00f),
-            new Vector3(0.00f, 0.02f, 0.01f),
+            new Vector3(0.00f, 0.03f, 0.02f),
             new Vector3(0.07f, 0.01f, 0.00f),
             new Vector3(0.04f, 0.00f, 0.00f),
             new Vector3(0.03f, 0.00f, 0.00f),
@@ -488,11 +488,11 @@ namespace Valve.VR
             new Vector3(0.03f, 0.00f, 0.00f),
             new Vector3(0.02f, 0.00f, 0.00f),
             new Vector3(0.02f, 0.00f, 0.00f),
-            new Vector3(0.00f, 0.04f, 0.06f),
-            new Vector3(-0.01f, 0.00f, 0.07f),
-            new Vector3(-0.04f, -0.08f, 0.05f),
-            new Vector3(-0.04f, -0.09f, 0.08f),
-            new Vector3(-0.03f, -0.09f, 0.12f)
+            new Vector3(0.00f, 0.05f, 0.06f),
+            new Vector3(-0.04f, -0.04f, 0.02f),
+            new Vector3(-0.03f, -0.07f, 0.04f),
+            new Vector3(-0.03f, -0.09f, 0.08f),
+            new Vector3(-0.02f, -0.08f, 0.12f)
         };
         
     
@@ -655,6 +655,8 @@ namespace Valve.VR
         
         public static bool isRightClenching = false;
         public static bool isLeftClenching = false;
+        public static bool lockRightClench = false;
+        public static bool lockLeftClench = false;
         
         //--------------------------------------------------------
         
@@ -1014,7 +1016,7 @@ namespace Valve.VR
     //  Debug.Log("update");
       if (isRightHand)
       {
-          if (isRightClenching)
+          if (isRightClenching || lockRightClench)
           {
               bonePositions = RIGHT_HAND_CLENCH_POSITIONS;
               boneRotations = RIGHT_HAND_CLENCH_ROTATIONS;
@@ -1027,7 +1029,7 @@ namespace Valve.VR
       }
       else
       {
-          if (isLeftClenching)
+          if (isLeftClenching || lockLeftClench)
           {
               bonePositions = LEFT_HAND_CLENCH_POSITIONS;
               boneRotations = LEFT_HAND_CLENCH_ROTATIONS;
