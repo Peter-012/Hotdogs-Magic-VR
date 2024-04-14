@@ -31,20 +31,23 @@ MenuSelection serves as a event listener and an initializer for the controller o
 When the do, the script checks to see whether the object is interactable, and if it is, then it invokes the Select() function from that interactable object, which handles it accordingly.
 
 #### MenuScene/StartDuel.cs
-Description
+This script listens for an interaction event with the wand in the game, and retrieves data for the player's dominant hand. The script also starts the process of transitioning from the MenuScene to the DuelingScene.
 
 #### MenuScene/BookinteractionHandler.cs
 This class handles the interaction logic for the book. It receives a signal from the controllers and uses trigonometry and vector mathematics to compute the angle in which the book should swing.
 In the case that the book is opened by the player, a tutorial video is played. If it is closed, the tutorial video stops.
 
 #### MenuScene/Video.cs
-Description
+This script is attached onto a gameobject and upon doing so, loads the tutorial video from the resources folder and prepares the game object for playing the video. The trigger for starting the video is located in 
+the BookInteractionHandler.
 
 #### DuelingScene/StartDuelScene.cs
-Description
+This script is similar to the StartMenuScene script, but it instead prepares the DuelingScene using precomputed information retrieved from the menuScene. 
+The script attaches listeners to the controllers, spawns crates, and initializes the enemy and player.
 
 #### DuelingScene/Wand/SpawnWand.cs
-Description
+This script instantiates a wand object and prepares the logic for it's interactions by attaching a script to the wand object.
+The wand is then translated and rotated such that it fits the controller's position/rotation.
 
 #### DuelingScene/Wand/WandLogic.cs
 Description
