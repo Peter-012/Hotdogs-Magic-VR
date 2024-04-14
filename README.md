@@ -86,13 +86,14 @@ This is a subclass of ProjectileAbstract which further defines specialized funct
 It inherits some functionality from the ProjectileAbstract class.
 
 #### DuelingScene/Projectile/ProjectileEnemy.cs
-Description
+This is a subclass of ProjectileAbstract which is similar to ProjectilePlayer. It defines specialized functionality for the Enemy projectiles which are fired at the player.
 
 #### GameManager.cs
-Description
+This is a script which contains classes used to store data used to set different difficulty and environment parameters in the game. Some of these parameters change as the player interacts with objects, but a good
+number of them are fixed.
 
 #### SpatialAudio.cs
-Description
+This class manages how in-game sounds should be played to players in different scenes. This script is mainly used to add sound effects to projectiles which are shot from the player and enemy.
 
 #### TransitionScene.cs
-Description
+This is a helper class which contains functionality used to fade in and out a player's view and transition them to another scene.
