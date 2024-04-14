@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StartMenuScene : MonoBehaviour {
+    [SerializeField] private string musicPath = "menuSong";
+    [SerializeField] private float volume = 0.2f;
     [SerializeField] private float fadeInDuration = 1.0f;
     [SerializeField] private string bookPath = "bookAudio";
     [SerializeField] private string wandPath = "wandEquipAudio";
@@ -12,7 +14,7 @@ public class StartMenuScene : MonoBehaviour {
         initController();
         initWand();
         initTutorial();
-        fadeInView();
+        startScene();
     }
 
     private void resetGlobal() {
@@ -87,14 +89,18 @@ public class StartMenuScene : MonoBehaviour {
         dynamicBook.AddComponent<BookInteractionHandler>();
 
     }
-    
-    
-    
-    
 
-    private void fadeInView() {
+    private void startScene() {
+        // Background Dueling Music
+        AudioSource audioSource = gameObject.AddComponent<AudioSource>();
+        if (audioSource.isPlaying) audioSource.Stop();
+        audioSource.loop = true;
+        audioSource.clip = Resources.Load<AudioClip>(musicPath);
+        audioSource.volume = volume;
+        audioSource.Play();
+
+        // Fade In Player View
         gameObject.AddComponent<TransistionScene>();
-
         TransistionScene transition = FindObjectOfType<TransistionScene>();
         transition.fadeInView(fadeInDuration);
     }
