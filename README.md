@@ -18,21 +18,24 @@ Make sure that you have SteamVR installed to your computer. Under the "Releases"
 This game was developed using the Unity Editor version 2022.3.17f1
 
 ### Special Assets
-Other than the projectile (with collsion effects) asset "Fire Ice Projectile - Explosion" which came from the asset store, all assets have been created by us using Blender and the Unity shader files.
+Other than the projectile (with collsion effects) asset "Fire Ice Projectile - Explosion" which came from the asset store, and the low-poly chair model which came from Sketchfab, all assets have been created by us using Blender and the Unity shader files.
 
 ### C# Script Implementation
 
 #### MenuScene/StartMenuScene.cs
-Description
+This script is attached on the camera rig and is active when the game starts. Since we wanted to avoid attaching components onto the scene manually, we opted to use scripts to initialize and modify object components. 
+The code within this script serves as an entry point into initializing other portions of the MenuScene by attaching other scripts and components to objects within the scene.
 
 #### MenuScene/MenuSelection.cs
-Description
+MenuSelection serves as a event listener and an initializer for the controller objects; It has update and trigger event functions which listen for specific events to occur. 
+When the do, the script checks to see whether the object is interactable, and if it is, then it invokes the Select() function from that interactable object, which handles it accordingly.
 
 #### MenuScene/StartDuel.cs
 Description
 
 #### MenuScene/BookinteractionHandler.cs
-Description
+This class handles the interaction logic for the book. It receives a signal from the controllers and uses trigonometry and vector mathematics to compute the angle in which the book should swing.
+In the case that the book is opened by the player, a tutorial video is played. If it is closed, the tutorial video stops.
 
 #### MenuScene/Video.cs
 Description
@@ -58,10 +61,10 @@ Description
 #### DuelingScene/Damage/IDamage.cs
 Description
 
-#### DuelingScene/Damage/PlayerDamage.cs
+#### DuelingScene/Damage/PlayerObject.cs
 Description
 
-#### DuelingScene/Damage/EnemyDamage.cs
+#### DuelingScene/Damage/EnemyObject.cs
 Description
 
 #### DuelingScene/Projectile/ProjectileAbstract.cs
