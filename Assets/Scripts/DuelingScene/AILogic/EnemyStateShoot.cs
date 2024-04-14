@@ -36,7 +36,17 @@ public class EnemyStateShoot : EnemyStateAbstract {
         projectileObject.transform.SetParent(GameObject.Find("Enemy").transform);
 
         // Make the projectile rigid
+
+        
+        //
         Rigidbody projectileRigid = projectileObject.AddComponent<Rigidbody>();
+        
+        GameObject projectileChild = projectileObject.transform.GetChild(0).gameObject;
+//        Debug.Log("child name:");
+        projectileChild.AddComponent<Rigidbody>();
+        projectileChild.AddComponent<BoxCollider>();
+        
+        
         projectileRigid.useGravity = false;
         projectileRigid.isKinematic = true;
 
