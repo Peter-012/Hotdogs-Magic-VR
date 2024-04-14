@@ -9,8 +9,11 @@ public class ProjectileEnemy : ProjectileAbstract {
     [SerializeField] private float projectileSpeed = 0.3f;
     [SerializeField] private float deleteProjectile = 3f;
 
+    private Object effect;
     void Start() {
         AimProjectile();
+        effect = Resources.Load<Object>("ParticleExplosionRed");
+        
     }
 
     public override void fireProjectile() {
@@ -25,6 +28,8 @@ public class ProjectileEnemy : ProjectileAbstract {
             // Update elapsed time
             currentTime += Time.deltaTime;
 
+            
+            //travelling "up" since relative rotation
             // Move projectile forward
             transform.Translate(Vector3.up * projectileSpeed * Time.deltaTime);
 
@@ -35,16 +40,23 @@ public class ProjectileEnemy : ProjectileAbstract {
         Destroy(gameObject);
     }
 
-    public override void ProjectileHit (GameObject Player) {
-        if (Player.name.Equals("Camera")) {
-            Player1.health--;
-            if (Player1.health <= 0 && Game.startGame == true) {
-                Game.startGame = false;
-                FadePlayer();
-            }
-            base.DestroyProjectile();
-        }
+
+    public override void playExplosion()
+    {
+        StartCoroutine(particleTimer());
     }
+
+    private IEnumerator particleTimer()
+    {
+        GameObject particles = Instantiate(effect, gameObject.transform.position, Quaternion.identity) as GameObject;
+        yield return new WaitForSeconds(1f);
+        Destroy(particles);
+        
+    }
+    
+    
+    
+    
 
     private void AimProjectile() {
         GameObject enemyObject = GameObject.Find("Enemy");
@@ -106,18 +118,5 @@ public class ProjectileEnemy : ProjectileAbstract {
 
         // Adjust the trajectory of projectile
         gameObject.transform.Rotate(verticalAngle, 0, horizontalAngle, Space.Self);
-    }
-
-    private void FadePlayer() {
-        // Disable projectile damage
-        BoxCollider enemyCollider = GameObject.Find("Enemy").GetComponent<BoxCollider>();
-        enemyCollider.isTrigger = false;
-
-        BoxCollider playerCollider = GameObject.Find("Camera").GetComponent<BoxCollider>();
-        playerCollider.isTrigger = false;
-
-        // Fade out back to main menu
-        TransistionScene transition = GameObject.Find("[CameraRig]").GetComponent<TransistionScene>();
-        transition.fadeOutToScene(3f, "MenuScene");
     }
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public static class Game {
     public static bool startGame = false;
+    public static int crates = 3;
 }
 
 public static class Player1 {

@@ -35,7 +35,7 @@ public class EnemyStateManager : MonoBehaviour {
     }
 
     private void initEnemy() {
-        GameObject.Find("Enemy").AddComponent<EnemyDamage>();
+        GameObject.Find("Enemy").AddComponent<EnemyObject>();
     }
 
     public void ChangeState(EnemyStateAbstract state) {

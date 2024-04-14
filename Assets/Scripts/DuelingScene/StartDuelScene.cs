@@ -1,6 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
+
 // using UnityEngine.transform;
 
 public class StartDuelScene : MonoBehaviour {
@@ -9,6 +13,7 @@ public class StartDuelScene : MonoBehaviour {
     [SerializeField] private float volume = 0.2f;
     
     private void Awake() {
+        spawnCrates();
         initSpawnWand();
         initPlayer();
         initEnemy();
@@ -33,7 +38,7 @@ public class StartDuelScene : MonoBehaviour {
 
     private void initPlayer() {
         GameObject playerObject = GameObject.Find("Camera");
-        playerObject.AddComponent<PlayerDamage>();
+        playerObject.AddComponent<PlayerObject>();
     }
 
     private void initEnemy() {
@@ -64,5 +69,30 @@ public class StartDuelScene : MonoBehaviour {
         gameObject.AddComponent<TransistionScene>();
         TransistionScene transition = FindObjectOfType<TransistionScene>();
         transition.fadeInView(fadeInDuration);
+    }
+
+
+
+    private void spawnCrates()
+    {
+        int crates = Game.crates;
+        Object o = Resources.Load<Object>("crate");
+        
+        
+        for (int spawned = 0; spawned < crates; spawned++)
+        {
+            Vector3 pos = new Vector3(0, Random.Range(0f, 3f), Random.Range(-3f, 3f));
+            GameObject crate = Instantiate(o, pos, Quaternion.identity) as GameObject;
+
+            crate.AddComponent<Rigidbody>();
+            crate.AddComponent<BoxCollider>();
+            BoxCollider collider = crate.GetComponent<BoxCollider>();
+            collider.isTrigger = true;
+
+            crate.AddComponent<BoxCollider>();
+            crate.tag = "Crate";
+            crate.AddComponent<CrateObject>();
+
+        }
     }
 }

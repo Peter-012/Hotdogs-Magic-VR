@@ -70,12 +70,12 @@ public class MenuSelection : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collision) {
         
-        Debug.Log("ontrigger:"+collision.gameObject.name);
+    //    Debug.Log("ontrigger:"+collision.gameObject.name);
         MenuOption = collision.GetComponent<IMenuSelection>();
         
-        if (MenuOption!=null)
-            Debug.Log("option:"+MenuOption.GetType().Name);
-        else Debug.Log("option is null");
+   //     if (MenuOption!=null)
+    //        Debug.Log("option:"+MenuOption.GetType().Name);
+    //    else Debug.Log("option is null");
     }
 
     private void OnTriggerExit(Collider other)

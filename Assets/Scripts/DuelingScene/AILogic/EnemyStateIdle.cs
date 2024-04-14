@@ -30,6 +30,8 @@ public class EnemyStateIdle : EnemyStateAbstract {
         if (offset <= threshold) {
             // Change enemy to shoot state when it has moved to the target position
             // Meaning that the enemy is within threshold
+          
+           // state.ChangeState(state.Idle);
             state.ChangeState(state.Shoot);
         } else {
             // Move enemy to the random position
