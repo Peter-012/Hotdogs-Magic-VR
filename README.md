@@ -97,3 +97,6 @@ This class manages how in-game sounds should be played to players in different s
 
 #### TransitionScene.cs
 This is a helper class which contains functionality used to fade in and out a player's view and transition them to another scene.
+
+#### Other:
+We directly modified the SteamVR_Behaviour_Skeleton script in order to add fixes relating to animation and rendering isues on SteamVR's side when running our project. 
