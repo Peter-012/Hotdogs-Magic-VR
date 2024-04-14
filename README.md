@@ -50,19 +50,24 @@ This script instantiates a wand object and prepares the logic for it's interacti
 The wand is then translated and rotated such that it fits the controller's position/rotation.
 
 #### DuelingScene/Wand/WandLogic.cs
-Description
+This script controls the logic for the wand, allowing players to shoot projectiles and adding delay between their shots. The script uses a Coroutine and instantiates projectiles on the tip of the wand before
+releasing them in the direction that the wand is aiming towards.
 
 #### DuelingScene/AILogic/EnemyStateManager.cs
-Description
+This script is a manager for a finite state machine which controls the behaviour of the enemy at different times during the battle. The script initializes the enemy object by attaching an EnemyObject script to it, and 
+ updates the state for the enemy by changing and updating the current state which it is in.
 
 #### DuelingScene/AILogic/EnemyStateIdle.cs
-Description
+This script controls the idle state of the enemy, where it moves randomly to dodge the player's attacks, but does not shoot back at the player. The script uses a random number generator to control where the enemy moves, and updates
+the enemy position based on the current time of the game.
 
 #### DuelingScene/AILogic/EnemyStateShoot.cs
-Description
+The script makes the enemy shoot a projectile at the player by standing still to charge up, and instantiating a projectile object before releasing it in the player's direction. The time between shots is controlled using a
+variable which decides whether the enemy should return to the idle state or stay in the shooting state.
 
 #### DuelingScene/Damage/IDamage.cs
-Description
+This interface is used to collect the projectile types in the game under a common superclass. 
+The interface provides an abstract method for the projectiles which is called when a projectile hits another game object which does not ignore collisions.
 
 #### DuelingScene/Damage/PlayerObject.cs
 Description
