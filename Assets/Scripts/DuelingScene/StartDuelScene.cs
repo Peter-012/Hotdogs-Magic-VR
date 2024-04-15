@@ -79,6 +79,7 @@ public class StartDuelScene : MonoBehaviour {
         enemyObject.AddComponent<EnemyStateManager>();
     }
 
+    
     private void startScene() {
         // Background Dueling Music
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
+using Valve.VR;
 
 public class StartDuel : MonoBehaviour, IMenuSelection {
     [SerializeField] private float fadeOutDuration = 3.0f;
@@ -25,10 +27,37 @@ public class StartDuel : MonoBehaviour, IMenuSelection {
 
     private void StartDuelLogic(GameObject controller) {
         // // Attach wand to hand
+        
+        Vector3 globalPos = controller.transform.TransformPoint(0f,0f,-0.1f);
+        Quaternion rot = controller.transform.rotation;
+        rot *= Quaternion.Euler(Vector3.right * -35);
+
+        string isRight = controller.name;
+        Debug.Log(isRight);
+        if (isRight.ToLower().Contains("right"))
+        {
+            SteamVR_Behaviour_Skeleton.lockRightClench = true;
+        }
+        else
+        {
+            SteamVR_Behaviour_Skeleton.lockLeftClench = true;
+        }
+        
+        
+       // gameObject.transform.position = globalPos - new Vector3(0,-0.1f,0);
+        gameObject.transform.rotation = rot;
+        gameObject.transform.position = globalPos;
+        
+        
         gameObject.AddComponent<FixedJoint>();
         FixedJoint joint = gameObject.GetComponent<FixedJoint>();
         joint.connectedBody = controller.GetComponent<Rigidbody>();
         joint.breakForce = Mathf.Infinity;
+
+
+
+
+        
 
         // Position wand to fit in hand
         // wandObject.transform.position = transform.position;

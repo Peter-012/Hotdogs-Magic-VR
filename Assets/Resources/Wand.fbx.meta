@@ -3,7 +3,12 @@ guid: a8c3d715dbaaeba4a9976f67b5df5ccc
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wand
+    second: {fileID: 2100000, guid: 7c4bfccc2b5eaea498cf0988b9357f9b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
