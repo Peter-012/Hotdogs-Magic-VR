@@ -21,7 +21,9 @@ This game was developed using the Unity Editor version 2022.3.17f1
 Other than the projectile (with collision effects) asset "Fire Ice Projectile - Explosion" which came from the asset store, the low-poly chair model which came from Sketchfab, and the starry-night-sky HDRI from PolyHaven (HDRIHaven), all assets have been created by us using Blender and the Unity shader files.
 
 https://assetstore.unity.com/packages/vfx/particles/fire-ice-projectile-explosion-217688
+
 https://hdri-haven.com/hdri/starry-night-sky-dome
+
 https://sketchfab.com/3d-models/rustic-chair-77afa26a76614fc2b8ed845024af0b58#download
 
 
