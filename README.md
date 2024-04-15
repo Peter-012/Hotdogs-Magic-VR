@@ -8,7 +8,7 @@ Please visit our website at https://peter-012.github.io/Hotdogs-Magic-Website/. 
 All you need is a VR headset linked to a powerful computer and VR controllers to track your hand movements. It is preferable that you have knuckle or wrist straps for your controllers and that you are wearing them since it is quite easy to accidentally throw your controller during play sessions.
 
 ### Play Space
-This game requires you to dodge projectiles by moving left and right in the game. Be sure to have ample room to shuffle left and right and some space to extend your arms forward. Also, it is important to tighten the strap of your headset. This will keep your headset from falling off when playing this game.
+This game requires you to dodge projectiles by moving left and right in the game. Be sure to have ample room to shuffle left and right and space to extend your arms forward. Also, it is important to tighten the strap of your headset. This will keep your headset from falling off when playing this game.
 
 ### Software Setup
 Make sure that you have SteamVR installed on your computer. Under the "Releases" section of GitHub will be a Unity build for the VR game. To play the game, first download and unzip the "Builds" file before running the game "Hotdogs and Magic.exe" (DO NOT click on UnityCrashHander64.exe). It's preferred that you add the game as a non-steam game and make sure to also include the game in your VR Library through the game's properties. That way you can launch the game directly through SteamVR. If you would like to clone the repo and see the code in action within Unity, make sure that you have Unity Editor version 2022.3.17f1 before launching the project and have SteamVR running in the background.
@@ -18,7 +18,7 @@ Make sure that you have SteamVR installed on your computer. Under the "Releases"
 This game was developed using the Unity Editor version 2022.3.17f1
 
 ### Special Assets
-Other than the projectile (with collision effects) asset "Fire Ice Projectile - Explosion" which came from the asset store, the low-poly chair model which came from Sketchfab, and the starry-night-sky HDRI from PolyHaven (HDRIHaven), all assets have been created by us using Blender and the Unity shader files.
+Other than the projectile (with collision effects) asset "Fire Ice Projectile - Explosion" which came from the asset store, the low-poly chair model which came from Sketchfab, and the starry-night-sky HDRI from PolyHaven (HDRIHaven), all assets were created by us using Blender and the Unity shader files.
 
 https://assetstore.unity.com/packages/vfx/particles/fire-ice-projectile-explosion-217688
 
@@ -54,18 +54,18 @@ The script attaches listeners to the controllers, spawns crates, and initializes
 
 #### DuelingScene/Wand/SpawnWand.cs
 This script instantiates a wand object and prepares the logic for its interactions by attaching a script to the wand object.
-The wand is then translated and rotated such that it fits the controller's position/rotation.
+The wand is translated and rotated such that it fits the controller's position/rotation.
 
 #### DuelingScene/Wand/WandLogic.cs
 This script controls the logic for the wand, allowing players to shoot projectiles and adding delay between their shots. The script uses a Coroutine and instantiates projectiles on the tip of the wand before
 releasing them in the direction that the wand is aiming towards.
 
 #### DuelingScene/AILogic/EnemyStateManager.cs
-This script is a manager for a finite state machine that controls the behaviour of the enemy at various times during the battle. The script initializes the enemy object by attaching an EnemyObject script to it, and 
- updates the state for the enemy by changing and updating the current state which it is in.
+This script is a manager for a finite state machine that controls the behaviour of the enemy at various times during the battle. The script initializes the enemy object by attaching an EnemyObject script to it and 
+ updates the state for the enemy's by changing and updating the current state which it is in.
 
 #### DuelingScene/AILogic/EnemyStateIdle.cs
-This script controls the idle state of the enemy, where it moves randomly to dodge the player's attacks, but does not shoot back at the player. The script uses a random number generator to control where the enemy moves, and updates
+This script controls the idle state of the enemy, where it moves randomly to dodge the player's attacks, but does not shoot back at the player. The script uses a random number generator to control where the enemy moves and updates
 the enemy position based on the current time of the game.
 
 #### DuelingScene/AILogic/EnemyStateShoot.cs
@@ -99,7 +99,7 @@ This is a subclass of ProjectileAbstract which is similar to ProjectilePlayer. I
 This is a script that contains classes used to store data used to set different difficulty and environment parameters in the game. Some of these parameters change as the player interacts with objects and others may be fixed after instantiating.
 
 #### SpatialAudio.cs
-This class manages how in-game sounds should be heard when moving around the scene. This script is mainly used to determine the location of the projectiles that are shot by the player or the enemy. Audio volume and panning (left or right ear) are adjusted based on the location of the projectile and the player.
+This class manages how in-game sounds should be heard when moving around the scene. This script is used to determine the location of the projectiles that are shot by the player or the enemy. Audio volume and panning (left or right ear) are adjusted based on the location of the projectile and the player.
 
 #### TransitionScene.cs
 This is a helper class that contains functionality used to fade in and out a player's view and transition them to another scene.
