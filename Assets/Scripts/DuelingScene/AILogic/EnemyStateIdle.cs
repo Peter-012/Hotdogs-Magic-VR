@@ -1,7 +1,7 @@
 using UnityEngine;
 
 public class EnemyStateIdle : EnemyStateAbstract {
-    [SerializeField] private float movementRange = 4.5f;
+    [SerializeField] private float movementRange = 3.5f;
     [SerializeField] private float threshold = 0.2f;
     [SerializeField] private float speed = 1.0f;
     private float currentZPos;
