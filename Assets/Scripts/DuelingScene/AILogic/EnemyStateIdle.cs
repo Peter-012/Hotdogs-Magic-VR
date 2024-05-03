@@ -32,7 +32,7 @@ public class EnemyStateIdle : EnemyStateAbstract {
             // Meaning that the enemy is within threshold
           
            // state.ChangeState(state.Idle);
-            state.ChangeState(state.Shoot);
+       //     state.ChangeState(state.Shoot);
         } else {
             // Move enemy to the random position
             if (currentZPos - finalZPos > 0)

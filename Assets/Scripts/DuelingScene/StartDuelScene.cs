@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using Valve.VR;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -19,6 +21,11 @@ public class StartDuelScene : MonoBehaviour {
         initEnemy();
         startScene();
         Game.startGame = true;
+
+        
+        // SteamVR_Behaviour_Skeleton.lockRightClench = false;
+        // SteamVR_Behaviour_Skeleton.lockLeftClench = false;
+
     }
 
     private void spawnCrates()
@@ -45,14 +52,19 @@ public class StartDuelScene : MonoBehaviour {
     }
 
     private void initSpawnWand() {
-        GameObject leftController;
-        GameObject rightController;
+        GameObject leftController = GameObject.Find("Controller (left)");
+        GameObject rightController = GameObject.Find("Controller (right)");
+        
+        
 
         if (Player1.DominantSide.Equals("left")) {
-            leftController = GameObject.Find("Controller (left)");
+          //  leftController = GameObject.Find("Controller (left)");
+          rightController.AddComponent<MenuSelection>();
             leftController.AddComponent<SpawnWand>();
         } else if (Player1.DominantSide.Equals("right")) {
-            rightController = GameObject.Find("Controller (right)");
+         //   rightController = GameObject.Find("Controller (right)");
+
+         leftController.AddComponent<MenuSelection>();
             rightController.AddComponent<SpawnWand>();
         } else {
             Debug.LogError("Failed to initialize DominantSide variable from PlayerData.");
@@ -62,6 +74,7 @@ public class StartDuelScene : MonoBehaviour {
     private void initPlayer() {
         GameObject playerObject = GameObject.Find("Camera");
         playerObject.AddComponent<PlayerObject>();
+        
     }
 
     private void initEnemy() {
