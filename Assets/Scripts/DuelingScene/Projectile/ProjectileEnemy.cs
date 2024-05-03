@@ -6,19 +6,80 @@ using Valve.VR;
 public class ProjectileEnemy : ProjectileAbstract {
     [SerializeField] private float horizontalNoise = 4f;
     [SerializeField] private float verticalNoise = 2f;
+
     [SerializeField] private float projectileSpeed = 0.3f;
     [SerializeField] private float deleteProjectile = 3f;
 
+    [SerializeField] private Vector3 gameObjectSize = new Vector3(0.25f, 0.25f, 0.25f);
+    private Vector3 initialPos;
+    private BoxCollider boundingBox;
+
     private Object effect;
+
     void Start() {
+        boundingBox = gameObject.AddComponent<BoxCollider>();
+        boundingBox.isTrigger = true;
         AimProjectile();
         effect = Resources.Load<Object>("ParticleExplosionRed");
-        
     }
 
     public override void fireProjectile() {
-        // Let the projectile travel forward
         StartCoroutine(Travel());
+    }
+
+    IEnumerator Travel() {
+        float currentTime = 0;
+
+        while (currentTime < deleteProjectile) {
+            currentTime += Time.deltaTime;
+
+            // Keep track of the previous position of projectile
+            initialPos = transform.position;
+
+            // Move projectile forward
+            transform.Translate(Vector3.forward * projectileSpeed * Time.deltaTime);
+
+            updateBoundingBox();
+
+            yield return null;
+        }
+
+        // Projectile expires
+        Destroy(gameObject);
+    }
+
+    private void updateBoundingBox() {
+        // Final position will always be at local (0, 0, 0)
+
+        // Initial Position Relative to Projectile Final Position
+        initialPos = transform.InverseTransformPoint(initialPos);
+
+        // Box Collider Center //
+
+        // Since final = 0, center = (initial + final) / 2
+
+        boundingBox.center = initialPos * 0.5f;
+
+        // Box Collider Size //
+
+        // Distance between initial and final position
+
+        // Since final = 0, distance = Sqrt(Pow(initialPos.z, 2) + Pow(initialPos.z, 2))
+        // distance = Sqrt(Pow(initialPos.z, 2))
+
+        float distanceZ = Mathf.Sqrt(Mathf.Pow(initialPos.z, 2));
+
+        // This could be simplified to (distanceZ = initialPos.z) 
+        // but it seems to make the size of the bounding box smaller than normal
+
+        // boxSize = initialDefaultSize/2 + finalDefaultSize/2 + distanceZ
+        // Since initialDefaultSize == finalDefaultSize == (gameObjectSize)
+        // boxSize = gameObjectSize + distanceZ
+
+        Vector3 boxSize = gameObjectSize;
+        boxSize.z += distanceZ;
+
+        boundingBox.size = boxSize;
     }
 
     public override void ProjectileHit(GameObject hitObject) {
@@ -28,66 +89,42 @@ public class ProjectileEnemy : ProjectileAbstract {
        }
     }
 
-    IEnumerator Travel() {
-        float currentTime = 0;
-
-        while (currentTime < deleteProjectile) {
-            // Update elapsed time
-            currentTime += Time.deltaTime;
-
-            
-            //travelling "up" since relative rotation
-            // Move projectile forward
-            transform.Translate(Vector3.up * projectileSpeed * Time.deltaTime);
-
-            yield return null;
-        }
-
-        // Projectile expires
-        Destroy(gameObject);
-    }
-
-
-    public override void playExplosion()
-    {
+    public override void playExplosion() {
         StartCoroutine(particleTimer());
     }
 
-    private IEnumerator particleTimer()
-    {
+    private IEnumerator particleTimer() {
         GameObject particles = Instantiate(effect, gameObject.transform.position, Quaternion.identity) as GameObject;
         yield return new WaitForSeconds(1f);
         Destroy(particles);
         
     }
     
-    
-    
-    
-
     private void AimProjectile() {
-        GameObject enemyObject = GameObject.Find("Enemy");
         GameObject playerObject = GameObject.Find("Camera");
         GameObject rigObject = GameObject.Find("[CameraRig]");
 
         //// Calculating Horizontal Angle ////
 
-        float currentZPos = enemyObject.transform.position.z;
-
         // Pythagorean Theorem
+        
+        // Opposite
         float enemyToPlayerZ = 
-            Mathf.Abs(currentZPos - playerObject.transform.position.z);
+            Mathf.Abs(gameObject.transform.position.z - playerObject.transform.position.z);
 
+        // Adjacent
         float enemyToPlayerX = 
-            Mathf.Abs(playerObject.transform.position.x - enemyObject.transform.position.x);
+            Mathf.Abs(playerObject.transform.position.x - gameObject.transform.position.x);
 
+        // Hypotenuse
         float enemyToPlayerHorizontal = 
             Mathf.Sqrt(Mathf.Pow(enemyToPlayerZ, 2f) + Mathf.Pow(enemyToPlayerX, 2f));
 
         float horizontalAngle = Mathf.Rad2Deg * Mathf.Asin(enemyToPlayerZ/enemyToPlayerHorizontal);
 
         // Negative depending on if enemy is past player Z position
-        if (playerObject.transform.position.z - currentZPos > 0) horizontalAngle = -horizontalAngle;
+        if (playerObject.transform.position.z - gameObject.transform.position.z > 0) 
+            horizontalAngle = -horizontalAngle;
 
 
         //// Calculating Vertical Angle ////
@@ -96,22 +133,27 @@ public class ProjectileEnemy : ProjectileAbstract {
 
         // Adjust to aim a bit above the player's center of mass
         float playerCenter = 
-            Mathf.Abs(playerObject.transform.position.y - rigObject.transform.position.y) * 0.75f;
+            Mathf.Abs(playerObject.transform.position.y - rigObject.transform.position.y) * 0.66f;
 
         // Add back the camera rig offset
         playerCenter = playerCenter + rigObject.transform.position.y;
 
+        // Opposite
         float PlayerToProjectile = 
             Mathf.Abs(playerCenter - gameObject.transform.position.y);
 
+        // Adjacent is already calculated from the horizontal angle calculation
+
+        // Hypotenuse
         float enemyToPlayerVertical = 
             Mathf.Sqrt(Mathf.Pow(enemyToPlayerX, 2f) + Mathf.Pow(PlayerToProjectile, 2f));
         
-        float verticalAngle = -1 * Mathf.Rad2Deg * Mathf.Asin(PlayerToProjectile/enemyToPlayerVertical);
+        float verticalAngle = Mathf.Rad2Deg * Mathf.Asin(PlayerToProjectile/enemyToPlayerVertical);
 
-        // Negative depending on if player center is below leveled line of enemy fire
+        // Negative value when player center is above line of enemy fire
         if (playerCenter - gameObject.transform.position.y > 0) 
             verticalAngle = -verticalAngle;
+
 
         // Add noise to the angle data so that enemy is not 100% accurate
         float noiseHorizontal = Random.Range(0, horizontalNoise);
@@ -124,6 +166,6 @@ public class ProjectileEnemy : ProjectileAbstract {
         verticalAngle = verticalAngle + noiseVertical;
 
         // Adjust the trajectory of projectile
-        gameObject.transform.Rotate(verticalAngle, 0, horizontalAngle, Space.Self);
+        gameObject.transform.Rotate(verticalAngle, horizontalAngle, 0);
     }
 }
