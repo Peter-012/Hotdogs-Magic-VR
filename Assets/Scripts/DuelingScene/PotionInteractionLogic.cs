@@ -72,7 +72,7 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
         gameObject.transform.parent = null;
         continueSpawning = true;
         
-        PrepareFlight(controller, null);
+        PrepareFlight(controller);
     }
 
 
@@ -81,7 +81,7 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
     //trajectory (no homing)
     //the update function will eventually call another method to make it a homing missile.
     //this is for the player.
-    public void PrepareFlight(GameObject controller, GameObject target)
+    public void PrepareFlight(GameObject controller)
     {
        BoxCollider col = gameObject.GetComponent<BoxCollider>();
        col.isTrigger = false;
@@ -107,7 +107,7 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
     
     private float[] Rotate(float x, float y)
     {
-        const float ANGLE_RADS = 1.57f;  //this is 45 degrees
+        const float ANGLE_RADS = 1.57f;  //this is 90 degrees
         
         double nx = x*Math.Cos(ANGLE_RADS) - y*Math.Sin(ANGLE_RADS);
         double ny = x*Math.Sin(ANGLE_RADS) + y*Math.Cos(ANGLE_RADS);
