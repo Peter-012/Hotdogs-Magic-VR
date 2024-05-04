@@ -64,7 +64,6 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
         //we wanna ensure we're not redoing stuff for a potion already thrown
         if (wasReleased)
         {
-            Debug.Log("was released:"+gameObject.name);
             return;
         }
 
@@ -92,22 +91,23 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
        
        
        Vector3 vel = pos.GetVelocity(); //this is LOCAL velocity
-       float[] rotations = Rotate(vel.x, vel.z); //rotate by 45* to correct the direction --if the camera had a 
+       float mag = vel.magnitude;
+       vel = vel.normalized;
+       
+       float[] rotations = Rotate(vel.x, vel.z); //rotate by 90* to correct the direction --if the camera had a 
                                                      //higher heirarchy we'd need to do more work
-       
-       
-                                                     
-                                                     
-      // Vector3 angVel = pos.GetAngularVelocity();
-    //   body.angularVelocity = angVel;
-    
-    body.velocity = new Vector3(rotations[0], vel.y, rotations[1]);
-    
+        Vector3 res = new Vector3(rotations[0], vel.y, rotations[1]);
+        res *= mag;
+
+        body.velocity = res;
+
+
+
     }
     
     private float[] Rotate(float x, float y)
     {
-        const float ANGLE_RADS = -0.785f;  //this is 45 degrees
+        const float ANGLE_RADS = 1.57f;  //this is 45 degrees
         
         double nx = x*Math.Cos(ANGLE_RADS) - y*Math.Sin(ANGLE_RADS);
         double ny = x*Math.Sin(ANGLE_RADS) + y*Math.Cos(ANGLE_RADS);
