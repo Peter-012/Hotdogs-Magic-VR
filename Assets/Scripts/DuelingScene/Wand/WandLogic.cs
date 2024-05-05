@@ -82,6 +82,20 @@ public class WandLogic : MonoBehaviour {
         projectileRigid.useGravity = false;
         projectileRigid.isKinematic = true;
 
+        // Make the projectile have a box collider
+        
+        //put the collider on child since it will affect parent
+       // BoxCollider boxCollider = projectileObject.AddComponent<BoxCollider>();
+       
+       
+       GameObject child = projectileObject.transform.GetChild(0).gameObject;
+       child.AddComponent<BoxCollider>();
+       BoxCollider childCollider = child.GetComponent<BoxCollider>();
+        childCollider.size = new Vector3(0.5f, 0.5f, 0.5f);
+        
+        
+      //  boxCollider.isTrigger = true;
+
         // Attach projectile to the wand
         projectileObject.transform.SetParent(GameObject.Find("Wand").transform);
 
