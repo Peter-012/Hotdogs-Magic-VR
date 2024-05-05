@@ -8,6 +8,7 @@ public abstract class ProjectileAbstract : MonoBehaviour, IDamage {
     public static event Action <GameObject> OnCollision;
 
     public abstract void playExplosion();
+    
 
     private void Update() {
         fireProjectile();
@@ -28,10 +29,14 @@ public abstract class ProjectileAbstract : MonoBehaviour, IDamage {
 
     public abstract void fireProjectile();
 
-    private void OnTriggerEnter(Collider other) {
-        // Debug.Log("projectile hit:"+other.gameObject.name+" from: "+gameObject.GetType().FullName);
+    
+    
+    private void OnTriggerEnter(Collider other)
+    {
+      //  Debug.Log("projectile hit:"+other.gameObject.name+" from: "+gameObject.GetType().FullName);
         ProjectileHit(other.gameObject);
     }
+
 
     //called when projectile hit
     public virtual void ProjectileHit(GameObject hitObject)
@@ -50,7 +55,9 @@ public abstract class ProjectileAbstract : MonoBehaviour, IDamage {
        }     
     }
     
+    
     public virtual void DestroyProjectile() {
+        
         playExplosion();
         Destroy(gameObject);
     }
