@@ -45,14 +45,19 @@ public class StartDuelScene : MonoBehaviour {
     }
 
     private void initSpawnWand() {
-        GameObject leftController;
-        GameObject rightController;
+        GameObject leftController = GameObject.Find("Controller (left)");
+        GameObject rightController = GameObject.Find("Controller (right)");
+        
+        
 
         if (Player1.DominantSide.Equals("left")) {
-            leftController = GameObject.Find("Controller (left)");
+            //  leftController = GameObject.Find("Controller (left)");
+            rightController.AddComponent<MenuSelection>();
             leftController.AddComponent<SpawnWand>();
         } else if (Player1.DominantSide.Equals("right")) {
-            rightController = GameObject.Find("Controller (right)");
+            //   rightController = GameObject.Find("Controller (right)");
+
+            leftController.AddComponent<MenuSelection>();
             rightController.AddComponent<SpawnWand>();
         } else {
             Debug.LogError("Failed to initialize DominantSide variable from PlayerData.");
