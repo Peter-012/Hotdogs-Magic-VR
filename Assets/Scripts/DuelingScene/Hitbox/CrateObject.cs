@@ -6,6 +6,8 @@ using UnityEngine;
 public class CrateObject : MonoBehaviour, Entity {
     [SerializeField] private int crateHealth = 3;
 
+    
+    //if we want potions to affect crates we need to change this method
     public bool damageEntity(GameObject damageSource) {
         ProjectilePlayer projectilePlayer = damageSource.GetComponent<ProjectilePlayer>();
         ProjectileEnemy projectileEnemy = damageSource.GetComponent<ProjectileEnemy>();

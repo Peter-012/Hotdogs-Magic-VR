@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bf050514e119c9b4e8aa04fab083ac3f
+guid: acd2fa45ef10473489d25bfb064e70fd
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,17 +7,17 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Cork.001
+      name: Cork
     second: {fileID: 2100000, guid: 4fb431a9654f80f48b1d8850f4ef66c8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Glass.001
-    second: {fileID: 8556262120643298411, guid: 5c1aa719e1ad1654a834beec0579c626, type: 3}
+      name: Glass
+    second: {fileID: 2100000, guid: 481f6da68c0a39243be6b53a41e23970, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Liq.001
+      name: Liq
     second: {fileID: 2100000, guid: 43c46007a032fd64d8b68d7d8805860a, type: 2}
   materials:
     materialImportMode: 2
