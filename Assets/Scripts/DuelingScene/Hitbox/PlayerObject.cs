@@ -177,7 +177,13 @@ public class PlayerObject : MonoBehaviour, Entity {
                         timeWaited = 0;
                         
                         //also allows us to use the onTriggerEnter() event fxn for events
-                        potion.AddComponent<PotionInteractionLogic>();
+                        PotionInteractionLogic logic = potion.AddComponent<PotionInteractionLogic>();
+                        
+                        
+                        /////////////////////////////////////////////
+                        logic.Initialize(gameObject);  //<<<<<<<------------------------------VERY IMPORTANT
+                        /////////////////////////////////////////////
+                        
                         
                         potion.name = potion.name + number; //< this is for debug
                         number++;   //< this is for debug
@@ -219,20 +225,42 @@ public class PlayerObject : MonoBehaviour, Entity {
     public bool damageEntity(GameObject damageSource)
     {
         ProjectilePlayer playerProj = damageSource.GetComponent<ProjectilePlayer>();
-        if (playerProj == null)
-        {
-            Player1.health--;
-            if (Player1.health <= 0 && Game.startGame)
-            {
-                Game.startGame = false;
-                Entity.FadePlayer();
-            }
 
+        PotionInteractionLogic logic = damageSource.GetComponent<PotionInteractionLogic>();
+        if (logic != null)
+        {
+            GameObject owner = logic.GetOwner();
+            if (owner.GetComponent<PlayerObject>() != null)
+                return false;
+            else
+            {
+                return DecreaseHealth(3);
+            }
+        }
+        
+        if (playerProj == null)
+         return DecreaseHealth(1);
+        
+        return false;
+    }
+
+    
+    
+    private bool DecreaseHealth(int decrement)
+    {
+        Player1.health -= decrement;
+        if (Player1.health <= 0 && Game.startGame)
+        {
+            Game.startGame = false;
+            Entity.FadePlayer();
             return true;
         }
 
         return false;
     }
+    
+    
+    
 
     //the hitboxes of player/enemy are already triggers...
 

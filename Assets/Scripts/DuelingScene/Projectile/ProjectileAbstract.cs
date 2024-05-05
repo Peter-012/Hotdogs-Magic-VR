@@ -50,7 +50,7 @@ public abstract class ProjectileAbstract : MonoBehaviour, IDamage {
        if (damage)
         DestroyProjectile();
 
-        if (hitObject.tag.Equals("Crate")) {
+       if (hitObject.tag.Equals("Crate")) {
            DestroyProjectile();
        }     
     }

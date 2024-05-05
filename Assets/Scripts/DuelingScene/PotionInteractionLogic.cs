@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DuelingScene.Entity;
 using UnityEngine;
 using Valve.VR;
 
@@ -23,6 +24,8 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
     
     private bool wasSelected;
     private bool wasReleased;
+
+    private GameObject owner;
     
     
     
@@ -34,7 +37,16 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
         col.isTrigger = true;
     }
 
- 
+    //This should be set when the game object is created
+    public void Initialize(GameObject owner)
+    {
+        this.owner = owner;
+    }
+
+    public GameObject GetOwner()
+    {
+        return owner;
+    }
     
     public void Select(GameObject controller)
     {
@@ -63,12 +75,10 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
         //on trigger released is called multiple times in different contexts so 
         //we wanna ensure we're not redoing stuff for a potion already thrown
         if (wasReleased)
-        {
             return;
-        }
+        
 
         wasReleased = true;
-        
         gameObject.transform.parent = null;
         continueSpawning = true;
         
@@ -91,6 +101,7 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
        
        
        Vector3 vel = pos.GetVelocity(); //this is LOCAL velocity
+       
        float mag = vel.magnitude;
        vel = vel.normalized;
        
@@ -98,13 +109,13 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
                                                      //higher heirarchy we'd need to do more work
         Vector3 res = new Vector3(rotations[0], vel.y, rotations[1]);
         res *= mag;
-
+           //transform.transformPoint() did not work on this for some reason...
+        
         body.velocity = res;
-
-
-
+        
     }
     
+
     private float[] Rotate(float x, float y)
     {
         const float ANGLE_RADS = 1.57f;  //this is 90 degrees
@@ -114,6 +125,39 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
         return new float[] { (float)nx, (float)ny };
     }
     
+    
+    
+    private static string[] tags = new string[] { "Crate, Environment" };
+    public void OnTriggerEnter(Collider other)
+    {
+        if (!wasReleased)
+            return;
+
+        GameObject hitObject = other.gameObject;
+        foreach (string s in tags)
+            if (hitObject.tag.Equals(s))
+            {
+                Explode();
+                return;
+            }
+
+        Entity e = hitObject.GetComponent<Entity>();
+        if (e != null)
+        {
+          bool damaged = e.damageEntity(gameObject);
+          if (damaged)
+              Explode();
+        }
+
+    }
+
+
+    public void Explode()
+    {
+        //do some cool fun particle stuff here
+        Destroy(this);
+    }
+
     
     
     public Vector3 NextMovement()
