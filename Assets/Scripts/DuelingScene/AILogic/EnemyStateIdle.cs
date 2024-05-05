@@ -31,7 +31,7 @@ public class EnemyStateIdle : EnemyStateAbstract {
         if (offset <= threshold) {
             // Change enemy to shoot or potion state when it has moved to the target position
             // Meaning that the enemy is within threshold
-          
+        
             if (Random.value <= shootPercent) {
                 state.ChangeState(state.Shoot);
             } else {

@@ -29,35 +29,19 @@ public class EnemyObject : MonoBehaviour, Entity {
     public bool damageEntity(GameObject damageSource)
     {
         ProjectileEnemy enemy = damageSource.GetComponent<ProjectileEnemy>();
-        PotionInteractionLogic logic = damageSource.GetComponent<PotionInteractionLogic>();
-
-        if (logic != null)
-        {
-           GameObject projectileOwner = logic.GetOwner();
-           if (projectileOwner.GetComponent<EnemyObject>() == null)
-               return false;
-           else
-               return DecreaseHealth(3);
-           
-        }
-        
         //ensure that the projectile is not from self
         if (enemy == null)
-            return DecreaseHealth(1);
-
-        return false;
-    }
-
-    private bool DecreaseHealth(int decrement)
-    {
-        Player2.health -= decrement;
-        if (Player2.health <= 0 && Game.startGame)
         {
-            Game.startGame = false;
-            this.die();
 
-            Entity.FadePlayer(); //kinda stupid but we need it to be static cause I don't think this is C# 8.0 - Talon
-            return true;
+            Player2.health--;
+            if (Player2.health <= 0 && Game.startGame)
+            {
+                Game.startGame = false;
+                this.die();
+
+                Entity.FadePlayer(); //kinda stupid but we need it to be static cause I don't think this is C# 8.0 - Talon
+                return true;
+            }
         }
 
         return false;

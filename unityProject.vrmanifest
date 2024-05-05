@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.wizardproject.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\jiang\\Desktop\\ICS\\Languages\\C Language\\C#\\Unity Projects\\WizardProject\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "action_manifest_path": "C:\\Users\\b1ank\\Desktop\\Github\\WizardProject\\Assets\\StreamingAssets\\SteamVR\\actions.json",
       "strings": {
         "en_us": {
           "name": "WizardProject [Testing]"
