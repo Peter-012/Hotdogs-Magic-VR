@@ -220,12 +220,10 @@ public class PlayerObject : MonoBehaviour, Entity {
         if (logic != null)
         {
             GameObject owner = logic.GetOwner();
-            if (owner.GetComponent<PlayerObject>() != null)
-                return false;
-            else
-            {
+            if (owner.GetComponent<PlayerObject>() == null)
                 return DecreaseHealth(3);
-            }
+            return false;
+          
         }
         
         if (playerProj == null)
