@@ -49,6 +49,7 @@ public class EnemyObject : MonoBehaviour, Entity {
         return false;
     }
 
+
     private bool DecreaseHealth(int decrement)
     {
         Player2.health -= decrement;
@@ -58,10 +59,10 @@ public class EnemyObject : MonoBehaviour, Entity {
             this.die();
 
             Entity.FadePlayer(); //kinda stupid but we need it to be static cause I don't think this is C# 8.0 - Talon
-            return true;
+            
         }
 
-        return false;
+        return true;
     }
 
 

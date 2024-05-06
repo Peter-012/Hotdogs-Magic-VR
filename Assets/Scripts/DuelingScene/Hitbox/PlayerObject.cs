@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using DuelingScene.Entity;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
@@ -53,9 +54,9 @@ public class PlayerObject : MonoBehaviour, Entity {
 
     
     
-        private void createPotionCircles()
+    private void createPotionCircles()
     {
-        
+        string domHand = Player1.DominantSide;
         
         potionCircles = new GameObject[NUM_CIRCLES];
         circleOffsets = new Vector3[NUM_CIRCLES];
@@ -128,8 +129,6 @@ public class PlayerObject : MonoBehaviour, Entity {
         {
             //use that y value, set it to the y of (offset+camera pos, excluding y).
             
-            
-            
             Vector3 pos = new Vector3(cameraPos.x + circleOffsets[index].x, height + parentTrans.position.y,
                 cameraPos.z + circleOffsets[index].z);
             
@@ -148,7 +147,11 @@ public class PlayerObject : MonoBehaviour, Entity {
         while (current.Equals(duelingScene))
         {
             current = SceneManager.GetActiveScene();
-            if (timeWaited < POTION_TIME || !PotionInteractionLogic.continueSpawning)
+            if (!PotionInteractionLogic.continueSpawning)
+            {
+                yield return new WaitForSeconds(1f);
+            }
+            else if (timeWaited < POTION_TIME)
             {
                 timeWaited++;
                 yield return new WaitForSeconds(1f);
@@ -227,9 +230,9 @@ public class PlayerObject : MonoBehaviour, Entity {
         
         return false;
     }
-    
-    
-    
+
+
+
     private bool DecreaseHealth(int decrement)
     {
         Player1.health -= decrement;
@@ -237,30 +240,12 @@ public class PlayerObject : MonoBehaviour, Entity {
         {
             Game.startGame = false;
             Entity.FadePlayer();
-            return true;
+
         }
 
-        return false;
+        return true;
     }
-    
-    
 
-    //the hitboxes of player/enemy are already triggers...
-
-    
-    //
-    // //this is put on the player
-    // //so this is for player damaging
-    // //instead of using this how about we have the projectiles as triggers instead???
-    // public void OnTriggerEnter(Collider collision) {
-    //     //not sure why damage is an instance variable
-    //     
-    //     Damage = collision.GetComponent<IDamage>();
-    //     
-    //     if (Damage != null)
-    //         Damage.Hit(gameObject);
-    // }
-    
 
     private void UpdatePlayerHitbox() {
         float boxCollierY = gameObject.transform.position.y;
