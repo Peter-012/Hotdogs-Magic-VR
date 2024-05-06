@@ -57,6 +57,9 @@ public class PlayerObject : MonoBehaviour, Entity {
     private void createPotionCircles()
     {
         string domHand = Player1.DominantSide;
+        int dir = domHand.Equals("right") ? 1 : -1;
+        
+        
         
         potionCircles = new GameObject[NUM_CIRCLES];
         circleOffsets = new Vector3[NUM_CIRCLES];
@@ -84,7 +87,7 @@ public class PlayerObject : MonoBehaviour, Entity {
         float totalOffset = MARGIN * NUM_CIRCLES;
         float angleHalf = totalOffset / 2; //the angles for one side of the potions
         
-        float[] newAngle = rotate(frontDirection.x, frontDirection.z, angleHalf);  //+angle since we're going leftwards
+        float[] newAngle = rotate(frontDirection.x, frontDirection.z, dir * angleHalf);  //+angle since we're going leftwards
         
         
         for (int circlesLeft = NUM_CIRCLES; circlesLeft > 0; circlesLeft--)
@@ -93,7 +96,7 @@ public class PlayerObject : MonoBehaviour, Entity {
             Vector3 offset = new Vector3(newAngle[0], 0, newAngle[1]) / 2;  //   /2 to make the circles closer to the player. Adjust as needed.
             spawnPos += offset;
             GameObject circleInstance = Instantiate(circlePrefab, spawnPos, Quaternion.identity) as GameObject;
-            newAngle = rotate(newAngle[0], newAngle[1], -MARGIN);
+            newAngle = rotate(newAngle[0], newAngle[1], -dir * MARGIN);  //-margin
 
           //  circleInstance.transform.parent = gameObject.transform;
             
