@@ -214,21 +214,12 @@ public class PlayerObject : MonoBehaviour, Entity {
     //@Override from Entity
     public bool damageEntity(GameObject damageSource)
     {
-        ProjectilePlayer playerProj = damageSource.GetComponent<ProjectilePlayer>();
+        PotionEnemy potion = damageSource.GetComponent<PotionEnemy>();
+        ProjectileEnemy projectile = damageSource.GetComponent<ProjectileEnemy>();
 
-        PotionInteractionLogic logic = damageSource.GetComponent<PotionInteractionLogic>();
-        if (logic != null)
-        {
-            GameObject owner = logic.GetOwner();
-            if (owner.GetComponent<PlayerObject>() == null)
-                return DecreaseHealth(3);
-            return false;
-          
-        }
-        
-        if (playerProj == null)
-            return DecreaseHealth(1);
-        
+        if (potion != null) return DecreaseHealth(3);
+        if (projectile != null) return DecreaseHealth(1);
+
         return false;
     }
 

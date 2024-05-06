@@ -5,13 +5,13 @@ using System;
 using DuelingScene.Entity;
 
 public abstract class PotionAbstract : MonoBehaviour, IDamage {
-    [SerializeField] private float potionSpeed = 0.01f;
-    [SerializeField] private float deletePotion = 3f;
+    [SerializeField] private float potionSpeed = 0.05f;
+    [SerializeField] private float deletePotion = 20f;
     [SerializeField] protected float delayTime = 0.5f;
 
     protected bool delayPotion;
 
-    [SerializeField] private Vector3 gameObjectSize = new Vector3(0.25f, 0.25f, 0.25f);
+    [SerializeField] private Vector3 gameObjectSize = new Vector3(0.003f, 0.003f, 0.003f);
     private Vector3 initialPos;
     
     public static event Action <GameObject> OnCollision;
@@ -82,6 +82,10 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
         if (e != null) damage = e.damageEntity(gameObject);
        
         if (damage) DestroyPotion();
+        // if (
+        //     hitObject.tag.Equals("ProjectilePlayer") || 
+        //     hitObject.tag.Equals("ProjectileEnemy")
+        // ) DestroyPotion();
         if (hitObject.tag.Equals("Crate")) DestroyPotion();
         if (hitObject.tag.Equals("Environment")) DestroyPotion();
     }

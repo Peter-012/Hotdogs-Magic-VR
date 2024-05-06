@@ -82,7 +82,7 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
         gameObject.transform.parent = null;
         continueSpawning = true;
 
-        gameObject.AddComponent<PotionPlayer>(); ///////// Add the script needed to make the potion fly
+        //gameObject.AddComponent<PotionPlayer>(); ///////// Add the script needed to make the potion fly
         PrepareFlight(controller);
     }
 
