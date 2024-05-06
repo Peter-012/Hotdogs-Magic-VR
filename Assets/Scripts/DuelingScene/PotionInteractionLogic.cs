@@ -158,9 +158,6 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
 
           return;
         }
-        
-
-
     }
 
 
@@ -168,18 +165,6 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
     {
         //do some cool fun particle stuff here
         Destroy(gameObject);
-        
-    }
-
-    
-    
-    public Vector3 NextMovement()
-    {
-        return Vector3.zero;
-    }
-    
-    public void FixedUpdate()
-    {
         
     }
 }
