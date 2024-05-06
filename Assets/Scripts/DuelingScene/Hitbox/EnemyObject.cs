@@ -29,23 +29,11 @@ public class EnemyObject : MonoBehaviour, Entity {
 
     public bool damageEntity(GameObject damageSource)
     {
-        ProjectileEnemy enemy = damageSource.GetComponent<ProjectileEnemy>();
-        PotionInteractionLogic logic = damageSource.GetComponent<PotionInteractionLogic>();
+        PotionPlayer potion = damageSource.GetComponent<PotionPlayer>();
+        ProjectilePlayer projectile = damageSource.GetComponent<ProjectilePlayer>();
 
-        if (logic != null)
-        {
-            Debug.Log("1");
-            GameObject projectileOwner = logic.GetOwner();
-            if (projectileOwner.GetComponent<EnemyObject>() == null)
-                return DecreaseHealth(3);
-            return false;
-            
-        }
-        
-        Debug.Log("2");
-        //ensure that the projectile is not from self
-        if (enemy == null)
-            return DecreaseHealth(1);
+        if (potion != null) return DecreaseHealth(3);
+        if (projectile != null) return DecreaseHealth(1);
 
         return false;
     }

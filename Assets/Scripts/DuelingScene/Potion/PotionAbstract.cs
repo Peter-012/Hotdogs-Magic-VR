@@ -7,9 +7,9 @@ using DuelingScene.Entity;
 public abstract class PotionAbstract : MonoBehaviour, IDamage {
     [SerializeField] private float potionSpeed = 0.01f;
     [SerializeField] private float deletePotion = 3f;
-    public float delayTime = 0.5f;
+    [SerializeField] protected float delayTime = 0.5f;
 
-    public bool delayPotion;
+    protected bool delayPotion;
 
     [SerializeField] private Vector3 gameObjectSize = new Vector3(0.25f, 0.25f, 0.25f);
     private Vector3 initialPos;
@@ -88,7 +88,7 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
     
     public void DestroyPotion() {
         // playExplosion();
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 
     // public override void playExplosion() {
