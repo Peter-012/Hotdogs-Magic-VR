@@ -33,9 +33,9 @@ public class EnemyStateIdle : EnemyStateAbstract {
             // Meaning that the enemy is within threshold
         
             if (Random.value <= shootPercent) {
-           //     state.ChangeState(state.Shoot);
+               state.ChangeState(state.Shoot);
             } else {
-            //    state.ChangeState(state.Potion);
+               state.ChangeState(state.Potion);
             }
         } else {
             // Move enemy to the random position
