@@ -7,9 +7,9 @@ using DuelingScene.Entity;
 public abstract class PotionAbstract : MonoBehaviour, IDamage {
     [SerializeField] private float potionSpeed = 0.01f;
     [SerializeField] private float deletePotion = 3f;
-    [SerializeField] private float delayTime = 0.5f;
+    public float delayTime = 0.5f;
 
-    private bool delayPotion;
+    public bool delayPotion;
 
     [SerializeField] private Vector3 gameObjectSize = new Vector3(0.25f, 0.25f, 0.25f);
     private Vector3 initialPos;
@@ -48,22 +48,7 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
         OnCollision -= PotionHit;
     }
 
-    private IEnumerator DelayPotion() {
-        yield return new WaitForSeconds(delayTime);
-
-        Rigidbody potionRigid = 
-            gameObject.GetComponent<Rigidbody>();
-        potionRigid.useGravity = false;
-        potionRigid.isKinematic = true;
-
-        // Reset orientation of the potion
-        transform.rotation = Quaternion.identity;
-        transform.Rotate(0, 90, 0);
-
-        AimPotion();
-
-        delayPotion = false;
-    }
+    public abstract IEnumerator DelayPotion();
 
     private IEnumerator FirePotion() {
         float currentTime = 0;
@@ -90,7 +75,7 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
         PotionHit(other.gameObject);
     }
 
-    public virtual void PotionHit(GameObject hitObject) {
+    public void PotionHit(GameObject hitObject) {
         bool damage = false;
 
         Entity e = hitObject.GetComponent<Entity>();
@@ -101,7 +86,7 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
         if (hitObject.tag.Equals("Environment")) DestroyPotion();
     }
     
-    public virtual void DestroyPotion() {
+    public void DestroyPotion() {
         // playExplosion();
         Destroy(gameObject);
     }
@@ -151,8 +136,8 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
         boundingBox.size = boxSize;
     }
 
-    private void AimPotion() {
-        GameObject playerObject = GameObject.Find("Camera");
+    public void AimPotion(GameObject targetObject) {
+        // GameObject playerObject = GameObject.Find("Camera");
         GameObject rigObject = GameObject.Find("[CameraRig]");
 
         //// Calculating Horizontal Angle ////
@@ -161,11 +146,11 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
         
         // Opposite
         float enemyToPlayerZ = 
-            Mathf.Abs(gameObject.transform.position.z - playerObject.transform.position.z);
+            Mathf.Abs(gameObject.transform.position.z - targetObject.transform.position.z);
 
         // Adjacent
         float enemyToPlayerX = 
-            Mathf.Abs(playerObject.transform.position.x - gameObject.transform.position.x);
+            Mathf.Abs(targetObject.transform.position.x - gameObject.transform.position.x);
 
         // Hypotenuse
         float enemyToPlayerHorizontal = 
@@ -174,7 +159,7 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
         float horizontalAngle = Mathf.Rad2Deg * Mathf.Asin(enemyToPlayerZ/enemyToPlayerHorizontal);
 
         // Negative depending on if enemy is past player Z position
-        if (playerObject.transform.position.z - gameObject.transform.position.z > 0) 
+        if (targetObject.transform.position.z - gameObject.transform.position.z > 0) 
             horizontalAngle = -horizontalAngle;
 
 
@@ -184,7 +169,7 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
 
         // Adjust to aim a bit above the player's center of mass
         float playerCenter = 
-            Mathf.Abs(playerObject.transform.position.y - rigObject.transform.position.y) * 0.66f;
+            Mathf.Abs(targetObject.transform.position.y - rigObject.transform.position.y) * 0.66f;
 
         // Add back the camera rig offset
         playerCenter = playerCenter + rigObject.transform.position.y;

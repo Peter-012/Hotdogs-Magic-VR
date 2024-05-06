@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
 
-public class PotionEnemy : PotionAbstract {
+public class PotionPlayer : PotionAbstract {
 
     public override IEnumerator DelayPotion() {
         yield return new WaitForSeconds(delayTime);
@@ -17,7 +17,7 @@ public class PotionEnemy : PotionAbstract {
         transform.rotation = Quaternion.identity;
         transform.Rotate(0, 90, 0);
 
-        GameObject playerObject = GameObject.Find("Camera");
+        GameObject playerObject = GameObject.Find("Enemy");
         AimPotion(playerObject);
 
         delayPotion = false;
