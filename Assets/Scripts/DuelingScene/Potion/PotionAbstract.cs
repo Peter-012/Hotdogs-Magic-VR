@@ -56,8 +56,12 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
         potionRigid.useGravity = false;
         potionRigid.isKinematic = true;
 
+        // Reset orientation of the potion
+        transform.rotation = Quaternion.identity;
+        transform.Rotate(0, 90, 0);
+
         AimPotion();
-        
+
         delayPotion = false;
     }
 
