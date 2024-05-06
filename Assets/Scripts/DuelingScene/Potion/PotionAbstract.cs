@@ -23,7 +23,10 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
     void Start() {
         // effect = Resources.Load<Object>("ParticleExplosionRed");
 
-        boundingBox = gameObject.AddComponent<BoxCollider>();
+        boundingBox = gameObject.GetComponent<BoxCollider>();
+        if (boundingBox == null)
+            boundingBox = gameObject.AddComponent<BoxCollider>();
+
         boundingBox.isTrigger = true;
 
         delayPotion = true;
