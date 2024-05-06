@@ -47,8 +47,10 @@ public class MenuSelection : MonoBehaviour {
     private void Update() {
         
         
-        if (ActionBoolean.GetStateDown(InputSource)) {
-
+        if (ActionBoolean.GetStateDown(InputSource))
+        {
+            isKeyPressed = true;
+            
          if (isRight)
              SteamVR_Behaviour_Skeleton.isRightClenching = true;
          else
@@ -57,7 +59,7 @@ public class MenuSelection : MonoBehaviour {
          if (MenuOption == null)
                 return;
          
-            MenuOption.Select(gameObject);
+         MenuOption.Select(gameObject);
         }
         else if (ActionBoolean.GetStateUp(InputSource))
         {

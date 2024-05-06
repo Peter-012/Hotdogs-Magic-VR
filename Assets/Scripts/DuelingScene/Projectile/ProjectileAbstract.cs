@@ -39,8 +39,10 @@ public abstract class ProjectileAbstract : MonoBehaviour, IDamage {
        Entity e = hitObject.GetComponent<Entity>();
        bool damage = false;
        if (e != null)
-          damage = e.damageEntity(gameObject);  //the current game object
-       
+       {
+           damage = e.damageEntity(gameObject); //the current game object
+       }
+
        //do the trigger stuff here for the wand + flashy bits
        if (damage)
         DestroyProjectile();
