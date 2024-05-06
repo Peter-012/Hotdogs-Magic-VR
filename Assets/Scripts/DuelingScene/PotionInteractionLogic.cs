@@ -127,17 +127,19 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
     
     
     
-    private static string[] tags = new string[] { "Crate, Environment" };
-    
-    
+    private static string[] tags = new string[] { "Crate","Environment" };
     
 //    !!!Untested!!! (all below)
     public void OnTriggerEnter(Collider other)
     {
         if (!wasReleased)
+        {
+    
             return;
+        }
 
         GameObject hitObject = other.gameObject;
+
         foreach (string s in tags)
             if (hitObject.tag.Equals(s))
             {
@@ -148,10 +150,16 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
         Entity e = hitObject.GetComponent<Entity>();
         if (e != null)
         {
+   
           bool damaged = e.damageEntity(gameObject);
+          Debug.Log("damage:"+damaged);
           if (damaged)
               Explode();
+
+          return;
         }
+        
+
 
     }
 
@@ -159,7 +167,8 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
     public void Explode()
     {
         //do some cool fun particle stuff here
-        Destroy(this);
+        Destroy(gameObject);
+        
     }
 
     

@@ -34,14 +34,15 @@ public class EnemyObject : MonoBehaviour, Entity {
 
         if (logic != null)
         {
+            Debug.Log("1");
             GameObject projectileOwner = logic.GetOwner();
             if (projectileOwner.GetComponent<EnemyObject>() == null)
-                return false;
-            else
                 return DecreaseHealth(3);
-           
+            return false;
+            
         }
         
+        Debug.Log("2");
         //ensure that the projectile is not from self
         if (enemy == null)
             return DecreaseHealth(1);
