@@ -7,7 +7,7 @@ public static class Game {
 
 public static class Player1 {
     public static string DominantSide = "right";
-    public static int health = 10;
+    public static int health = 10000;
 }
 
 public static class Player2 {

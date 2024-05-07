@@ -4,7 +4,8 @@ public class EnemyStatePotion : EnemyStateAbstract {
     [SerializeField] private float delayMovement = 1f;
     private float currentTime;
 
-    [SerializeField] private string PotionPath = "PotionEnemy";
+    [SerializeField] private string PotionPath = "EnchantedPotion";
+    [SerializeField] private string PotionName = "PotionEnemy";
     private GameObject potionObject;
     private Rigidbody potionRigid;
 
@@ -34,7 +35,7 @@ public class EnemyStatePotion : EnemyStateAbstract {
         // Spawn a potion from the enemy
         Object potionPrefab = Resources.Load<Object>(PotionPath);
         potionObject = GameObject.Instantiate(potionPrefab, position, rotation) as GameObject;
-        potionObject.name = PotionPath;
+        potionObject.name = PotionName;
 
         // Attach potion to the enemy
         potionObject.transform.SetParent(GameObject.Find("Enemy").transform);
@@ -49,6 +50,9 @@ public class EnemyStatePotion : EnemyStateAbstract {
         
         // Add spatial audio
         potionObject.AddComponent<SpatialAudio>();
+
+        // Travel Component for Potion
+        potionObject.AddComponent<PotionEnemy>();
     }
 
     private void throwPotion() {
