@@ -1,6 +1,6 @@
 # Hotdogs and Magic - User Manual
 
-Please visit our website at https://peter-012.github.io/Hotdogs-Magic-Website/. It includes features like a demo video and a tutorial on how to play. You can find a copy of the website under the folder "Website" within the GitHub repo.
+Please visit our website at https://peter-012.github.io/Hotdogs-Magic-Website/. It includes features like a demo video and a tutorial on how to play.
 
 ## Setup Guide
 
