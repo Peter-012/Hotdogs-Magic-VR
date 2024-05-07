@@ -85,17 +85,17 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
         if (e != null) damage = e.damageEntity(gameObject);
        
         if (damage) DestroyPotion();
-        // if (
-        //     hitObject.tag.Equals("ProjectilePlayer") || 
-        //     hitObject.tag.Equals("ProjectileEnemy")
-        // ) DestroyPotion();
+        if (
+            hitObject.name.Equals("ProjectilePlayer") || 
+            hitObject.name.Equals("ProjectileEnemy")
+        ) DestroyPotion();
         if (hitObject.tag.Equals("Crate")) DestroyPotion();
         if (hitObject.tag.Equals("Environment")) DestroyPotion();
     }
     
     public void DestroyPotion() {
         // playExplosion();
-        //Destroy(gameObject);
+        Destroy(gameObject);
     }
 
     // public override void playExplosion() {
