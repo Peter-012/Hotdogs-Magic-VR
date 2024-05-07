@@ -10,13 +10,20 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
     [SerializeField] protected float delayTime = 0.5f;
 
     protected bool delayPotionBool;
+    [SerializeField] protected Vector3 rotateReset;
 
     [SerializeField] private Vector3 gameObjectSize = new Vector3(0.003f, 0.003f, 0.003f);
     
     public static event Action <GameObject> OnCollision;
     private BoxCollider potionCollider;
 
-    public virtual void Start() {
+    private void Awake() {
+        Init();
+    }
+
+    protected abstract void Init();
+
+    protected virtual void Start() {
 
         potionCollider = gameObject.GetComponent<BoxCollider>();
         if (potionCollider == null)
@@ -27,6 +34,23 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
 
         delayPotionBool = true;
         StartCoroutine(DelayPotion());
+    }
+
+    private IEnumerator DelayPotion() {
+        yield return new WaitForSeconds(delayTime);
+
+        Rigidbody potionRigid = 
+            gameObject.GetComponent<Rigidbody>();
+        potionRigid.useGravity = false;
+        potionRigid.isKinematic = true;
+
+        // Reset orientation of the potion
+        transform.rotation = Quaternion.identity;
+        transform.Rotate(rotateReset.x, rotateReset.y, rotateReset.z);
+
+        AimPotion();
+
+        delayPotionBool = false;
     }
 
     private void Update() {
@@ -66,8 +90,6 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
     private void OnTriggerEnter(Collider other) {
         PotionHit(other.gameObject);
     }
-
-    public abstract IEnumerator DelayPotion();
 
     public void PotionHit(GameObject hitObject) {
         bool damage = false;

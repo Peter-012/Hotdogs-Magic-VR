@@ -6,57 +6,17 @@ using Valve.VR;
 public class PotionPlayer : PotionAbstract {
     private GameObject targetObject;
 
-    public override void Start() {
+    protected override void Init() {
+        rotateReset = new Vector3(0, -90, 0);
+    }
+
+    protected override void Start() {
         targetObject = GameObject.Find("Enemy");
         base.Start();
     }
 
-    public override IEnumerator DelayPotion() {
-        yield return new WaitForSeconds(delayTime);
-
-        Rigidbody potionRigid = 
-            gameObject.GetComponent<Rigidbody>();
-        potionRigid.useGravity = false;
-        potionRigid.isKinematic = true;
-
-        // Reset orientation of the potion
-        transform.rotation = Quaternion.identity;
-        transform.Rotate(0, -90, 0);
-
-        AimPotion();
-
-        delayPotionBool = false;
-    }
-
     public override void AimPotion() {
         GameObject rigObject = GameObject.Find("[CameraRig]");
-
-        //// Calculating Horizontal Angle ////
-
-        // Better to just have vertical tracking so that players can time 
-        // when the potion hits the enemy. (Ignore horizontal angle logic)
-        float horizontalAngle = 0;
-
-        // Pythagorean Theorem
-        
-        // // Opposite
-        // float potionToEnemyZ = 
-        //     Mathf.Abs(gameObject.transform.position.z - targetObject.transform.position.z);
-
-        // Adjacent (Need for both horizontal and vertical angle calulations)
-        float potionToEnemyX = 
-            Mathf.Abs(targetObject.transform.position.x - gameObject.transform.position.x);
-        
-        // // Hypotenuse
-        // float enemyToPlayerHorizontal = 
-        //     Mathf.Sqrt(Mathf.Pow(potionToEnemyZ, 2f) + Mathf.Pow(potionToEnemyX, 2f));
-
-        // float horizontalAngle = Mathf.Rad2Deg * Mathf.Asin(potionToEnemyZ/enemyToPlayerHorizontal);
-
-        // // Negative depending on if potion is past enemy Z position
-        // if (targetObject.transform.position.z - gameObject.transform.position.z < 0) 
-        //     horizontalAngle = -horizontalAngle;
-
 
         //// Calculating Vertical Angle ////
 
@@ -73,7 +33,9 @@ public class PotionPlayer : PotionAbstract {
         float PlayerToPotion = 
             Mathf.Abs(enemyCenter - gameObject.transform.position.y);
 
-        // Adjacent is already calculated from the horizontal angle calculation
+        // Adjacent
+        float potionToEnemyX = 
+            Mathf.Abs(targetObject.transform.position.x - gameObject.transform.position.x);
 
         // Hypotenuse
         float enemyToPlayerVertical = 
@@ -84,6 +46,16 @@ public class PotionPlayer : PotionAbstract {
         // Negative value when enemy center is above line of enemy fire
         if (enemyCenter - gameObject.transform.position.y > 0) 
             verticalAngle = -verticalAngle;
+
+
+
+        //// Calculating Horizontal Angle ////
+
+        // Better to just have vertical tracking so that players can time 
+        // when the potion hits the enemy. (Ignore horizontal angle logic)
+        float horizontalAngle = 0;
+
+
 
         // Adjust the trajectory of potion
         gameObject.transform.Rotate(verticalAngle, horizontalAngle, 0);

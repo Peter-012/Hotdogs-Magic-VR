@@ -6,26 +6,13 @@ using Valve.VR;
 public class PotionEnemy : PotionAbstract {
     private GameObject targetObject;
 
-    public override void Start() {
-        targetObject = GameObject.Find("Camera");
-        base.Start();
+    protected override void Init() {
+        rotateReset = new Vector3(0, 90, 0);
     }
 
-    public override IEnumerator DelayPotion() {
-        yield return new WaitForSeconds(delayTime);
-
-        Rigidbody potionRigid = 
-            gameObject.GetComponent<Rigidbody>();
-        potionRigid.useGravity = false;
-        potionRigid.isKinematic = true;
-
-        // Reset orientation of the potion
-        transform.rotation = Quaternion.identity;
-        transform.Rotate(0, 90, 0);
-
-        AimPotion();
-
-        delayPotionBool = false;
+    protected override void Start() {
+        targetObject = GameObject.Find("Camera");
+        base.Start();
     }
 
     public override void AimPotion() {
