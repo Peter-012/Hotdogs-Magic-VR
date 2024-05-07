@@ -48,6 +48,8 @@ public class StartDuelScene : MonoBehaviour {
         GameObject leftController = GameObject.Find("Controller (left)");
         GameObject rightController = GameObject.Find("Controller (right)");
 
+        Player1.DominantSide = "right";///////////////////////////////////REMOVE
+
         if (Player1.DominantSide.Equals("left")) {
             //  leftController = GameObject.Find("Controller (left)");
             rightController.AddComponent<MenuSelection>();

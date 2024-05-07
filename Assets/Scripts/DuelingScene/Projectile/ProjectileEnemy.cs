@@ -7,79 +7,16 @@ public class ProjectileEnemy : ProjectileAbstract {
     [SerializeField] private float horizontalNoise = 4f;
     [SerializeField] private float verticalNoise = 2f;
 
-    [SerializeField] private float projectileSpeed = 0.15f;
-    [SerializeField] private float deleteProjectile = 20f;
+    protected override void Init() {
+        projectileSpeed = 0.15f;
+        deleteProjectile = 20f;
+        particlePath = "ParticleExplosionRed";
+    }
 
-    [SerializeField] private Vector3 gameObjectSize = new Vector3(0.25f, 0.25f, 0.25f);
-    private Vector3 initialPos;
-    private BoxCollider boundingBox;
-
-    private Object effect;
-
-    void Start() {
-        boundingBox = gameObject.AddComponent<BoxCollider>();
+    protected override void Start() {
+        base.Start();
         boundingBox.isTrigger = true;
         AimProjectile();
-        effect = Resources.Load<Object>("ParticleExplosionRed");
-    }
-
-    public override void fireProjectile() {
-        StartCoroutine(Travel());
-    }
-
-    IEnumerator Travel() {
-        float currentTime = 0;
-
-        while (currentTime < deleteProjectile) {
-            currentTime += Time.deltaTime;
-
-            // Keep track of the previous position of projectile
-            initialPos = transform.position;
-
-            // Move projectile forward
-            transform.Translate(Vector3.forward * projectileSpeed * Time.deltaTime);
-
-            updateBoundingBox();
-
-            yield return null;
-        }
-
-        // Projectile expires
-        Destroy(gameObject);
-    }
-
-    private void updateBoundingBox() {
-        // Final position will always be at local (0, 0, 0)
-
-        // Initial Position Relative to Projectile Final Position
-        initialPos = transform.InverseTransformPoint(initialPos);
-
-        // Box Collider Center //
-
-        // Since final = 0, center = (initial + final) / 2
-
-        boundingBox.center = initialPos * 0.5f;
-
-        // Box Collider Size //
-
-        // Distance between initial and final position
-
-        // Since final = 0, distance = Sqrt(Pow(initialPos.z, 2) + Pow(initialPos.z, 2))
-        // distance = Sqrt(Pow(initialPos.z, 2))
-
-        float distanceZ = Mathf.Sqrt(Mathf.Pow(initialPos.z, 2));
-
-        // This could be simplified to (distanceZ = initialPos.z) 
-        // but it seems to make the size of the bounding box smaller than normal
-
-        // boxSize = initialDefaultSize/2 + finalDefaultSize/2 + distanceZ
-        // Since initialDefaultSize == finalDefaultSize == (gameObjectSize)
-        // boxSize = gameObjectSize + distanceZ
-
-        Vector3 boxSize = gameObjectSize;
-        boxSize.z += distanceZ;
-
-        boundingBox.size = boxSize;
     }
 
     public override void ProjectileHit(GameObject hitObject) {
