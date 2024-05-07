@@ -4,7 +4,6 @@ using UnityEngine;
 using Valve.VR;
 
 public class PotionPlayer : PotionAbstract {
-
     private GameObject targetObject;
 
     public override void Start() {
@@ -34,25 +33,29 @@ public class PotionPlayer : PotionAbstract {
 
         //// Calculating Horizontal Angle ////
 
+        // Better to just have vertical tracking so that players can time 
+        // when the potion hits the enemy. (Ignore horizontal angle logic)
+        float horizontalAngle = 0;
+
         // Pythagorean Theorem
         
-        // Opposite
-        float potionToEnemyZ = 
-            Mathf.Abs(gameObject.transform.position.z - targetObject.transform.position.z);
+        // // Opposite
+        // float potionToEnemyZ = 
+        //     Mathf.Abs(gameObject.transform.position.z - targetObject.transform.position.z);
 
-        // Adjacent
+        // Adjacent (Need for both horizontal and vertical angle calulations)
         float potionToEnemyX = 
             Mathf.Abs(targetObject.transform.position.x - gameObject.transform.position.x);
         
-        // Hypotenuse
-        float enemyToPlayerHorizontal = 
-            Mathf.Sqrt(Mathf.Pow(potionToEnemyZ, 2f) + Mathf.Pow(potionToEnemyX, 2f));
+        // // Hypotenuse
+        // float enemyToPlayerHorizontal = 
+        //     Mathf.Sqrt(Mathf.Pow(potionToEnemyZ, 2f) + Mathf.Pow(potionToEnemyX, 2f));
 
-        float horizontalAngle = Mathf.Rad2Deg * Mathf.Asin(potionToEnemyZ/enemyToPlayerHorizontal);
+        // float horizontalAngle = Mathf.Rad2Deg * Mathf.Asin(potionToEnemyZ/enemyToPlayerHorizontal);
 
-        // Negative depending on if potion is past enemy Z position
-        if (targetObject.transform.position.z - gameObject.transform.position.z < 0) 
-            horizontalAngle = -horizontalAngle;
+        // // Negative depending on if potion is past enemy Z position
+        // if (targetObject.transform.position.z - gameObject.transform.position.z < 0) 
+        //     horizontalAngle = -horizontalAngle;
 
 
         //// Calculating Vertical Angle ////

@@ -7,8 +7,8 @@ public class ProjectileEnemy : ProjectileAbstract {
     [SerializeField] private float horizontalNoise = 4f;
     [SerializeField] private float verticalNoise = 2f;
 
-    [SerializeField] private float projectileSpeed = 0.3f;
-    [SerializeField] private float deleteProjectile = 3f;
+    [SerializeField] private float projectileSpeed = 0.15f;
+    [SerializeField] private float deleteProjectile = 20f;
 
     [SerializeField] private Vector3 gameObjectSize = new Vector3(0.25f, 0.25f, 0.25f);
     private Vector3 initialPos;

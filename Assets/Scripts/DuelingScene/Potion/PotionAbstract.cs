@@ -5,8 +5,8 @@ using System;
 using DuelingScene.Entity;
 
 public abstract class PotionAbstract : MonoBehaviour, IDamage {
-    [SerializeField] private float potionSpeed = 0.05f;
-    [SerializeField] private float deletePotion = 20f;
+    [SerializeField] private float potionSpeed = 0.02f;
+    [SerializeField] private float deletePotion = 30f;
     [SerializeField] protected float delayTime = 0.5f;
 
     protected bool delayPotionBool;

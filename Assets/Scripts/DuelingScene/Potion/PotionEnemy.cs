@@ -4,7 +4,6 @@ using UnityEngine;
 using Valve.VR;
 
 public class PotionEnemy : PotionAbstract {
-
     private GameObject targetObject;
 
     public override void Start() {

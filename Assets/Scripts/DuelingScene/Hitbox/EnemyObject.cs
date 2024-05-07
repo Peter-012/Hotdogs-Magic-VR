@@ -32,8 +32,8 @@ public class EnemyObject : MonoBehaviour, Entity {
         PotionPlayer potion = damageSource.GetComponent<PotionPlayer>();
         ProjectilePlayer projectile = damageSource.GetComponent<ProjectilePlayer>();
 
-        if (potion != null) return DecreaseHealth(3);
-        if (projectile != null) return DecreaseHealth(1);
+        if (potion != null) return DecreaseHealth(GameDefault.damagePotion);
+        if (projectile != null) return DecreaseHealth(GameDefault.damageProjectile);
 
         return false;
     }

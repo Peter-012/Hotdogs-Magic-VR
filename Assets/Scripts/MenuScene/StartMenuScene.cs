@@ -18,9 +18,16 @@ public class StartMenuScene : MonoBehaviour {
     }
 
     private void resetGlobal() {
-        Player1.DominantSide = null;
-        Player1.health = 5;
-        Player2.health = 5;
+        // Game Globals
+        Game.startGame = GameDefault.startGame;
+        Game.crates = GameDefault.crates;
+
+        // Player1 Globals
+        Player1.DominantSide = GameDefault.DominantSide;
+        Player1.health = GameDefault.healthPlayer1;
+        
+        // Player2 Globals
+        Player2.health = GameDefault.healthPlayer2;
     }
 
     private void initController() {
