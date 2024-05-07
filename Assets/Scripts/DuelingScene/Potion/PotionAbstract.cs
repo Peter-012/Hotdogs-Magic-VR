@@ -12,22 +12,18 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
     protected bool delayPotionBool;
 
     [SerializeField] private Vector3 gameObjectSize = new Vector3(0.003f, 0.003f, 0.003f);
-    private Vector3 initialPos;
     
     public static event Action <GameObject> OnCollision;
-    private BoxCollider boundingBox;
-    // private Object effect;
-
-    // public abstract void playExplosion();
+    private BoxCollider potionCollider;
 
     public virtual void Start() {
-        // effect = Resources.Load<Object>("ParticleExplosionRed");
 
-        boundingBox = gameObject.GetComponent<BoxCollider>();
-        if (boundingBox == null)
-            boundingBox = gameObject.AddComponent<BoxCollider>();
+        potionCollider = gameObject.GetComponent<BoxCollider>();
+        if (potionCollider == null)
+            potionCollider = gameObject.AddComponent<BoxCollider>();
 
-        boundingBox.isTrigger = true;
+        potionCollider.size = gameObjectSize;
+        potionCollider.isTrigger = true;
 
         delayPotionBool = true;
         StartCoroutine(DelayPotion());
@@ -57,13 +53,8 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
         while (currentTime < deletePotion) {
             currentTime += Time.deltaTime;
 
-            // Keep track of the previous position of potion
-            initialPos = transform.position;
-
             // Move potion forward
             transform.Translate(Vector3.forward * potionSpeed * Time.deltaTime);
-
-            updateBoundingBox();
 
             yield return null;
         }
@@ -94,53 +85,7 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
     }
     
     public void DestroyPotion() {
-        // playExplosion();
         Destroy(gameObject);
-    }
-
-    // public override void playExplosion() {
-    //     StartCoroutine(particleTimer());
-    // }
-
-    // private IEnumerator particleTimer() {
-    //     GameObject particles = 
-    //         Instantiate(effect, gameObject.transform.position, Quaternion.identity) as GameObject;
-    //     yield return new WaitForSeconds(1f);
-    //     Destroy(particles);
-    // }
-
-    private void updateBoundingBox() {
-        // Final position will always be at local (0, 0, 0)
-
-        // Initial Position Relative to Potion Final Position
-        initialPos = transform.InverseTransformPoint(initialPos);
-
-        // Box Collider Center //
-
-        // Since final = 0, center = (initial + final) / 2
-
-        boundingBox.center = initialPos * 0.5f;
-
-        // Box Collider Size //
-
-        // Distance between initial and final position
-
-        // Since final = 0, distance = Sqrt(Pow(initialPos.z, 2) + Pow(initialPos.z, 2))
-        // distance = Sqrt(Pow(initialPos.z, 2))
-
-        float distanceZ = Mathf.Sqrt(Mathf.Pow(initialPos.z, 2));
-
-        // This could be simplified to (distanceZ = initialPos.z) 
-        // but it seems to make the size of the bounding box smaller than normal
-
-        // boxSize = initialDefaultSize/2 + finalDefaultSize/2 + distanceZ
-        // Since initialDefaultSize == finalDefaultSize == (gameObjectSize)
-        // boxSize = gameObjectSize + distanceZ
-
-        Vector3 boxSize = gameObjectSize;
-        boxSize.z += distanceZ;
-
-        boundingBox.size = boxSize;
     }
 
     public abstract void AimPotion();

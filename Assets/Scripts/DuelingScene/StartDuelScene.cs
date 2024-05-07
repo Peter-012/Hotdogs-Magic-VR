@@ -47,8 +47,6 @@ public class StartDuelScene : MonoBehaviour {
     private void initSpawnWand() {
         GameObject leftController = GameObject.Find("Controller (left)");
         GameObject rightController = GameObject.Find("Controller (right)");
-        
-        
 
         if (Player1.DominantSide.Equals("left")) {
             //  leftController = GameObject.Find("Controller (left)");
