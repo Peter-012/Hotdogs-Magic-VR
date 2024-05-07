@@ -21,6 +21,10 @@ public class ProjectileEnemy : ProjectileAbstract {
 
     public override void ProjectileHit(GameObject hitObject) {
         base.ProjectileHit(hitObject);
+
+        PotionPlayer potion = hitObject.GetComponent<PotionPlayer>();
+        if (potion != null) DestroyProjectile();
+
         if (hitObject.tag.Equals("Environment")) {
            DestroyProjectile();
        }

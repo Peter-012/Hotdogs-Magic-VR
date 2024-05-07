@@ -112,22 +112,16 @@ public abstract class ProjectileAbstract : MonoBehaviour, IDamage {
     }
 
     //called when projectile hit
-    public virtual void ProjectileHit(GameObject hitObject)
-    {
-       Entity e = hitObject.GetComponent<Entity>();
-       bool damage = false;
-       if (e != null)
-       {
-           damage = e.damageEntity(gameObject); //the current game object
-       }
+    public virtual void ProjectileHit(GameObject hitObject) {
+        Entity e = hitObject.GetComponent<Entity>();
+        bool damage = false;
+        if (e != null) {
+            damage = e.damageEntity(gameObject); //the current game object
+        }
 
-       //do the trigger stuff here for the wand + flashy bits
-       if (damage)
-        DestroyProjectile();
-
-        if (hitObject.tag.Equals("Crate")) {
-           DestroyProjectile();
-       }     
+        //do the trigger stuff here for the wand + flashy bits
+        if (damage) DestroyProjectile();
+        if (hitObject.tag.Equals("Crate")) DestroyProjectile();
     }
 
     public abstract void DestroyProjectile();

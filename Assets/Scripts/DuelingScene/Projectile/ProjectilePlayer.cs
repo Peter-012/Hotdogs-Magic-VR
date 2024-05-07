@@ -30,6 +30,9 @@ public class ProjectilePlayer : ProjectileAbstract {
     public override void ProjectileHit(GameObject hitObject) {
         base.ProjectileHit(hitObject);
 
+        PotionEnemy potion = hitObject.GetComponent<PotionEnemy>();
+        if (potion != null) DestroyProjectile();
+
         // !charging prevent player from accidentally destroying projectile 
         // during charge state when hitting it against the floor
         if (!charging && hitObject.tag.Equals("Environment")) {
