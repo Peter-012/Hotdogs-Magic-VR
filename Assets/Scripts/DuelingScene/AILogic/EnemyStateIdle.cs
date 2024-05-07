@@ -24,9 +24,6 @@ public class EnemyStateIdle : EnemyStateAbstract {
 
     public override void UpdateState
     (EnemyStateManager state) {
-        state.ChangeState(state.Potion);
-        return;
-
         // Update position of the enemy
         currentZPos = enemyObject.transform.position.z;
         float offset = Mathf.Abs(currentZPos - finalZPos);
