@@ -89,15 +89,16 @@ public class ProjectileEnemy : ProjectileAbstract {
        }
     }
 
-    public override void playExplosion() {
-        StartCoroutine(particleTimer());
-    }
-
-    private IEnumerator particleTimer() {
-        GameObject particles = Instantiate(effect, gameObject.transform.position, Quaternion.identity) as GameObject;
-        yield return new WaitForSeconds(1f);
-        Destroy(particles);
+    public override void DestroyProjectile() {
+        GameObject particle = Instantiate(
+            effect, 
+            gameObject.transform.position, 
+            Quaternion.identity
+        ) as GameObject;
         
+        particle.AddComponent<ProjectileParticle>();
+
+        Destroy(gameObject);
     }
     
     private void AimProjectile() {

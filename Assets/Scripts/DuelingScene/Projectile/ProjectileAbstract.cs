@@ -7,8 +7,6 @@ using DuelingScene.Entity;
 public abstract class ProjectileAbstract : MonoBehaviour, IDamage {
     public static event Action <GameObject> OnCollision;
 
-    public abstract void playExplosion();
-
     private void Update() {
         fireProjectile();
     }
@@ -51,9 +49,6 @@ public abstract class ProjectileAbstract : MonoBehaviour, IDamage {
            DestroyProjectile();
        }     
     }
-    
-    public virtual void DestroyProjectile() {
-        playExplosion();
-        Destroy(gameObject);
-    }
+
+    public abstract void DestroyProjectile();
 }
