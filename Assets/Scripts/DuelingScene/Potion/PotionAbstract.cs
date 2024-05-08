@@ -109,8 +109,27 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
             hitObject.name.Equals("ProjectilePlayer") || 
             hitObject.name.Equals("ProjectileEnemy")
         ) DestroyPotion();
+        
         if (hitObject.tag.Equals("Crate")) DestroyPotion();
         if (hitObject.tag.Equals("Environment")) DestroyPotion();
+
+
+        if (damage)
+            return;
+        
+        Collider[] boxColliders = Physics.OverlapSphere(gameObject.transform.position, GameDefault.explosionRadius);
+        foreach (Collider collider in boxColliders)
+        {
+            GameObject splashed = collider.gameObject;
+            Entity splashedEntity = splashed.GetComponent<Entity>();
+            if (splashedEntity == null)
+                continue;
+            
+            splashedEntity.damageEntity(gameObject);
+            return;
+        }
+
+        
     }
     
     public void DestroyPotion()

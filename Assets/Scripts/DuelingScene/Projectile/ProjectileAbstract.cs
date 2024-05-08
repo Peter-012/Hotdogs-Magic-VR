@@ -122,6 +122,21 @@ public abstract class ProjectileAbstract : MonoBehaviour, IDamage {
         //do the trigger stuff here for the wand + flashy bits
         if (damage) DestroyProjectile();
         if (hitObject.tag.Equals("Crate")) DestroyProjectile();
+        if (hitObject.tag.Equals("Environment"))
+        {
+            Rigidbody body = hitObject.GetComponent<Rigidbody>();
+            if (body == null)
+            {
+                DestroyProjectile();
+                return;
+            }
+
+            Vector3 force =  gameObject.transform.position - hitObject.transform.position;
+            force = force.normalized;
+            force *= 100;  //newtons
+            body.AddForce(force, ForceMode.Impulse);
+            DestroyProjectile();
+        }
     }
 
     public abstract void DestroyProjectile();

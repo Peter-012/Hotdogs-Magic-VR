@@ -21,4 +21,8 @@ public static class GameDefault {
 
     // Player2 Defaults
     public static int healthPlayer2 = 10;
+    
+    //distance in which splash damage should be applied for potion
+    public static float explosionRadius = 0.5f;
+    
 }
