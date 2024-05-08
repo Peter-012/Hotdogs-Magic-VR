@@ -50,17 +50,17 @@ public class StartDuelScene : MonoBehaviour {
         GameObject rightController = GameObject.Find("Controller (right)");
 
         //debug
-        Player1.DominantSide = "right";
-        
         if (Player1.DominantSide.Equals("left")) {
             rightController.AddComponent<MenuSelection>();
             leftController.AddComponent<SpawnWand>();
+            leftController.transform.GetChild(0).gameObject.SetActive(false);
             SteamVR_Behaviour_Skeleton.lockLeftClench = true;
             
         } else if (Player1.DominantSide.Equals("right")) {
             
             leftController.AddComponent<MenuSelection>();
             rightController.AddComponent<SpawnWand>();
+            rightController.transform.GetChild(0).gameObject.SetActive(false);
             SteamVR_Behaviour_Skeleton.lockRightClench = true;
         } else {
             Debug.LogError("Failed to initialize DominantSide variable from PlayerData.");
