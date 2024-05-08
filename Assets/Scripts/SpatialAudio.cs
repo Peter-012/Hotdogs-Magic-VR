@@ -6,6 +6,7 @@ public class SpatialAudio : MonoBehaviour {
     private string audioSourceName = null;
     private bool loop;
     private AudioSource audioSource;
+    private bool played = false;
 
     private Transform player;
     [SerializeField] private float maxDistance = 30f;
@@ -18,6 +19,7 @@ public class SpatialAudio : MonoBehaviour {
         // General Settings for Audio
         audioSource.playOnAwake = false;
         audioSource.loop = this.loop;
+        
 
         // Get the audio needed to attach to gameObject
         AudioClip audioClip = Resources.Load<AudioClip>(audioSourceName);
@@ -36,7 +38,13 @@ public class SpatialAudio : MonoBehaviour {
     }
     
 
-    private void Update() {
+    private void Update()
+    {
+
+        if (!loop && played)
+            return;
+        
+        played = true;
         float currentDistance = Vector3.Distance(gameObject.transform.position, player.position);
         
         // If the object is too far away from the player to hear
