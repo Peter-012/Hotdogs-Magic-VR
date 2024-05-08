@@ -33,10 +33,10 @@ public class SpawnWand : MonoBehaviour {
         
         
         Vector3 globalPos = controller.transform.TransformPoint(0f,0f,-0.1f);
-        Quaternion rot = controller.transform.rotation;
-        rot *= Quaternion.Euler(Vector3.right * -35);
+      //  Quaternion rot = controller.transform.rotation;
+      //  rot *= Quaternion.Euler(Vector3.right * -35);
         
-        wandObject.transform.rotation = rot;
+     //   wandObject.transform.rotation = rot;
         wandObject.transform.position = globalPos;
         
 
