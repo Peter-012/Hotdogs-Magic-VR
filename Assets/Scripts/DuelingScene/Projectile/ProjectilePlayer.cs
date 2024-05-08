@@ -48,7 +48,9 @@ public class ProjectilePlayer : ProjectileAbstract {
         ) as GameObject;
         
         particle.AddComponent<ProjectileParticle>();
-
+        SpatialAudio audio = particle.AddComponent<SpatialAudio>();
+        audio.setSound("soft_explosion",false);
+        
         Destroy(gameObject);
     }
 

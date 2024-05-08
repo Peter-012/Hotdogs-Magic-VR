@@ -50,7 +50,8 @@ public class EnemyStateShoot : EnemyStateAbstract {
         projectileChildRigid.isKinematic = true;
         
         // Add spatial audio
-        projectileObject.AddComponent<SpatialAudio>();
+        SpatialAudio audio = projectileObject.AddComponent<SpatialAudio>();
+        audio.setSound("projectileAudio", true);
     }
 
     private void fireProjectile() {
