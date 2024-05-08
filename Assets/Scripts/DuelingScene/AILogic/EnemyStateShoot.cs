@@ -40,15 +40,6 @@ public class EnemyStateShoot : EnemyStateAbstract {
 
         GameObject projectileChild = projectileObject.transform.GetChild(0).gameObject;
 
-        // Make the projectile rigid
-        Rigidbody projectileRigid = projectileObject.AddComponent<Rigidbody>();
-        projectileRigid.useGravity = false;
-        projectileRigid.isKinematic = true;
-
-        Rigidbody projectileChildRigid = projectileChild.AddComponent<Rigidbody>();
-        projectileChildRigid.useGravity = false;
-        projectileChildRigid.isKinematic = true;
-        
         // Add spatial audio
         SpatialAudio audio = projectileObject.AddComponent<SpatialAudio>();
         audio.setSound("projectileAudio", true);
