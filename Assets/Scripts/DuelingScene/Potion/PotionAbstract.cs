@@ -115,8 +115,13 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
     
     public void DestroyPotion()
     {
-       GameObject particles = Instantiate(particleExplosionEffect) as GameObject;
+       GameObject particles = Instantiate(particleExplosionEffect, 
+           gameObject.transform.position,
+           Quaternion.identity) as GameObject;
+       
        particles.AddComponent<ProjectileParticle>();
+
+       
        SpatialAudio explode = particles.AddComponent<SpatialAudio>();
        explode.setSound("med_explosion", false);
 

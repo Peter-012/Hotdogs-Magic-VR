@@ -6,7 +6,7 @@ public class WandLogic : MonoBehaviour {
     [SerializeField] private string ProjectilePath = "ProjectilePlayer";
 
     private float initialRotation = -0.5f;
-    private float finalRotation = 0;
+    private float finalRotation = 0f;
     [SerializeField] private float threshold = 0.2f;
 
     float initialZUpper;
@@ -62,10 +62,11 @@ public class WandLogic : MonoBehaviour {
             yield return new WaitForSeconds(0.1f);
         }
         
+        reloading = false;
         wandShine.SetFloat("_Fresnel", 0);
         wandShine.SetFloat("_Dist", 0);
      //   yield return new WaitForSeconds(reloadDelay);
-        reloading = false;
+        
     }
 
     private void fireProjectile() {

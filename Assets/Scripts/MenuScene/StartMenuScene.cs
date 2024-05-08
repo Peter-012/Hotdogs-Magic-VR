@@ -40,6 +40,11 @@ public class StartMenuScene : MonoBehaviour {
 
     private void initWand() {
         GameObject wandObject = GameObject.Find("Wand");
+        
+        Material wandShine = gameObject.GetComponent<Renderer>().sharedMaterial;
+        wandShine.SetFloat("_Fresnel", 0);
+        wandShine.SetFloat("_Dist", 0);
+        
 
         AudioSource wandAudio = wandObject.AddComponent<AudioSource>();
         wandAudio.playOnAwake = false;
