@@ -78,11 +78,6 @@ public class WandLogic : MonoBehaviour {
         GameObject projectileObject = Instantiate(projectilePrefab, position, rotation) as GameObject;
         projectileObject.name = ProjectilePath;
 
-        // Make the projectile rigid
-        Rigidbody projectileRigid = projectileObject.AddComponent<Rigidbody>();
-        projectileRigid.useGravity = false;
-        projectileRigid.isKinematic = true;
-
         // Attach projectile to the wand
         projectileObject.transform.SetParent(GameObject.Find("Wand").transform);
 
