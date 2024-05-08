@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using DuelingScene.Entity;
+using Object = UnityEngine.Object;
 
 public abstract class PotionAbstract : MonoBehaviour, IDamage {
     [SerializeField] private float potionSpeed = 0.02f;
@@ -17,7 +18,13 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
     public static event Action <GameObject> OnCollision;
     private BoxCollider potionCollider;
 
-    private void Awake() {
+    private static Object particleExplosionEffect = null;
+    
+    private void Awake()
+    {
+        if (particleExplosionEffect == null) 
+            particleExplosionEffect = Resources.Load<Object>("FX_Explosion_Blue");
+        
         Init();
     }
 
@@ -106,9 +113,20 @@ public abstract class PotionAbstract : MonoBehaviour, IDamage {
         if (hitObject.tag.Equals("Environment")) DestroyPotion();
     }
     
-    public void DestroyPotion() {
+    public void DestroyPotion()
+    {
+       GameObject particles = Instantiate(particleExplosionEffect) as GameObject;
+       particles.AddComponent<ProjectileParticle>();
+       SpatialAudio explode = particles.AddComponent<SpatialAudio>();
+       explode.setSound("med_explosion", false);
+
+       SpatialAudio glass = particles.AddComponent<SpatialAudio>();
+       glass.setSound("glass_break",false);
+       
+       
         Destroy(gameObject);
     }
 
+    
     public abstract void AimPotion();
 }

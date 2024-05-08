@@ -49,7 +49,8 @@ public class EnemyStatePotion : EnemyStateAbstract {
         potionRigid.isKinematic = true;
         
         // Add spatial audio
-        potionObject.AddComponent<SpatialAudio>();
+        SpatialAudio audio = potionObject.AddComponent<SpatialAudio>();
+        audio.setSound("projectileAudio", true);
 
         // Travel Component for Potion
         potionObject.AddComponent<PotionEnemy>();

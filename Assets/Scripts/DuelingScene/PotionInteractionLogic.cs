@@ -50,7 +50,6 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
 
     public void Select(GameObject controller)
     {
-        //    Debug.Log("Selected obj:"+gameObject.name);
 
         if (!continueSpawning)
             return;
@@ -60,7 +59,26 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
 
         Transform form = gameObject.transform;
         form.parent = controller.transform;
+
+        bool isRight = Player1.DominantSide.Equals("right");
+        if (isRight)
+            SteamVR_Behaviour_Skeleton.isRightHolding = true;
+        else
+            SteamVR_Behaviour_Skeleton.isLeftHolding = true;
+       
+      //  Debug.Log(pos);
+      Quaternion rot = controller.transform.rotation;
+      rot *= Quaternion.Euler(Vector3.right * -220);
+
         form.position = controller.transform.position;
+        form.localPosition += new Vector3(0f, 0.11f, 0.03f);  //90* rotation
+
+       
+        
+
+        form.rotation = rot;
+        
+        
         continueSpawning = false;
         wasSelected = true;
 
@@ -76,7 +94,12 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
         //we wanna ensure we're not redoing stuff for a potion already thrown
         if (wasReleased)
             return;
-
+        
+        bool isRight = Player1.DominantSide.Equals("right");
+        if (isRight)
+            SteamVR_Behaviour_Skeleton.isRightHolding = false;
+        else
+            SteamVR_Behaviour_Skeleton.isLeftHolding = false;
 
         wasReleased = true;
         gameObject.transform.parent = null;
@@ -125,56 +148,48 @@ public class PotionInteractionLogic : MonoBehaviour, IMenuSelection, IOnSelectio
         double ny = x * Math.Sin(ANGLE_RADS) + y * Math.Cos(ANGLE_RADS);
         return new float[] { (float)nx, (float)ny };
     }
-
-
-
-    private static string[] tags = new string[] { "Crate", "Environment" };
-
-    //    !!!Untested!!! (all below)
-    public void OnTriggerEnter(Collider other)
-    {
-        if (!wasReleased)
-        {
-
-            return;
-        }
-
-        GameObject hitObject = other.gameObject;
-
-        foreach (string s in tags)
-            if (hitObject.tag.Equals(s))
-            {
-                Explode();
-                return;
-            }
-
-        Entity e = hitObject.GetComponent<Entity>();
-        if (e != null)
-        {
-
-            bool damaged = e.damageEntity(gameObject);
-            Debug.Log("damage:" + damaged);
-            if (damaged)
-                Explode();
-
-            return;
-        }
-    }
-
-    public void Explode()
-    {
-        //do some cool fun particle stuff here
-        Destroy(gameObject);
-
-    }
-
-    public Vector3 NextMovement()
-    {
-        return Vector3.zero;
-    }
-
-    public void FixedUpdate()
-    {
-
-    }
+    //
+    //
+    //
+    // private static string[] tags = new string[] { "Crate", "Environment" };
+    //
+    // //   Okay well this does collision stuff for the potion in 
+    // //  
+    // public void OnTriggerEnter(Collider other)
+    // {
+    //     if (!wasReleased)
+    //     {
+    //
+    //         return;
+    //     }
+    //
+    //     GameObject hitObject = other.gameObject;
+    //
+    //     foreach (string s in tags)
+    //         if (hitObject.tag.Equals(s))
+    //         {
+    //             Explode();
+    //             return;
+    //         }
+    //
+    //     Entity e = hitObject.GetComponent<Entity>();
+    //     if (e != null)
+    //     {
+    //
+    //         bool damaged = e.damageEntity(gameObject);
+    //
+    //         if (damaged)
+    //             Explode();
+    //
+    //         return;
+    //     }
+    // }
+    //
+    // public void Explode()
+    // {
+    //     //do some cool fun particle stuff here
+    //     Destroy(gameObject);
+    //
+    // }
+    
 }
