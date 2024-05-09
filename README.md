@@ -11,37 +11,56 @@ All you need is a VR headset linked to a powerful computer and VR controllers to
 This game requires you to dodge projectiles by moving left and right in the game. Be sure to have ample room to shuffle left and right and space to extend your arms forward. Also, it is important to tighten the strap of your headset. This will keep your headset from falling off when playing this game.
 
 ### Software Setup
-Make sure that you have SteamVR installed on your computer. Under the "Releases" section of GitHub will be a Unity build for the VR game. To play the game, first download and unzip the "Builds" file before running the game "Hotdogs and Magic.exe" (DO NOT click on UnityCrashHander64.exe). It's preferred that you add the game as a non-steam game and make sure to also include the game in your VR Library through the game's properties. That way you can launch the game directly through SteamVR. If you would like to clone the repo and see the code in action within Unity, make sure that you have Unity Editor version 2022.3.17f1 before launching the project and have SteamVR running in the background.
+Make sure that you have SteamVR installed on your computer. Under the "Releases" section of GitHub will be a Unity build for the VR game. To play the game, first download and unzip the "Builds" file before running the game "Hotdogs and Magic.exe" (DO NOT click on UnityCrashHandler64.exe). It's preferred that you add the game as a non-steam game and make sure to also include the game in your VR Library through the game's properties. That way you can launch the game directly through SteamVR. If you would like to clone the repo and see the code in action within Unity, make sure that you have Unity Editor version 2022.3.17f1 before launching the project and have SteamVR running in the background.
 
 ## Description of Implementation
 
 This game was developed using the Unity Editor version 2022.3.17f1
 
 ### Special Assets
-Other than the projectile (with collision effects) asset "Fire Ice Projectile - Explosion" which came from the asset store, the low-poly chair model which came from Sketchfab, and the starry-night-sky HDRI from PolyHaven (HDRIHaven), all assets were created by us using Blender and the Unity shader files.
+All models and objects were created by us using Blender, and the shaders used in the game were also written by us,
+with the exception of the following items:
+- projectile (with collision effects) asset "Fire Ice Projectile - Explosion" which came from the asset store
+- low-poly chair model which came from Sketchfab
+- starry-night-sky HDRI from PolyHaven (HDRIHaven)
+- Forcefield shader from Ultimate 10+ shaders, modified by us to support VR
+- Cinematic boom sound effect from Pixabay
+- Fireball whoosh 2 sound effect from Pixabay
+- Glass hit sound effect from Pixabay 
 
 https://assetstore.unity.com/packages/vfx/particles/fire-ice-projectile-explosion-217688
 
+https://sketchfab.com/3d-models/rustic-chair-77afa26a76614fc2b8ed845024af0b58#download
+
 https://hdri-haven.com/hdri/starry-night-sky-dome
 
-https://sketchfab.com/3d-models/rustic-chair-77afa26a76614fc2b8ed845024af0b58#download
+https://assetstore.unity.com/packages/vfx/shaders/ultimate-10-shaders-168611
+
+https://pixabay.com/sound-effects/cinematic-boom-171285/
+
+https://pixabay.com/sound-effects/fireball-whoosh-2-179126/
+
+https://pixabay.com/sound-effects/glass-hit-192119/
+
 
 
 ### C# Script Implementation
 
 #### MenuScene/StartMenuScene.cs
 This script is attached to the camera rig and is active when the game starts. Since we wanted to avoid attaching components to the scene manually, we opted to use scripts to initialize and modify object components. 
-The code within this script serves as an entry point into initializing other portions of the MenuScene by attaching other scripts and components to objects within the scene.
+The code within this script serves as an entry point into initializing other portions of the MenuScene by attaching other scripts and components to objects within the scene. This way of programming allowed us to bypass alot of 
+merge conflicts that we would otherwise have with Git.
 
 #### MenuScene/MenuSelection.cs
 MenuSelection serves as an event listener and an initializer for the controller objects; It has update and trigger event functions that listen for specific events to occur. 
-When they do, the script checks to see whether the object is interactable, and if it is, then it invokes the Select() function from that interactable object, which handles it accordingly.
+When they do, the script checks to see whether the object is interactable, and if it is, then it invokes the Select() function from that interactable object, which handles it accordingly. The script also is used in the dueling scene to 
+handle interactions between potion throwing.
 
 #### MenuScene/StartDuel.cs
 This script listens for an interaction event with the wand in the game and retrieves data for the player's dominant hand. The script also starts the process of transitioning from the MenuScene to the DuelingScene.
 
 #### MenuScene/BookinteractionHandler.cs
-This class handles the interaction logic for the book. It receives a signal from the controllers and uses trigonometry and vector mathematics to compute the angle at which the book should swing.
+This class handles the interaction logic for the book. It receives a signal from the controllers via the MenuSelection class and uses trigonometry and vector mathematics to compute the angle at which the book should swing.
 In the case that the book is opened by the player, a tutorial video is played. If it is closed, the tutorial video stops.
 
 #### MenuScene/Video.cs
@@ -58,7 +77,8 @@ This script instantiates a wand object and prepares the logic for its interactio
 This script controls the logic for the wand, allowing players to shoot projectiles and adding delay between their shots. Motion detection for flicking the wand has been implemented to calculate and determine if the player would like to fire a projectile. The script uses a coroutine and instantiates projectiles on the tip of the wand before releasing them in the direction that the wand is aiming towards.
 
 #### MenuScene/PotionInteractionLogic.cs
-This script has all of the logic needed for the player to grab the potion and throw it at the enemy. It deals with the process of selecting the potion by hovering over it to grab it and the manipulation of the potion through the rotation of when it is in the hand of the player as well as the release (throwing) of the potion.
+This script has all of the logic needed for the player to grab the potion and throw it at the enemy. The class listens for an interaction event from the MenuSelection.cs class which is then passed into the PotionInteractionLogic.
+It deals with the process of selecting the potion by hovering over it with the trigger pressed to grab it and the manipulation of the potion through the rotation of when it is in the hand of the player as well as the release (throwing) of the potion.
 
 #### DuelingScene/AILogic/EnemyStateManager.cs
 This script is a manager for a finite state machine (FSM) that controls the behaviour of the enemy at various times during the battle. The script initializes the enemy object by attaching an EnemyObject script to it and updates the state for the enemy by changing the current state that it is in.
@@ -82,7 +102,8 @@ This script handles the data and functions for the player object in the scene; I
 This script provides functionality for the enemy object in the scene. It is similar to the player object in that it handles damage and dying for the enemy, alongside adding components.
 
 #### DuelingScene/Hitbox/Entity.cs
-An interface that has basic functionality for the logic of different game object (entity) hitboxes.
+An interface that has basic functionality for the logic of different game objects which represent Entities in the game. This mainly is for GameObjects which have an amount of health which must be modified through actions
+which take place in the game. 
 
 #### DuelingScene/Hitbox/CrateObject.cs
 Adding on to the Entity.cs interface, this script manages the health of the crate when a potion or projectile collides with it. When the crate's health hits zero, the crate is destroyed.
