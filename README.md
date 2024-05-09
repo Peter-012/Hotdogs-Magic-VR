@@ -150,3 +150,5 @@ This is a helper class that contains functionality used to fade in and out a pla
 
 #### Other:
 We directly modified the SteamVR_Behaviour_Skeleton script to add fixes relating to animation and rendering issues on SteamVR's side when running our project. 
+
+We also modified the ForceField shader from the Ultimate 10+ shaders from the Unity asset store to enable VR compatibility and allow usage in our project.
